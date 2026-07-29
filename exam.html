@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AAU UAT Official Mock Examination | The 5% Club</title>
+  <style>
+    :root {
+        --header-bg: #1b4332;
+        --header-accent: #2d6a4f;
+        --primary-color: #0b3c5d;
+        --secondary-color: #328cc1;
+        --brand-accent: #ffb703;
+        --bg-color: #f4f6f9;
+        --card-bg: #ffffff;
+        --text-dark: #1d2731;
+        --text-muted: #626d78;
+        --border-color: #d1d8e0;
+        --flagged-color: #e67e22;
+        --answered-color: #27ae60;
+        --danger-color: #e74c3c;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-dark);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    /* Navigation Header */
+    header {
+        background-color: var(--header-bg);
+        color: white;
+        padding: 12px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        z-index: 10;
+    }
+
+    .header-title h1 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .header-title p {
+        font-size: 0.8rem;
+        color: var(--brand-accent);
+        font-weight: 600;
+    }
+
+    .timer-container {
+        background: rgba(255, 255, 255, 0.12);
+        padding: 8px 18px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        text-align: center;
+    }
+
+    .timer-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #d8f3dc;
+    }
+
+    .timer-display {
+        font-size: 1.35rem;
+        font-weight: 700;
+        font-family: 'Courier New', Courier, monospace;
+        color: #ffffff;
+    }
+
+    /* Section Navigation Bar */
+    .section-bar {
+        background: #ffffff;
+        border-bottom: 2px solid var(--border-color);
+        display: flex;
+        padding: 0 24px;
+    }
+
+    .tab-btn {
+        background: none;
+        border: none;
+        padding: 14px 24px;
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        cursor: pointer;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .tab-btn:hover {
+        color: var(--header-accent);
+    }
+
+    .tab-btn.active {
+        color: var(--header-bg);
+        border-bottom-color: var(--header-bg);
+    }
+
+    .tab-badge {
+        background: #e9ecef;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+    }
+
+    .tab-btn.active .tab-badge {
+        background: var(--header-bg);
+        color: white;
+    }
+
+    /* Workspace */
+    .main-workspace {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+    }
+
+    .content-area {
+        flex: 1;
+        padding: 24px;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+    }
+
+    .instruction-box {
+        background: #ffffff;
+        border-left: 5px solid var(--header-accent);
+        border-radius: 6px;
+        padding: 16px 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .instruction-box h3 {
+        color: var(--header-bg);
+        margin-bottom: 6px;
+        font-size: 1rem;
+    }
+
+    .instruction-box p {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+    }
+
+    .passage-container {
+        background: #f8f9fa;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 24px;
+    }
+
+    .passage-title {
+        font-weight: 700;
+        color: var(--header-bg);
+        margin-bottom: 10px;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+    }
+
+    .passage-text {
+        font-size: 0.92rem;
+        line-height: 1.7;
+        color: #2c3e50;
+    }
+
+    .question-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        transition: border-color 0.2s;
+    }
+
+    .question-card.flagged {
+        border-left: 5px solid var(--flagged-color);
+    }
+
+    .question-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+    }
+
+    .question-number {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--header-bg);
+    }
+
+    .flag-btn {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        padding: 5px 12px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .flag-btn:hover, .flag-btn.active {
+        background: #fef5e7;
+        border-color: var(--flagged-color);
+        color: var(--flagged-color);
+        font-weight: 600;
+    }
+
+    .question-text {
+        font-size: 0.95rem;
+        margin-bottom: 16px;
+        line-height: 1.5;
+        font-weight: 600;
+    }
+
+    .options-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .option-label {
+        display: flex;
+        align-items: center;
+        padding: 10px 14px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background 0.15s;
+    }
+
+    .option-label:hover {
+        background-color: #f0f7ff;
+        border-color: var(--secondary-color);
+    }
+
+    .option-label input[type="radio"] {
+        margin-right: 12px;
+        accent-color: var(--header-bg);
+        width: 16px;
+        height: 16px;
+    }
+
+    .diagram-box {
+        background: #272822;
+        color: #f8f8f2;
+        padding: 12px 16px;
+        border-radius: 6px;
+        font-family: monospace;
+        white-space: pre;
+        overflow-x: auto;
+        margin: 12px 0;
+        font-size: 0.85rem;
+    }
+
+    /* Sidebar Navigation Grid */
+    .sidebar {
+        width: 320px;
+        background: white;
+        border-left: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        gap: 16px;
+    }
+
+    .sidebar-section-title {
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--text-muted);
+    }
+
+    .legend {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 10px;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+
+    .dot.answered { background: var(--answered-color); }
+    .dot.flagged { background: var(--flagged-color); }
+    .dot.unanswered { background: var(--border-color); }
+
+    .palette-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+        max-height: 420px;
+        overflow-y: auto;
+        padding-right: 4px;
+    }
+
+    .palette-btn {
+        height: 36px;
+        border: 1px solid var(--border-color);
+        background: #fff;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .palette-btn.answered {
+        background-color: var(--answered-color);
+        color: white;
+        border-color: var(--answered-color);
+    }
+
+    .palette-btn.flagged {
+        background-color: var(--flagged-color);
+        color: white;
+        border-color: var(--flagged-color);
+    }
+
+    .submit-section {
+        margin-top: auto;
+    }
+
+    .btn-submit {
+        background-color: var(--answered-color);
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+        width: 100%;
+        transition: background 0.2s;
+    }
+
+    .btn-submit:hover {
+        background-color: #1e8449;
+    }
+
+    /* Modal Screens */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 999;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-card {
+        background: white;
+        width: 90%;
+        max-width: 650px;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        text-align: center;
+        animation: fadeIn 0.25s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-card h2 {
+        color: var(--header-bg);
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+    }
+
+    .modal-sub {
+        color: var(--text-muted);
+        margin-bottom: 24px;
+        font-size: 0.95rem;
+    }
+
+    .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+
+    .summary-box {
+        background: #f8f9fa;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 14px 10px;
+    }
+
+    .summary-box .num {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--header-bg);
+    }
+
+    .summary-box .label {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    .modal-actions {
+        display: flex;
+        gap: 12px;
+    }
+
+    .btn-action {
+        flex: 1;
+        padding: 12px;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .btn-cancel {
+        background: #e9ecef;
+        color: var(--text-dark);
+    }
+
+    .btn-confirm {
+        background: var(--answered-color);
+        color: white;
+    }
+
+    .btn-home {
+        background: var(--header-bg);
+        color: white;
+        width: 100%;
+    }
+
+    @media (max-width: 900px) {
+        body { overflow: auto; }
+        .main-workspace { flex-direction: column; }
+        .sidebar { width: 100%; }
+        .palette-grid { grid-template-columns: repeat(10, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="header-title">
+    <h1>🏛️ ADDIS ABABA UNIVERSITY ADMISSION TEST (UAT)</h1>
+    <p>The 5% Club Official Examination Series</p>
+  </div>
+  <div class="timer-container">
+    <div class="timer-label" id="timer-section-label">Remaining Time</div>
+    <div class="timer-display" id="timer">02:00:00</div>
+  </div>
+</header>
+
+<!-- Section Bar -->
+<div class="section-bar">
+  <button class="tab-btn active" id="tab-sec1" onclick="switchSection(1)">
+    Section 1: English Aptitude
+    <span class="tab-badge">55 Questions</span>
+  </button>
+  <button class="tab-btn" id="tab-sec2" onclick="switchSection(2)">
+    Section 2: Quantitative Aptitude
+    <span class="tab-badge">45 Questions</span>
+  </button>
+</div>
+
+<!-- Main Workspace -->
+<div class="main-workspace">
+
+  <div class="content-area" id="content-area">
+
+    <!-- SECTION 1 -->
+    <div id="section-1-wrapper">
+      <div class="instruction-box">
+        <h3>SECTION 1: ENGLISH APTITUDE & REASONING (Q1 - Q55)</h3>
+        <p><strong>Instructions:</strong> Read each question carefully and select the single best option.</p>
+      </div>
+
+      <div class="passage-container">
+        <div class="passage-title">Reading Comprehension Passage (Questions 26 - 29)</div>
+        <div class="passage-text">
+          <strong>Parenting in the 21st Century</strong><br><br>
+          I decided to write this book for several reasons. I was dissatisfied with parenting-advice literature, finding it to be riddled with oversimplified messages, and often unrelated to or at odds with current scientific knowledge. I also felt certain after years as a professor, researcher, and author of textbooks on child development that contemporary theory and research contain many vital, practical messages ones crucial for parents to understand if they are to effectively help their children develop. Furthermore, I've been approached on countless occasions by uneasy parents, frustrated by a wide array of child-rearing issues. I became convinced, therefore, that parents needed a consistent way of thinking about their role to guide them in making effective decisions.<br><br>
+          It's little wonder that parents are perplexed about what approach to take to child-rearing. Today's world is one which makes parenting exceedingly difficult. In many industrialized countries, the majority of mothers of preschool children are in the workforce, though not always through choice. This group in particular tends to lament the lack of practical advice for parents in their child-rearing roles. Many parents simultaneously complain that they're busier than ever and that, due to the growing demands of their jobs, they have little time for their children. Nations of pressured, preoccupied parents have emerged in an era of grave public concern for the well-being of youth.<br><br>
+          It would seem from looking at current media that the younger generation are achieving less well than they should and that they often display a worrying lack of direction, manifested at its worst in a variety of social problems. These problems seem to have infiltrated even the most economically privileged sectors of the population, affecting young people who, on the face of things, have been granted the best of life's chances. Accounts of children being deprived of their childhood and growing up too fast, or the dangers of promoting materialism to young people, abound in the media.<br><br>
+          In many countries there is a growing sense of 'youth alienation' and parents rightly fear for their own children's futures. But agreement on what parents can and should do to shield children from underachievement and demoralization eludes those who seek it on the shelves of libraries or bookstores. Parenting advice has always been in a state of flux, at no time more so than the present. While the fundamental goal of parenting to instill character and moral development has stood firm amid the various passing fashions in child care over the years, the approach to accomplishing this has varied considerably. Some authors, convinced that parents are in control of what their children become, advise a 'get tough' approach. Other authors, however, attribute many of today's social problems to the excessive pressure put on children by parents. Current thinking on child-rearing advice mirrors historical shifts in theories of development and education. The most disturbing trend in the literature has been a move to deny that parents make any notable contribution to their children's development.
+        </div>
+      </div>
+
+      <div id="english-questions-container"></div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div id="section-2-wrapper" style="display: none;">
+      <div class="instruction-box">
+        <h3>SECTION 2: MATHEMATICAL & QUANTITATIVE APTITUDE (Q56 - Q100)</h3>
+        <p><strong>Instructions:</strong> Solve each quantitative problem carefully. Questions cover algebra, geometry, word problems, rate models, combinatorics, and spatial data interpretation.</p>
+      </div>
+
+      <div id="math-questions-container"></div>
+    </div>
+
+  </div>
+
+  <!-- Sidebar Navigation Grid -->
+  <div class="sidebar">
+    <div class="sidebar-section-title">Question Palette</div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="dot answered"></div> Answered</div>
+      <div class="legend-item"><div class="dot flagged"></div> Flagged</div>
+      <div class="legend-item"><div class="dot unanswered"></div> Unanswered</div>
+    </div>
+
+    <div class="palette-grid" id="palette-grid"></div>
+
+    <div class="submit-section">
+      <button class="btn-submit" onclick="openReviewModal()">Final Review & Submit</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Review Modal -->
+<div class="modal-overlay" id="review-modal">
+  <div class="modal-card">
+    <h2>📋 Review Your Exam Status</h2>
+    <p class="modal-sub">Please confirm your progress before final submission.</p>
+
+    <div class="summary-grid">
+      <div class="summary-box">
+        <div class="num" id="rev-answered">0 / 100</div>
+        <div class="label">Answered</div>
+      </div>
+      <div class="summary-box">
+        <div class="num" id="rev-unanswered" style="color: var(--danger-color);">100</div>
+        <div class="label">Unanswered</div>
+      </div>
+      <div class="summary-box">
+        <div class="num" id="rev-flagged" style="color: var(--flagged-color);">0</div>
+        <div class="label">Flagged</div>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-action btn-cancel" onclick="closeReviewModal()">Back to Test</button>
+      <button class="btn-action btn-confirm" onclick="confirmFinalSubmit()">Submit Final Test</button>
+    </div>
+  </div>
+</div>
+
+<!-- Submission Modal -->
+<div class="modal-overlay" id="result-modal">
+  <div class="modal-card">
+    <h2>🎉 Examination Submitted!</h2>
+    <p class="modal-sub">Your answers for the AAU UAT Mock Examination Round 1 have been recorded successfully.</p>
+
+    <div class="summary-grid">
+      <div class="summary-box">
+        <div class="num" id="res-total-answered">0 / 100</div>
+        <div class="label">Total Answered</div>
+      </div>
+      <div class="summary-box">
+        <div class="num" id="res-completion-rate">0%</div>
+        <div class="label">Completion Rate</div>
+      </div>
+      <div class="summary-box">
+        <div class="num" id="res-time-left">00:00:00</div>
+        <div class="label">Time Remaining</div>
+      </div>
+    </div>
+
+    <a href="index.html" class="btn-action btn-home">🏠 Return to Home</a>
+  </div>
+</div>
+
+<script>
+  const TOTAL_QUESTIONS = 100;
+
+  let currentSection = 1;
+  let answers = {};
+  let flags = {};
+  let totalTime = 120 * 60; // 2 hours
+  let timerInterval = null;
+
+  // Full 100 Question Dataset
+  const questionsData = [
+      // English Section (Q1 - Q55)
+      { id: 1, section: 1, text: "Despite being renowned for his ability to convey complex theoretical concepts with stunning clarity in print, the guest lecturer was notorious for ______ during his university seminars.", options: ["A. obscurantism... baffling", "B. precision... clarifying", "C. redundancy... simplifying", "D. brevity... detailing", "E. dogmatism... dismantling"] },
+      { id: 2, section: 1, text: "An analyst argues: 'The widespread drop in public community engagement across developing nations cannot be blamed entirely on mobile internet proliferation, because identical drops occurred in regions with virtually no cellular network access during the exact same timeframe.' Which of the following, if true, most seriously undermines this reasoning?", options: ["A. Regions lacking local network towers regularly consumed digital media culture exported via satellite television.", "B. Certain high-access regions experienced zero reduction in community engagement levels.", "C. Cross-national surveys tracking community participation suffer from inconsistent metric collection.", "D. Drops in civic participation began decades prior to mobile technology.", "E. Community structures vary significantly across differing cultures."] },
+      { id: 3, section: 1, text: "The trade agreement was a masterclass in ______: every clause was carefully drafted to allow alternative interpretations later, and every concession was protected by conditions that would eventually turn out to be ______.", options: ["A. equivocation ... binding", "B. transparency... enforceable", "C. ambiguity... malleable", "D. fabrication ... absolute", "E. verbosity... negligible"] },
+      { id: 4, section: 1, text: "Every participant in the curriculum review panel either proposed sweeping modifications or voted to scrap the proposal entirely. No panelist who proposed sweeping modifications had a prior history of working alongside the lead author. Some panelists who voted to scrap the proposal entirely did have a prior history of working alongside the lead author. Which of the following must necessarily hold true?", options: ["A. All panelists who worked previously with the lead author voted to scrap the proposal entirely.", "B. No panelist who worked previously with the lead author proposed sweeping modifications.", "C. Certain panelists without prior ties to the lead author voted to scrap the proposal entirely.", "D. The majority of panelists voting to scrap the proposal had prior ties.", "E. Every panelist without prior ties proposed sweeping modifications."] },
+      { id: 5, section: 1, text: "While reviewers showered the anthology's stylistic presentation with praise for its ______ elegance, they universally criticized its content as ______ lacking any substantial intellectual weight.", options: ["A. stark... profound", "B. languorous... heavy", "C. chiseled... vapid", "D. ornate ... meaningful", "E. pedestrian... momentous"] },
+      { id: 6, section: 1, text: "A biographer insists that a nineteenth-century labor uprising was 'fundamentally monetary in scope' because worker grievances centered explicitly on wage cuts and food taxes. Which of the following, if true, most weakens the biographer's claim?", options: ["A. Food prices remained stable during the months leading up to the strike.", "B. Identical grievances regarding wages and taxes appeared in explicitly spiritual revolts of the same era.", "C. The manifestos published by striking workers appealed primarily to sacred duty rather than economic survival.", "D. Worker uprisings in adjacent provinces featured both fiscal and spiritual demands.", "E. Local tax ledgers from the period are missing critical metrics."] },
+      { id: 7, section: 1, text: "The executive's policy statement felt less like an actionable roadmap and more like an exercise in ______: a dense collection of slogans so ______ that financial experts could deduce zero actionable metrics from them.", options: ["A. obfuscation ... amorphous", "B. forecasting ... precise", "C. sophistry... clear", "D. posturing... sharp", "E. platitude... distinct"] },
+      { id: 8, section: 1, text: "Within a secure archives facility, all manuscripts designated as 'restricted' are kept inside the primary thermal vault. Several documents located inside the thermal vault do not carry a 'restricted' designation. Every document printed prior to 1600 automatically receives a 'restricted' designation. Given these rules, which of the following assertions is impossible?", options: ["A. Certain documents printed prior to 1600 are kept outside the thermal vault.", "B. Certain documents inside the thermal vault were printed after 1600.", "C. No document printed after 1600 carries a 'restricted' designation.", "D. Certain documents located outside the thermal vault carry a 'restricted' designation.", "E. Every document carrying a 'restricted' designation was printed prior to 1600."] },
+      { id: 9, section: 1, text: "The director's sudden choice to postpone the vote was treated by the press as a ______ maneuver meant to lower tensions, but insiders recognized it as a transparent ______ designed to buy time for political maneuvering.", options: ["A. conciliatory ... stratagem", "B. hostile... shift", "C. routine... error", "D. generous... gift", "E. arrogant ... display"] },
+      { id: 10, section: 1, text: "A labor analyst posits: 'Mandating higher entry-level wages curtails hiring among entry-level personnel because enterprises substitute automated machinery for human labor when wages increase.' This theory would be most effectively challenged if which of the following were true?", options: ["A. The wage mandate occurred during an unprecedented surge in broader economic growth.", "B. The majority of affected personnel worked in service sectors structurally incapable of replacing human personnel with automated capital.", "C. The statutory wage adjustment lagged behind overall cost-of-living inflation rates.", "D. International markets enacting identical mandates experienced sharp drops in employment.", "E. Past econometric forecasts by this analyst proved incorrect."] },
+      { id: 11, section: 1, text: "Although the historical sketches were delightful to read, they lacked factual reliability; cross-examination against parish registers showed that many dramatic scenes were products of ______ rather than archival documentation.", options: ["A. fabrication ... creative memory", "B. truth... strict transcription", "C. fraud... deliberate malice", "D. decay... physical loss", "E. experience... direct witnessing"] },
+      { id: 12, section: 1, text: "A clinical condition is triggered by genetic marker X, environmental trigger Y, or a combination of both. Data indicates that 70% of sufferers exhibit marker X, 40% exhibit trigger Y, and 20% exhibit both. Based strictly on this data, which inference is best supported?", options: ["A. The majority of clinical cases stem from genetic origins.", "B. The condition cannot manifest in the complete absence of both marker X and trigger Y.", "C. Environmental triggers operate as the sole cause in 20% of occurrences.", "D. Genetic markers are required in 70% of total cases.", "E. Both factors interact in exactly 20% of instances."] },
+      { id: 13, section: 1, text: "An environmental briefing paper notes: 'Emissions caps tied to permit trading markets introduce price instability that clouds long-term investment planning, making carbon levies vastly superior on grounds of economic efficiency.' Which underlying premise is critical to the validity of this argument?", options: ["A. Systemic economic efficiency should serve as the primary metric for evaluating environmental regulations.", "B. Carbon levies generate lower price volatility than emissions trading markets.", "C. Short-term price signals outweigh long-term market predictability for industrial investors.", "D. Emissions trading systems cannot be structurally adjusted to limit volatility.", "E. Long-term cost certainty is the single driver of green technology funding."] },
+      { id: 14, section: 1, text: "The paleographer argued that the codex page was an early modern interpolation based on a single feature: the inclusion of a diacritic mark not ______ in any genuine manuscript predating the sixteenth century.", options: ["A. irregular... verified", "B. minor... questioned", "C. hidden... noticed", "D. central... duplicated", "E. clear... established"] },
+      { id: 15, section: 1, text: "The union representative displayed absolute ______ during negotiations, refusing to adapt to the board's concessions and locking herself into a rigid posture that proved completely ______ to compromise.", options: ["A. flexibility ... prone", "B. intransigence ... inimical", "C. agility... open", "D. caution... friendly", "E. warmth... receptive"] },
+      { id: 16, section: 1, text: "When regional manufacturing investments accelerate, local commercial activity experiences rapid growth. Town Z's commercial activity experienced rapid growth. Therefore, regional manufacturing investments accelerated in Town Z. This line of reasoning commits which structural flaw?", options: ["A. Affirming the consequent", "B. Denying the antecedent", "C. Ad hominem attack", "D. Circular reasoning", "E. Red herring"] },
+      { id: 17, section: 1, text: "A pollster claims: 'Given that 85% of participants in our evening landline poll backed the proposed zoning ordinance, public support for the project is overwhelming.' Which factor most seriously weakens this conclusion?", options: ["A. The sample relied entirely on landlines contacted in the evening.", "B. The sample size exceeded 3,000 eligible voters.", "C. Similar proposals failed in adjacent counties.", "D. Few individuals refused to participate.", "E. Full financial disclosures were provided prior to questioning."] },
+      { id: 18, section: 1, text: "Rather than accepting the initial lab data as ______, the research team subjected every metric to intense scrutiny, treating individual correlations as strictly ______ until independent teams reproduced the results.", options: ["A. definitive... provisional", "B. dubious... absolute", "C. flawed... final", "D. minor... secondary", "E. random ... structured"] },
+      { id: 19, section: 1, text: "To secure membership in the high-performance advisory board, applicants must demonstrate both exceptional technical skill and verified project management experience. Jordan possesses extensive project management experience, but his technical skill ratings fall below the qualifying cutoff. What follows logically?", options: ["A. Jordan will be offered an alternate placement.", "B. Jordan fails to qualify for membership.", "C. Management experience outweighs technical skill.", "D. Jordan can clear the requirement via interview.", "E. Most high-skill candidates lack management experience."] },
+      { id: 20, section: 1, text: "An industry commentator writes: 'Every major technology firm launched over the past decade that reached a billion-dollar valuation was established by founders lacking corporate business backgrounds. Consequently, corporate experience actively hinders entrepreneurial achievement.' What is the primary logical flaw?", options: ["A. It focuses exclusively on successful outcomes while ignoring the baseline population.", "B. It uses a sample size too large to compute reliable models.", "C. It assumes tech enterprises represent every global commercial market.", "D. It fails to establish clear financial boundaries.", "E. It relies on circular reasoning."] },
+      { id: 21, section: 1, text: "The architectural blueprint was celebrated for its ______ design, successfully integrating modern structural frameworks with traditional motifs without a single aesthetic discord.", options: ["A. incongruous", "B. cohesive", "C. fragmented", "D. derivative", "E. chaotic"] },
+      { id: 22, section: 1, text: "In a survey of urban commuters, 45% reported using public transit daily, while 35% reported using personal automobiles. No commuter reported using neither method. What percentage of commuters use both public transit and personal automobiles daily?", options: ["A. 10%", "B. 20%", "C. 35%", "D. 80%", "E. It cannot be determined."] },
+      { id: 23, section: 1, text: "An excerpt from a corporate restructuring memo states: 'Our shift toward decentralized operational units is intended not to reduce overarching administrative oversight, but rather to accelerate regional response times while maintaining strict compliance frameworks.' According to the memo, what is the primary purpose?", options: ["A. Dismantling administrative oversight", "B. Speeding up regional response times while preserving compliance", "C. Eliminating regulatory compliance frameworks", "D. Centralizing decision-making powers", "E. Reducing overall operational expenses"] },
+      { id: 24, section: 1, text: "The author's concluding remarks were deliberately ______, leaving readers uncertain whether the protagonist had achieved redemption or succumbed to despair.", options: ["A. definitive", "B. equivocal", "C. transparent", "D. didactic", "E. dogmatic"] },
+      { id: 25, section: 1, text: "An editorial claims that because cities with high investments in public parks have lower rates of sedentary lifestyle-related illnesses, building more parks directly eliminates those health issues. Which of the following, if true, most weakens this argument?", options: ["A. Cities with high park investments also enforce strict nutritional education programs in schools.", "B. Public parks are expensive to maintain.", "C. Some citizens living near parks rarely visit them.", "D. Sedentary illnesses affect individuals of all socioeconomic backgrounds.", "E. Park construction budgets have increased steadily."] },
+      { id: 26, section: 1, text: "Passage Question: The author says that one reason for writing the book was the fact that:", options: ["A. research suggests the quality of parenting skills has deteriorated.", "B. today's scientific views of parenting seem to be flawed.", "C. there is a lack of parenting literature written in a straightforward way.", "D. the available advisory material does not reflect current academic thinking."] },
+      { id: 27, section: 1, text: "Passage Question: What view of young people is promoted in the media?", options: ["A. They want to live an adult life before they are mentally ready.", "B. They are unaware of the opportunities provided for them.", "C. They are unable to appreciate the value of money.", "D. They fail to demonstrate a sense of purpose."] },
+      { id: 28, section: 1, text: "Passage Question: Which of the following is what the author says in the fourth paragraph about parenting advice?", options: ["A. Its core objective has remained constant.", "B. Its ideology stems from contemporary social issues.", "C. It traditionally placed a strong emphasis on the protection of the child.", "D. It currently benefits from techniques tried and tested by previous generations."] },
+      { id: 29, section: 1, text: "Passage Question: What criticism of contemporary thinking on child-rearing does the author make?", options: ["A. It repeats theories which have no solid foundation.", "B. It places too much importance on formal education.", "C. It encourages parents to neglect their responsibilities.", "D. It undermines the role of friends in children's development."] },
+      { id: 30, section: 1, text: "Sentence Completion: The weather was awful since it rained all weekend. We were ______ wet and I began to wish that I had stayed at home.", options: ["A. Foggily", "B. Soaking", "C. Streaming", "D. Absolutely"] },
+      { id: 31, section: 1, text: "Sentence Completion: Are there any passengers today with ______ needs?", options: ["A. Special", "B. Private", "C. Extraordinary", "D. Specialist"] },
+      { id: 32, section: 1, text: "Sentence Completion: Flies, priests and lights can ______ any house.", options: ["A. Pass", "B. Enter", "C. See", "D. Build"] },
+      { id: 33, section: 1, text: "Sentence Completion: The ______ of aid corresponds to need.", options: ["A. Contribution", "B. Distribution", "C. Consumption", "D. Donation"] },
+      { id: 34, section: 1, text: "Sentence Completion: After sitting in the sink for several days, the dirty, food-encrusted dishes became ______.", options: ["A. Emphatic", "B. Perforated", "C. Prevalent", "D. Malodorous"] },
+      { id: 35, section: 1, text: "Sentence Completion: The ______ of a mental disorder can be brought about by some form of chemical imbalance or a traumatic event such as war or the death of a partner.", options: ["A. Conclusion", "B. Onset", "C. Set up", "D. Symptom"] },
+      { id: 36, section: 1, text: "Choose the word most nearly OPPOSITE in meaning to EPHEMERAL:", options: ["A. Transient", "B. Perpetual", "C. Fleeting", "D. Temporary"] },
+      { id: 37, section: 1, text: "Choose the word most nearly SIMILAR in meaning to PRAGMATIC:", options: ["A. Idealistic", "B. Practical", "C. Theoretical", "D. Emotional"] },
+      { id: 38, section: 1, text: "Select the correctly punctuated sentence:", options: ["A. Although he was tired, he finished his assignment, nevertheless.", "B. Although he was tired; he finished his assignment.", "C. Although he was tired, he finished his assignment.", "D. Although he was tired he, finished his assignment."] },
+      { id: 39, section: 1, text: "Identify the error in sentence structure: 'Neither the department chair nor the faculty members was present at the annual convocation.'", options: ["A. 'Neither' should be 'Either'", "B. 'was' should be 'were'", "C. 'nor' should be 'or'", "D. No error in sentence"] },
+      { id: 40, section: 1, text: "Select the best replacement for the underlined phrase: 'Had he known about the schedule change, he *would attend* the lecture.'", options: ["A. would have attended", "B. will attend", "C. will have attended", "D. attended"] },
+      { id: 41, section: 1, text: "Complete the analogy: LIGHT : BLINDING :: SOUND : ______", options: ["A. Audible", "B. Deafening", "C. Quiet", "D. Pitch"] },
+      { id: 42, section: 1, text: "Complete the analogy: ARCHITECT : BUILDING :: SCULPTOR : ______", options: ["A. Marble", "B. Chisel", "C. Statue", "D. Studio"] },
+      { id: 43, section: 1, text: "Which sentence expresses the idea most concisely?", options: ["A. Due to the fact that it was raining, the event was postponed to a later date.", "B. Because it rained, the event was postponed.", "C. Owing to rain conditions, the event was put off until later.", "D. The reason the event was postponed was because of the rain."] },
+      { id: 44, section: 1, text: "Choose the antonym for CANDID:", options: ["A. Frank", "B. Secretive", "C. Honest", "D. Sincere"] },
+      { id: 45, section: 1, text: "Identify the correct usage: 'The committee has submitted ______ recommendations.'", options: ["A. its", "B. it's", "C. their", "D. there"] },
+      { id: 46, section: 1, text: "Choose the word that best completes the sentence: 'The researcher was commended for her ______ examination of the historical manuscripts.'", options: ["A. Cursory", "B. Meticulous", "C. Hasty", "D. Negligent"] },
+      { id: 47, section: 1, text: "Select the correct passive voice transformation: 'The dean presented the research awards.'", options: ["A. The research awards were presented by the dean.", "B. The research awards had been presented by the dean.", "C. The dean was presenting research awards.", "D. Research awards are presented by the dean."] },
+      { id: 48, section: 1, text: "Choose the synonym for METAMORPHOSIS:", options: ["A. Stagnation", "B. Transformation", "C. Preservation", "D. Extension"] },
+      { id: 49, section: 1, text: "Identify the sentence free of dangling modifiers:", options: ["A. Walking through the campus, the library appeared imposing.", "B. Walking through the campus, we saw the imposing library.", "C. While walking through the campus, the library was seen by us.", "D. Exhausted from study, the exam was difficult."] },
+      { id: 50, section: 1, text: "Select the option that best conveys the meaning of 'TO BURN THE MIDNIGHT OIL':", options: ["A. To waste electricity needlessly", "B. To work or study late into the night", "C. To start a fire in the laboratory", "D. To perform maintenance work"] },
+      { id: 51, section: 1, text: "Choose the antonym for ALTRUISTIC:", options: ["A. Generous", "B. Selfish", "C. Charitable", "D. Benevolent"] },
+      { id: 52, section: 1, text: "Choose the correct preposition: 'She is fully proficient ______ three languages.'", options: ["A. at", "B. in", "C. with", "D. on"] },
+      { id: 53, section: 1, text: "Select the proper spelling:", options: ["A. Accommodate", "B. Acommodate", "C. Accomodate", "D. Acomodate"] },
+      { id: 54, section: 1, text: "Identify the statement that represents an INFERENCE rather than a direct fact:", options: ["A. The thermometer reads 38°C.", "B. The room feels uncomfortably warm because the air conditioner is broken.", "C. The building was constructed in 1995.", "D. Fifty students attended the lecture."] },
+      { id: 55, section: 1, text: "Choose the word that best fits: 'His arguments were so ______ that even his fiercest critics were forced to agree.'", options: ["A. Specious", "B. Cogent", "C. Ambiguous", "D. Tenuous"] },
+
+      // Full Math Section (Q56 - Q100)
+      { id: 56, section: 2, text: "Five students took three examinations. The average score of Student A increased by 8 points from the first test to the third. The class average increased by 4 points over the same period. If the total increase in scores for the class was 100 points, how many students were in the class?", options: ["A. 20", "B. 22", "C. 25", "D. 28"] },
+      { id: 57, section: 2, text: "Two machines produce bottled water. Machine A alone fills an order in 12 hours, while Machine B alone finishes the same order in 18 hours. After both machines worked together for 4 hours, Machine A broke down. How many more hours did Machine B need to complete the order?", options: ["A. 4", "B. 5", "C. 6", "D. 7"] },
+      { id: 58, section: 2, text: "A school plans to purchase desks. If each classroom receives 5 additional desks, there will be exactly enough desks. If each classroom receives 6 additional desks, the school will be short by 18 desks. How many classrooms are there?", options: ["A. 16", "B. 18", "C. 20", "D. 24"] },
+      { id: 59, section: 2, text: "A rectangle has perimeter 68 m. Its area is 280 m². What is the length of the longer side?", options: ["A. 20", "B. 21", "C. 24", "D. 28"] },
+      { id: 60, section: 2, text: "A farmer wants to fence a rectangular field using 240 meters of fencing. He wants the area to be exactly 3500 m². Which equation can be used to determine one side of the field?", options: ["A. x² - 120x + 3500 = 0", "B. x² + 120x = 3500", "C. 2x² - 240 = 3500", "D. x(240 - x) = 3500"] },
+      { id: 61, section: 2, text: "A taxi company charges Base fare = 40 ETB plus 18 ETB per kilometer. A customer paid 436 ETB. How far did the customer travel?", options: ["A. 20 km", "B. 21 km", "C. 22 km", "D. 23 km"] },
+      { id: 62, section: 2, text: "A factory's production increased by 12%, then decreased by 10%. Overall, production changed by:", options: ["A. +2%", "B. +1%", "C. +0.8%", "D. -2%"] },
+      { id: 63, section: 2, text: "Five different books are to be arranged on a shelf. Two particular books must remain together. How many different arrangements are possible?", options: ["A. 48", "B. 72", "C. 96", "D. 120"] },
+      { id: 64, section: 2, text: "The circumference of a circular garden is 88 meters. A walkway 2 meters wide is built around the outside. Approximately how much additional area does the walkway occupy? (Take π ≈ 22/7)", options: ["A. 188 m²", "B. 176 m²", "C. 190 m²", "D. 164 m²"] },
+      { id: 65, section: 2, text: "A student answers 80% of the first 30 questions correctly. To achieve an overall accuracy of 90% on a 50-question exam, how many of the remaining 20 questions must the student answer correctly?", options: ["A. 18", "B. 19", "C. 20", "D. 21"] },
+      { id: 66, section: 2, text: "During freshman registration at 6 Kilo Campus, 2,400 students were expected. On the first day, 35% completed registration. On the second day, 40% of the remaining students registered. On the final day, the rest completed registration. How many students registered on the final day?", options: ["A. 780", "B. 864", "C. 936", "D. 960"] },
+      { id: 67, section: 2, text: "The student population at three AAU campuses is distributed in the ratio 6 Kilo : 4 Kilo : 5 Kilo = 6 : 5 : 4. After 600 students transfer from 6 Kilo to 4 Kilo, the populations of 6 Kilo and 4 Kilo become equal. How many students were enrolled in the three campuses altogether?", options: ["A. 12,000", "B. 15,000", "C. 18,000", "D. 21,000"] },
+      { id: 68, section: 2, text: "The average entrance exam score of Engineering freshmen at 5 Kilo Campus was 72. After the scores of five additional students were included, the average increased to 73. If the original class had 95 students, what was the average score of the five additional students?", options: ["A. 88", "B. 90", "C. 92", "D. 94"] },
+      { id: 69, section: 2, text: "The Student Innovation Center provides a 100,000 ETB grant for a startup. The money is invested at 8% compound interest compounded annually for three years. Approximately how much money will be available?", options: ["A. 123,000 ETB", "B. 125,971 ETB", "C. 126,800 ETB", "D. 128,400 ETB"] },
+      { id: 70, section: 2, text: "The average age of a class of 22 students is 21 years. The average increased by 1 year when the teacher's age is included. What is the age of the teacher?", options: ["A. 44 years", "B. 45 years", "C. 43 years", "D. 48 years"] },
+      { id: 71, section: 2, text: "The average weight of 16 boys in a class is 50.25 kg and that of the remaining 8 boys is 45.15 kg. What is the average weight of all the boys in the class?", options: ["A. 48.55 kg", "B. 42.25 kg", "C. 50.00 kg", "D. 47.70 kg"] },
+      { id: 72, section: 2, text: "The sum of the ages of a mother and her daughter is 40 years. Five years ago, the mother was three times as old as her daughter. How old is the daughter now?", options: ["A. 8 years", "B. 10 years", "C. 12 years", "D. 15 years"] },
+      { id: 73, section: 2, text: "Consider the larger circle and an inner circle. Point A is the center of the larger circle. If line segment AB is 7 cm in length (serving as the radius of the larger circle), find the area of the larger circle.", options: ["A. 94 cm²", "B. 112 cm²", "C. 136 cm²", "D. 154 cm²"], diagram: "       .-----------------.\n     .'     .- - - - - .  '.\n    /     .'           '.   \\\n   |     /       .----.  |   |\n   |    |       (  A   ) | A-B (7cm)\n   |     \\       '----'  |   |\n    \\     '.           .'   /\n     '.     '- - - - - '  .'\n       '-----------------'" },
+      { id: 74, section: 2, text: "A company has 400 employees. Every year, 15% leave, while 60 new employees are hired. Assuming this pattern continues, how many employees will the company have after 2 years?", options: ["A. 421", "B. 429", "C. 435", "D. 440"] },
+      { id: 75, section: 2, text: "A factory produces 450 bottles daily. If 8% are defective, how many non-defective bottles are produced each day?", options: ["A. 404", "B. 412", "C. 414", "D. 420"] },
+      { id: 76, section: 2, text: "The ratio of boys to girls in a tutorial class is 7:5. If there are 48 students in total, how many are girls?", options: ["A. 18", "B. 20", "C. 24", "D. 28"] },
+      { id: 77, section: 2, text: "Sara reads 15 pages of a preparation module every day. At this rate, how many pages will she read in 18 days?", options: ["A. 250", "B. 260", "C. 270", "D. 280"] },
+      { id: 78, section: 2, text: "The central library has 8 Mathematics books, 6 Physics books, and 4 Chemistry books. A student randomly borrows two books without replacement. What is the probability that both books are Mathematics books?", options: ["A. 28 / 153", "B. 14 / 153", "C. 7 / 36", "D. 4 / 17"] },
+      { id: 79, section: 2, text: "A lecture hall has rows of seats. If every row has 2 more seats, 6 fewer rows are needed. If every row has 3 fewer seats, 12 additional rows are required. How many students can the lecture hall seat when full?", options: ["A. 480", "B. 540", "C. 600", "D. 720"] },
+      { id: 80, section: 2, text: "A rectangular study garden is being constructed. With 320 meters of fencing available, what is the maximum possible area of the garden?", options: ["A. 6,300 m²", "B. 6,000 m²", "C. 6,400 m²", "D. 5,500 m²"] },
+      { id: 81, section: 2, text: "If 3x + 5 = 20, what is the value of 6x - 4?", options: ["A. 26", "B. 30", "C. 28", "D. 24"] },
+      { id: 82, section: 2, text: "A car travels at an average speed of 60 km/h for 2.5 hours, and then at 80 km/h for 1.5 hours. What is the overall average speed for the entire 4-hour trip?", options: ["A. 67.5 km/h", "B. 70 km/h", "C. 65 km/h", "D. 72.5 km/h"] },
+      { id: 83, section: 2, text: "Solve for x: 2^(x + 1) = 32.", options: ["A. 3", "B. 4", "C. 5", "D. 6"] },
+      { id: 84, section: 2, text: "If the ratio of A : B = 3 : 4 and B : C = 5 : 6, what is the ratio of A : C?", options: ["A. 15 : 24", "B. 5 : 8", "C. 3 : 6", "D. 15 : 16"] },
+      { id: 85, section: 2, text: "A container contains 4 red balls, 6 blue balls, and 5 green balls. If one ball is drawn at random, what is the probability that it is NOT blue?", options: ["A. 3 / 5", "B. 2 / 5", "C. 1 / 3", "D. 4 / 15"] },
+      { id: 86, section: 2, text: "A merchant marks up an item by 25% above its original cost price and then offers a discount of 10% on the marked price. What is his net profit percentage?", options: ["A. 12.5%", "B. 15%", "C. 10%", "D. 17.5%"] },
+      { id: 87, section: 2, text: "In a right-angled triangle, the hypotenuse is 13 cm and one leg is 5 cm. What is the area of the triangle?", options: ["A. 30 cm²", "B. 60 cm²", "C. 32.5 cm²", "D. 65 cm²"] },
+      { id: 88, section: 2, text: "The sum of three consecutive odd integers is 87. What is the largest of these three integers?", options: ["A. 27", "B. 29", "C. 31", "D. 33"] },
+      { id: 89, section: 2, text: "If log10(x) + log10(5) = 2, what is the value of x?", options: ["A. 10", "B. 20", "C. 25", "D. 50"] },
+      { id: 90, section: 2, text: "How many distinct 4-letter arrangements can be formed using all four letters from the word 'MATH' without repetition?", options: ["A. 12", "B. 16", "C. 24", "D. 64"] },
+      { id: 91, section: 2, text: "A water tank can be filled by Pipe A in 6 hours and completely emptied by Pipe B in 10 hours. If both pipes are opened simultaneously when the tank is empty, how long will it take to fill the tank?", options: ["A. 12 hours", "B. 15 hours", "C. 16 hours", "D. 18 hours"] },
+      { id: 92, section: 2, text: "Find the slope of the line passing through the points (2, -3) and (-4, 9).", options: ["A. -2", "B. 2", "C. -1/2", "D. 1/2"] },
+      { id: 93, section: 2, text: "What is the determinant of the 2x2 matrix [[4, 3], [2, 5]]?", options: ["A. 14", "B. 26", "C. 11", "D. 7"] },
+      { id: 94, section: 2, text: "The median of a set of 7 distinct numbers arranged in ascending order is 18. If the three largest numbers are each increased by 4, what is the new median of the dataset?", options: ["A. 18", "B. 22", "C. 20", "D. 14"] },
+      { id: 95, section: 2, text: "In a class of 50 students, 30 study Physics, 25 study Chemistry, and 10 study neither subject. How many students study BOTH Physics and Chemistry?", options: ["A. 10", "B. 15", "C. 20", "D. 5"] },
+      { id: 96, section: 2, text: "If f(x) = 2x² - 3x + 1, evaluate f(-2).", options: ["A. 3", "B. 15", "C. 7", "D. -1"] },
+      { id: 97, section: 2, text: "An isosceles triangle has two equal sides of length 10 cm and a base measuring 12 cm. What is the length of the altitude drawn to the base?", options: ["A. 6 cm", "B. 8 cm", "C. 10 cm", "D. 7 cm"] },
+      { id: 98, section: 2, text: "A principal sum of 5,000 ETB doubles in 5 years under simple interest. What is the annual simple interest rate?", options: ["A. 10%", "B. 15%", "C. 20%", "D. 25%"] },
+      { id: 99, section: 2, text: "What is the sum of the interior angles of a convex hexagon?", options: ["A. 540°", "B. 720°", "C. 900°", "D. 360°"] },
+      { id: 100, section: 2, text: "If x + y = 12 and x - y = 4, what is the value of x² - y²?", options: ["A. 16", "B. 32", "C. 48", "D. 64"] }
+  ];
+
+  window.onload = function() {
+      renderQuestions();
+      renderPalette();
+      startTimer();
+  };
+
+  function renderQuestions() {
+      const container1 = document.getElementById('english-questions-container');
+      const container2 = document.getElementById('math-questions-container');
+
+      let html1 = '';
+      let html2 = '';
+
+      questionsData.forEach(q => {
+          if (q.section === 1) {
+              html1 += createQuestionCardHTML(q);
+          } else {
+              html2 += createQuestionCardHTML(q);
+          }
+      });
+
+      container1.innerHTML = html1;
+      container2.innerHTML = html2;
+  }
+
+  function createQuestionCardHTML(q) {
+      const isFlagged = flags[q.id] ? 'flagged' : '';
+      const activeFlagClass = flags[q.id] ? 'active' : '';
+      let diagramHTML = q.diagram ? `<div class="diagram-box">${q.diagram}</div>` : '';
+
+      return `
+          <div class="question-card ${isFlagged}" id="q-card-${q.id}">
+              <div class="question-header">
+                  <span class="question-number">Question ${q.id} of ${TOTAL_QUESTIONS}</span>
+                  <button class="flag-btn ${activeFlagClass}" id="flag-btn-${q.id}" onclick="toggleFlag(${q.id})">
+                      🏳️ ${flags[q.id] ? 'Flagged' : 'Flag for Review'}
+                  </button>
+              </div>
+              <div class="question-text">${q.text.replace(/\n/g, '<br>')}</div>
+              ${diagramHTML}
+              <div class="options-group">
+                  ${q.options.map((opt, idx) => {
+                      const optVal = String.fromCharCode(65 + idx);
+                      const checked = answers[q.id] === optVal ? 'checked' : '';
+                      return `
+                          <label class="option-label">
+                              <input type="radio" name="q_${q.id}" value="${optVal}" ${checked} onchange="selectAnswer(${q.id}, '${optVal}')">
+                              ${opt}
+                          </label>
+                      `;
+                  }).join('')}
+              </div>
+          </div>
+      `;
+  }
+
+  function renderPalette() {
+      const paletteGrid = document.getElementById('palette-grid');
+      paletteGrid.innerHTML = '';
+
+      const start = currentSection === 1 ? 1 : 56;
+      const end = currentSection === 1 ? 55 : 100;
+
+      for (let i = start; i <= end; i++) {
+          const btn = document.createElement('button');
+          btn.className = 'palette-btn';
+          btn.id = `palette-btn-${i}`;
+          btn.innerText = i;
+
+          if (answers[i]) {
+              btn.classList.add('answered');
+          } else if (flags[i]) {
+              btn.classList.add('flagged');
+          }
+
+          btn.onclick = () => scrollToQuestion(i);
+          paletteGrid.appendChild(btn);
+      }
+  }
+
+  function selectAnswer(qId, val) {
+      answers[qId] = val;
+      updatePaletteButton(qId);
+  }
+
+  function toggleFlag(qId) {
+      flags[qId] = !flags[qId];
+
+      const card = document.getElementById(`q-card-${qId}`);
+      const btn = document.getElementById(`flag-btn-${qId}`);
+
+      if (flags[qId]) {
+          card.classList.add('flagged');
+          btn.classList.add('active');
+          btn.innerText = '🏳️ Flagged';
+      } else {
+          card.classList.remove('flagged');
+          btn.classList.remove('active');
+          btn.innerText = '🏳️ Flag for Review';
+      }
+
+      updatePaletteButton(qId);
+  }
+
+  function updatePaletteButton(qId) {
+      const pBtn = document.getElementById(`palette-btn-${qId}`);
+      if (!pBtn) return;
+
+      pBtn.className = 'palette-btn';
+      if (answers[qId]) {
+          pBtn.classList.add('answered');
+      } else if (flags[qId]) {
+          pBtn.classList.add('flagged');
+      }
+  }
+
+  function scrollToQuestion(qId) {
+      const el = document.getElementById(`q-card-${qId}`);
+      if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+  }
+
+  function switchSection(sec) {
+      currentSection = sec;
+      document.getElementById('tab-sec1').classList.toggle('active', sec === 1);
+      document.getElementById('tab-sec2').classList.toggle('active', sec === 2);
+
+      document.getElementById('section-1-wrapper').style.display = sec === 1 ? 'block' : 'none';
+      document.getElementById('section-2-wrapper').style.display = sec === 2 ? 'block' : 'none';
+
+      renderPalette();
+      document.getElementById('content-area').scrollTop = 0;
+  }
+
+  function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+
+      timerInterval = setInterval(() => {
+          if (totalTime > 0) {
+              totalTime--;
+              updateTimerDisplay(totalTime);
+          } else {
+              clearInterval(timerInterval);
+              confirmFinalSubmit();
+          }
+      }, 1000);
+  }
+
+  function updateTimerDisplay(seconds) {
+      const hrs = Math.floor(seconds / 3600);
+      const mins = Math.floor((seconds % 3600) / 60);
+      const secs = seconds % 60;
+
+      const formatted = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      document.getElementById('timer').innerText = formatted;
+  }
+
+  function openReviewModal() {
+      const answeredCount = Object.keys(answers).length;
+      const flaggedCount = Object.keys(flags).filter(k => flags[k]).length;
+      const unansweredCount = TOTAL_QUESTIONS - answeredCount;
+
+      document.getElementById('rev-answered').innerText = `${answeredCount} / ${TOTAL_QUESTIONS}`;
+      document.getElementById('rev-unanswered').innerText = unansweredCount;
+      document.getElementById('rev-flagged').innerText = flaggedCount;
+
+      document.getElementById('review-modal').style.display = 'flex';
+  }
+
+  function closeReviewModal() {
+      document.getElementById('review-modal').style.display = 'none';
+  }
+
+  function confirmFinalSubmit() {
+      clearInterval(timerInterval);
+      document.getElementById('review-modal').style.display = 'none';
+
+      const totalAnswered = Object.keys(answers).length;
+      const rate = Math.round((totalAnswered / TOTAL_QUESTIONS) * 100);
+
+      document.getElementById('res-total-answered').innerText = `${totalAnswered} / ${TOTAL_QUESTIONS}`;
+      document.getElementById('res-completion-rate').innerText = `${rate}%`;
+      document.getElementById('res-time-left').innerText = document.getElementById('timer').innerText;
+
+      document.getElementById('result-modal').style.display = 'flex';
+  }
+</script>
+</body>
+</html>

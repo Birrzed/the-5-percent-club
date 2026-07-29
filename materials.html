@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Official AAU UAT Information Hub - The 5% Club</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root { --brand-green: #0A4D34; }
+    .bg-brand { background-color: var(--brand-green); }
+    .text-brand { color: var(--brand-green); }
+    .border-brand { border-color: var(--brand-green); }
+    html { scroll-behavior: smooth; }
+
+    /* Custom Glassmorphism Effect */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(229, 231, 235, 0.8);
+    }
+
+    /* Tooltip Hover Styling */
+    .has-tooltip {
+      position: relative;
+      cursor: pointer;
+    }
+    .tooltip {
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
+      transform: translateY(6px);
+    }
+    .has-tooltip:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+  <script>
+    // Tab Switcher JS
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(el => {
+        el.classList.remove('bg-brand', 'text-white', 'shadow-md');
+        el.classList.add('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200');
+      });
+      document.getElementById(tabId).classList.remove('hidden');
+      document.getElementById(tabId + '-btn').classList.add('bg-brand', 'text-white', 'shadow-md');
+      document.getElementById(tabId + '-btn').classList.remove('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200');
+    }
+
+    // Dynamic Video Player Switcher with Embed Error Prevention
+    function loadVideo(youtubeId, title) {
+      const iframe = document.getElementById('main-video-frame');
+      iframe.src = `https://www.youtube.com/embed/${youtubeId}?rel=0&modestbranding=1&enablejsapi=1`;
+      document.getElementById('video-title').innerText = title;
+      if(window.innerWidth < 768) {
+        document.getElementById('featured-video').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Search/Filter for Departments JS
+    function filterDepartments() {
+      const input = document.getElementById('deptSearch').value.toLowerCase();
+      const rows = document.querySelectorAll('#tuition-table-body tr');
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(input) ? '' : 'none';
+      });
+    }
+  </script>
+</head>
+<body class="bg-slate-900 text-gray-800 font-sans min-h-screen flex flex-col antialiased">
+
+<!-- Main Navigation Header -->
+<header class="bg-brand text-white sticky top-0 z-50 shadow-lg border-b border-emerald-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+
+    <!-- Logo + Brand Name (Navigates to Home Page) -->
+    <a href="index.html" class="flex items-center space-x-3 group transition transform hover:scale-105">
+      <div class="relative">
+        <img src="logo.jpg" alt="The 5% Club Logo" class="w-11 h-11 object-cover rounded-full bg-white p-0.5 shadow-md border-2 border-yellow-400">
+        <span class="absolute -bottom-1 -right-1 bg-yellow-400 text-gray-900 text-[9px] font-black px-1 rounded-full">5%</span>
+      </div>
+      <div class="flex flex-col">
+        <span class="font-extrabold text-xl tracking-tight text-white group-hover:text-yellow-300 transition">The 5% Club</span>
+        <span class="text-[10px] text-emerald-200 uppercase tracking-widest font-semibold">UAT Preparation Hub</span>
+      </div>
+    </a>
+
+    <!-- Center Nav Links -->
+    <nav class="hidden md:flex items-center space-x-8 font-medium text-sm">
+      <a href="index.html" class="text-emerald-100 hover:text-white hover:border-b-2 border-yellow-400 py-1 transition flex items-center space-x-1">
+        <i class="fa-solid fa-house text-xs"></i>
+        <span>Home</span>
+      </a>
+      <a href="index.html#take-exam" class="text-emerald-100 hover:text-white hover:border-b-2 border-yellow-400 py-1 transition flex items-center space-x-1">
+        <i class="fa-solid fa-pen-to-square text-xs"></i>
+        <span>Take Exam</span>
+      </a>
+      <a href="about.html" class="text-emerald-100 hover:text-white hover:border-b-2 border-yellow-400 py-1 transition flex items-center space-x-1">
+        <i class="fa-solid fa-users text-xs"></i>
+        <span>About Us</span>
+      </a>
+      <a href="#tuition" class="text-emerald-100 hover:text-white hover:border-b-2 border-yellow-400 py-1 transition flex items-center space-x-1">
+        <i class="fa-solid fa-graduation-cap text-xs"></i>
+        <span>Tuition & Cutoffs</span>
+      </a>
+    </nav>
+
+    <!-- CTA Action Button -->
+    <div class="flex items-center space-x-3">
+      <a href="index.html#packages" class="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-400 hover:to-amber-400 text-gray-950 font-bold px-5 py-2.5 rounded-xl text-xs sm:text-sm shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center space-x-2">
+        <i class="fa-solid fa-crown text-amber-900"></i>
+        <span>VIP Prep Access</span>
+      </a>
+    </div>
+
+  </div>
+</header>
+
+<!-- Hero & Featured Official Video Hub -->
+<section id="featured-video" class="bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-900 text-white pt-10 pb-16 px-4 sm:px-6 lg:px-8 border-b border-emerald-800/50">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-10 space-y-3">
+      <div class="inline-flex items-center space-x-2">
+          <span class="bg-yellow-400/20 text-yellow-300 border border-yellow-400/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+            <i class="fa-solid fa-play-circle mr-1"></i> Video Registration & Prep Tutorials
+          </span>
+
+        <!-- Small AAU Hover Badge -->
+        <div class="has-tooltip inline-block">
+            <span class="bg-emerald-800/80 hover:bg-emerald-700 text-yellow-300 text-xs font-bold px-2.5 py-1 rounded-full border border-emerald-600 transition transform hover:scale-105 flex items-center space-x-1">
+              <i class="fa-solid fa-university text-[10px]"></i>
+              <span>AAU Info</span>
+            </span>
+          <div class="tooltip absolute left-1/2 -translate-x-1/2 top-8 w-64 p-3 bg-slate-900 text-white text-xs rounded-xl shadow-2xl border border-emerald-500/40 z-30">
+            <p class="font-bold text-yellow-400 mb-1">Addis Ababa University (AAU)</p>
+            <p class="text-slate-300 text-[11px] leading-tight">Official registration guidance for Government & Self-sponsored applicants sitting for the Undergraduate Admission Test (UAT).</p>
+          </div>
+        </div>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight text-white drop-shadow-md">
+        Addis Ababa University UAT Complete Portal
+      </h1>
+      <p class="text-emerald-100 text-sm sm:text-base max-w-2xl mx-auto">
+        Watch step-by-step application walkthroughs, cost-sharing breakdowns, and departmental exam preparation strategies.
+      </p>
+    </div>
+
+    <!-- Main Video Player Grid -->
+    <div class="grid lg:grid-cols-3 gap-8 items-start">
+
+      <!-- Primary Embed Player (Fixes Error 153) -->
+      <div class="lg:col-span-2 bg-black rounded-3xl overflow-hidden shadow-2xl border border-slate-700/80">
+        <div class="relative w-full aspect-video bg-slate-950">
+          <iframe id="main-video-frame"
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/WFIVMmpwH5Q?rel=0&modestbranding=1&enablejsapi=1"
+                  title="THE 5% CLUB Video Player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen>
+          </iframe>
+        </div>
+        <div class="p-5 bg-slate-900/95 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-t border-slate-800">
+          <div>
+            <span class="text-xs text-yellow-400 font-bold uppercase tracking-wider">Now Playing</span>
+            <h2 id="video-title" class="text-lg font-bold text-white mt-0.5">Government Sponsorship Application Guide (Step-by-Step)</h2>
+          </div>
+          <a href="https://youtu.be/WFIVMmpwH5Q?si=3Fq3yiVtOaZQo7dZ" target="_blank" class="flex items-center space-x-2 bg-red-600 hover:bg-red-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition shadow">
+            <i class="fa-brands fa-youtube text-base"></i>
+            <span>Watch on YouTube</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Video Playlist Items -->
+      <div class="bg-slate-800/90 rounded-3xl p-5 border border-slate-700/80 flex flex-col space-y-4">
+        <h3 class="text-base font-bold text-white flex items-center justify-between pb-3 border-b border-slate-700">
+          <span>Video Guides Playlist</span>
+          <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-mono">2 Videos</span>
+        </h3>
+
+        <!-- Playlist Item 1 -->
+        <button onclick="loadVideo('WFIVMmpwH5Q', 'Government Sponsorship Application Guide (Step-by-Step)')" class="w-full text-left p-3.5 rounded-2xl bg-slate-700/60 hover:bg-slate-700 border border-slate-600/50 transition flex space-x-3 items-center group">
+          <div class="relative w-24 h-16 rounded-lg bg-black overflow-hidden flex-shrink-0 border border-slate-600">
+            <img src="https://img.youtube.com/vi/WFIVMmpwH5Q/mqdefault.jpg" alt="Government Sponsorship Video" class="w-full h-full object-cover group-hover:scale-105 transition">
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+              <i class="fa-solid fa-play text-white text-xs bg-red-600 p-1.5 rounded-full"></i>
+            </div>
+          </div>
+          <div class="flex-grow">
+            <span class="text-[11px] text-emerald-400 font-semibold block">Guide #1</span>
+            <h4 class="text-xs sm:text-sm font-bold text-white line-clamp-2 group-hover:text-yellow-300 transition">Government Sponsorship Application Walkthrough</h4>
+          </div>
+        </button>
+
+        <!-- Playlist Item 2 -->
+        <button onclick="loadVideo('x2wSb-CDaYk', 'Self-Sponsorship Application & Department Direct Entry Guide')" class="w-full text-left p-3.5 rounded-2xl bg-slate-700/60 hover:bg-slate-700 border border-slate-600/50 transition flex space-x-3 items-center group">
+          <div class="relative w-24 h-16 rounded-lg bg-black overflow-hidden flex-shrink-0 border border-slate-600">
+            <img src="https://img.youtube.com/vi/x2wSb-CDaYk/mqdefault.jpg" alt="Self Sponsorship Video" class="w-full h-full object-cover group-hover:scale-105 transition">
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+              <i class="fa-solid fa-play text-white text-xs bg-red-600 p-1.5 rounded-full"></i>
+            </div>
+          </div>
+          <div class="flex-grow">
+            <span class="text-[11px] text-emerald-400 font-semibold block">Guide #2</span>
+            <h4 class="text-xs sm:text-sm font-bold text-white line-clamp-2 group-hover:text-yellow-300 transition">Self-Sponsorship & Direct Department Selection Guide</h4>
+          </div>
+        </button>
+
+        <!-- Channel Quick Access Cards -->
+        <div class="pt-3 border-t border-slate-700 grid grid-cols-2 gap-2">
+          <a href="https://www.tiktok.com/@entrancehub_brand?_r=1&_t=ZS-98HYCwVdjSX" target="_blank" class="bg-black/60 hover:bg-black text-white p-3 rounded-xl border border-slate-700 flex items-center justify-center space-x-2 text-xs font-bold transition">
+            <i class="fa-brands fa-tiktok"></i>
+            <span>TikTok Hub</span>
+          </a>
+          <a href="https://t.me/the5clubs" target="_blank" class="bg-sky-600/80 hover:bg-sky-600 text-white p-3 rounded-xl border border-sky-500/50 flex items-center justify-center space-x-2 text-xs font-bold transition">
+            <i class="fa-brands fa-telegram"></i>
+            <span>Telegram Channel</span>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- Main Information Workspace -->
+<main class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 space-y-16 flex-grow bg-slate-100">
+
+  <!-- Section 1: Exam Structure Breakdown -->
+  <section id="structure" class="glass-card p-6 sm:p-8 rounded-3xl shadow-sm space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-5">
+      <div>
+        <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full">Exam Mechanics</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2">AAU UAT Exam Structure</h2>
+      </div>
+
+      <!-- Hover Badge for AAU Exam Info -->
+      <div class="has-tooltip inline-block">
+          <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center space-x-1 hover:bg-slate-200 transition">
+            <i class="fa-solid fa-university text-emerald-600"></i>
+            <span>AAU Test Lab Rules</span>
+          </span>
+        <div class="tooltip absolute right-0 top-10 w-72 p-3 bg-slate-900 text-white text-xs rounded-xl shadow-xl z-20 pointer-events-none">
+          The UAT is a 2-hour digital aptitude test taken in designated computer labs at Addis Ababa University, featuring 100 multiple-choice questions.
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Verbal Card -->
+      <div class="bg-gradient-to-br from-emerald-50 to-teal-50 p-6 rounded-2xl border border-emerald-100 hover:shadow-md transition">
+        <div class="flex justify-between items-center mb-4">
+          <div class="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center font-bold">
+            <i class="fa-solid fa-font"></i>
+          </div>
+          <span class="text-xs font-bold bg-emerald-200/60 text-emerald-900 px-2.5 py-1 rounded-lg">55 Questions • 60 Mins</span>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Verbal Reasoning Section</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-emerald-600 text-xs"></i><span>Reading Comprehension & Critical Passages</span></li>
+          <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-emerald-600 text-xs"></i><span>English Grammar Mechanics & Sentence Completion</span></li>
+          <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-emerald-600 text-xs"></i><span>Vocabulary, Synonyms, Antonyms & Word Analogies</span></li>
+        </ul>
+      </div>
+
+      <!-- Quantitative Card -->
+      <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-2xl border border-amber-100 hover:shadow-md transition">
+        <div class="flex justify-between items-center mb-4">
+          <div class="w-10 h-10 bg-amber-600 text-white rounded-xl flex items-center justify-center font-bold">
+            <i class="fa-solid fa-calculator"></i>
+          </div>
+          <span class="text-xs font-bold bg-amber-200/60 text-amber-900 px-2.5 py-1 rounded-lg">45 Questions • 60 Mins</span>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Quantitative Reasoning Section</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-amber-600 text-xs"></i><span>Algebra, Linear Equations & Systems</span></li>
+          <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-amber-600 text-xs"></i><span>Problem Solving, Ratios & Data Analysis</span></li>
+          <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-amber-600 text-xs"></i><span>Geometry, Functions & Basic Trigonometry</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Interactive Department Fee Schedule -->
+  <section id="tuition" class="glass-card p-6 sm:p-8 rounded-3xl shadow-sm space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <span class="text-xs font-bold text-brand uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full">Financial Details</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2">Self-Sponsored Program Fee Schedule</h2>
+      </div>
+
+      <!-- Search Control -->
+      <div class="relative w-full sm:w-64">
+        <input type="text" id="deptSearch" onkeyup="filterDepartments()" placeholder="Search department..." class="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400 text-xs"></i>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto rounded-2xl border border-gray-200">
+      <table class="w-full text-left text-sm border-collapse">
+        <thead>
+        <tr class="bg-gray-100 text-gray-800 font-bold border-b border-gray-200">
+          <th class="p-4">Program Category</th>
+          <th class="p-4">Departments Included</th>
+          <th class="p-4">Fee / ECTS (ETB)</th>
+          <th class="p-4">Est. Semester Fee</th>
+          <th class="p-4">Est. Annual Fee</th>
+        </tr>
+        </thead>
+        <tbody id="tuition-table-body" class="divide-y divide-gray-100 text-gray-700 bg-white">
+        <tr class="hover:bg-slate-50 transition">
+          <td class="p-4 font-bold text-gray-900">Medicine & Dental</td>
+          <td class="p-4">Doctor of Medicine, Dental Medicine</td>
+          <td class="p-4 font-mono">2,307.69</td>
+          <td class="p-4">46,153 - 69,230 ETB</td>
+          <td class="p-4 font-bold text-brand">92,307 - 138,461 ETB</td>
+        </tr>
+        <tr class="hover:bg-slate-50 transition">
+          <td class="p-4 font-bold text-gray-900">Pharmacy & Health</td>
+          <td class="p-4">Pharmacy, Nursing, Public Health, Med Lab</td>
+          <td class="p-4 font-mono">1,153.17</td>
+          <td class="p-4">23,063 - 34,595 ETB</td>
+          <td class="p-4 font-bold text-brand">46,126 - 69,190 ETB</td>
+        </tr>
+        <tr class="hover:bg-slate-50 transition">
+          <td class="p-4 font-bold text-gray-900">Software & CS</td>
+          <td class="p-4">Software Engineering, Computer Science</td>
+          <td class="p-4 font-mono">1,500.00</td>
+          <td class="p-4">30,000 - 45,000 ETB</td>
+          <td class="p-4 font-bold text-brand">60,000 - 90,000 ETB</td>
+        </tr>
+        <tr class="hover:bg-slate-50 transition">
+          <td class="p-4 font-bold text-gray-900">Architecture & IS</td>
+          <td class="p-4">Architecture, Information Systems</td>
+          <td class="p-4 font-mono">1,500 / 900</td>
+          <td class="p-4">18,000 - 45,000 ETB</td>
+          <td class="p-4 font-bold text-brand">36,000 - 90,000 ETB</td>
+        </tr>
+        <tr class="hover:bg-slate-50 transition">
+          <td class="p-4 font-bold text-gray-900">Engineering</td>
+          <td class="p-4">Civil, Electrical, Mechanical, Chemical</td>
+          <td class="p-4 font-mono">900.00</td>
+          <td class="p-4">18,000 - 27,000 ETB</td>
+          <td class="p-4 font-bold text-brand">36,000 - 54,000 ETB</td>
+        </tr>
+        <tr class="hover:bg-slate-50 transition">
+          <td class="p-4 font-bold text-gray-900">Law & Business</td>
+          <td class="p-4">LLB Law, Accounting, Management, Economics</td>
+          <td class="p-4 font-mono">700.00</td>
+          <td class="p-4">14,000 - 21,000 ETB</td>
+          <td class="p-4 font-bold text-brand">28,000 - 42,000 ETB</td>
+        </tr>
+        <tr class="hover:bg-slate-50 transition">
+          <td class="p-4 font-bold text-gray-900">Social Sciences & Arts</td>
+          <td class="p-4">Social Work, Psychology, Languages, Music</td>
+          <td class="p-4 font-mono">600.00</td>
+          <td class="p-4">12,000 - 18,000 ETB</td>
+          <td class="p-4 font-bold text-brand">24,000 - 36,000 ETB</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 3: Interactive Cut-off Points -->
+  <section id="cutoffs" class="glass-card p-6 sm:p-8 rounded-3xl shadow-sm space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <span class="text-xs font-bold text-brand uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full">Historical Cut-offs</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2">University Placement Cut-offs</h2>
+      </div>
+
+      <!-- Interactive Tab Switches -->
+      <div class="flex space-x-2 bg-gray-100 p-1 rounded-2xl">
+        <button id="tab2025-btn" onclick="showTab('tab2025')" class="tab-btn bg-brand text-white font-bold px-4 py-2 rounded-xl text-xs transition shadow-md">
+          2025/26 Academic Year
+        </button>
+        <button id="tab2024-btn" onclick="showTab('tab2024')" class="tab-btn text-gray-600 hover:bg-gray-200 font-bold px-4 py-2 rounded-xl text-xs transition">
+          2024/25 Academic Year
+        </button>
+      </div>
+    </div>
+
+    <!-- 2025/26 Table Content -->
+    <div id="tab2025" class="tab-content overflow-x-auto rounded-2xl border border-gray-200">
+      <table class="w-full text-left text-sm border-collapse">
+        <thead>
+        <tr class="bg-gray-100 font-bold text-gray-800 border-b border-gray-200">
+          <th class="p-4">Enrollment Type</th>
+          <th class="p-4">Program / Stream</th>
+          <th class="p-4">Cut-off Score</th>
+        </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100 bg-white">
+        <tr class="hover:bg-slate-50 transition"><td class="p-4">Self-Sponsored</td><td class="p-4 font-bold text-gray-900">Doctor of Medicine</td><td class="p-4 font-extrabold text-brand">79</td></tr>
+        <tr class="hover:bg-slate-50 transition"><td class="p-4">Self-Sponsored</td><td class="p-4 font-bold text-gray-900">BSc Software Engineering</td><td class="p-4 font-extrabold text-brand">79</td></tr>
+        <tr class="hover:bg-slate-50 transition"><td class="p-4">Self-Sponsored</td><td class="p-4 font-bold text-gray-900">Doctor of Dental Medicine</td><td class="p-4 font-extrabold text-brand">78</td></tr>
+        <tr class="hover:bg-slate-50 transition"><td class="p-4">Self-Sponsored</td><td class="p-4 font-bold text-gray-900">BSc Computer Science</td><td class="p-4 font-extrabold text-brand">77</td></tr>
+        <tr class="hover:bg-slate-50 transition"><td class="p-4">Self-Sponsored</td><td class="p-4 font-bold text-gray-900">Bachelor of Laws (LL.B.)</td><td class="p-4 font-extrabold text-brand">73</td></tr>
+        <tr class="hover:bg-slate-50 transition"><td class="p-4">Government Sponsored</td><td class="p-4 font-bold text-gray-900">Natural Science Freshman (Male)</td><td class="p-4 font-extrabold text-emerald-700">83</td></tr>
+        <tr class="hover:bg-slate-50 transition"><td class="p-4">Government Sponsored</td><td class="p-4 font-bold text-gray-900">Natural Science Freshman (Female)</td><td class="p-4 font-extrabold text-emerald-700">78</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 2024/25 Table Content -->
+    <div id="tab2024" class="tab-content hidden overflow-x-auto rounded-2xl border border-gray-200">
+      <table class="w-full text-left text-sm border-collapse">
+        <thead>
+        <tr class="bg-gray-100 font-bold text-gray-800 border-b border-gray-200">
+          <th class="p-4">Enrollment Type</th>
+          <th class="p-4">Program / Stream</th>
+          <th class="p-4">Cut-off Score</th>
+        </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100 bg-white">
+        <tr class="hover:bg-slate-50 transition"><td class="p-4">Self-Sponsored</td><td class="p-4 font-bold text-gray-900">Doctor of Medicine</td><td class="p-4 font-extrabold text-brand">79</td></tr>
+        <tr class="hover:bg-slate-50 transition"><td class="p-4">Self-Sponsored</td><td class="p-4 font-bold text-gray-900">BSc Software Engineering</td><td class="p-4 font-extrabold text-brand">78</td></tr>
+        <tr class="hover:bg-slate-50 transition"><td class="p-4">Self-Sponsored</td><td class="p-4 font-bold text-gray-900">BSc Computer Science</td><td class="p-4 font-extrabold text-brand">77</td></tr>
+        <tr class="hover:bg-slate-50 transition"><td class="p-4">Government Sponsored</td><td class="p-4 font-bold text-gray-900">Natural Science Combined</td><td class="p-4 font-extrabold text-emerald-700">63.92</td></tr>
+        <tr class="hover:bg-slate-50 transition"><td class="p-4">Government Sponsored</td><td class="p-4 font-bold text-gray-900">Social Science Combined</td><td class="p-4 font-extrabold text-emerald-700">50.33</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 4: Creator About Us Section -->
+  <section id="about" class="bg-gradient-to-r from-gray-950 via-emerald-950 to-slate-900 rounded-3xl p-8 sm:p-10 text-white shadow-xl relative overflow-hidden">
+    <div class="relative z-10 grid lg:grid-cols-3 gap-8 items-center">
+      <div class="lg:col-span-2 space-y-4">
+        <span class="bg-yellow-400 text-gray-950 font-black px-3 py-1 rounded-full text-xs uppercase tracking-wider">About The Founders</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Built by Students, for Students</h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          We are two students currently learning at Addis Ababa University (AAU) who founded <strong class="text-yellow-400">The 5% Club</strong> platform. Having successfully navigated the admission process ourselves, our mission is to provide equal access to top-tier preparation materials, mock exams, and transparent university information.
+        </p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 space-y-3 text-center">
+        <div class="w-16 h-16 mx-auto rounded-full bg-yellow-400 text-gray-950 flex items-center justify-center text-2xl font-black shadow-lg">
+          5%
+        </div>
+        <h3 class="font-bold text-lg text-white">Join The Top 5%</h3>
+        <p class="text-xs text-slate-300">Work until it's done. Access model exams, VIP practice portals, and daily shortcuts.</p>
+        <a href="index.html#packages" class="inline-block w-full bg-yellow-400 hover:bg-yellow-300 text-gray-950 font-bold py-2.5 rounded-xl text-xs transition shadow-md">
+          Explore Preparation Packages
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-slate-950 text-slate-400 py-10 border-t border-slate-800 text-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+    <a href="index.html" class="flex items-center space-x-3">
+      <img src="logo.jpg" alt="Logo" class="w-8 h-8 rounded-full bg-white p-0.5">
+      <span class="font-bold text-white text-base">The 5% Club</span>
+    </a>
+    <div class="flex flex-wrap justify-center gap-6 text-xs font-medium">
+      <a href="index.html" class="hover:text-yellow-400 transition">Home</a>
+      <a href="index.html#take-exam" class="hover:text-yellow-400 transition">Take Exam</a>
+      <a href="#about" class="hover:text-yellow-400 transition">About Us</a>
+      <a href="#tuition" class="hover:text-yellow-400 transition">Tuition Schedule</a>
+      <a href="#cutoffs" class="hover:text-yellow-400 transition">Cut-offs</a>
+    </div>
+    <p class="text-xs text-slate-500">
+      © 2026 The 5% Club. All rights reserved. <em>"Work until it's done."</em>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

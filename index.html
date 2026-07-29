@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="am" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The 5% Club - Official AAU UAT Exam Preparation Platform</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Professional Amharic Font (Noto Sans Ethiopic) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --brand-green: #0A4D34;
+      --brand-dark: #052A1C;
+      --brand-accent: #EAB308;
+    }
+
+    body {
+      font-family: 'Noto Sans Ethiopic', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .bg-brand { background-color: var(--brand-green); }
+    .bg-brand-dark { background-color: var(--brand-dark); }
+    .text-brand { color: var(--brand-green); }
+    .border-brand { border-color: var(--brand-green); }
+
+    /* Hero Banner Image & Green Overlay Hover Effects */
+    .hero-banner-container {
+      position: relative;
+      background-color: var(--brand-dark);
+      overflow: hidden;
+    }
+
+    .hero-bg-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('aau.jpg');
+      background-size: cover;
+      background-position: center 35%;
+      transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: 1;
+    }
+
+    .hero-green-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(5, 42, 28, 0.92) 0%, rgba(10, 77, 52, 0.85) 60%, rgba(19, 110, 76, 0.78) 100%);
+      transition: background 0.5s ease;
+      z-index: 2;
+    }
+
+    .hero-banner-container:hover .hero-bg-image {
+      transform: scale(1.05);
+    }
+
+    .hero-banner-container:hover .hero-green-overlay {
+      background: linear-gradient(135deg, rgba(5, 42, 28, 0.78) 0%, rgba(10, 77, 52, 0.65) 60%, rgba(19, 110, 76, 0.50) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+    }
+
+    /* Modern Card Hover Gradient Border Effects */
+    .package-card {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .package-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .glass-feature {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-gray-800 min-h-screen flex flex-col antialiased selection:bg-yellow-400 selection:text-gray-900">
+
+<!-- Top Announcement Bar -->
+<div class="bg-yellow-500 text-gray-900 font-bold text-xs py-2 px-4 text-center tracking-wide shadow-inner">
+  🚀 2019 E.C. AAU UAT PREPARATION IS NOW LIVE! WORK UNTIL IT'S DONE.
+</div>
+
+<!-- Navigation Header -->
+<header class="bg-brand text-white py-4 px-6 shadow-xl sticky top-0 z-50 border-b border-emerald-800/50 backdrop-blur-md bg-opacity-95">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+
+    <!-- Logo & Brand Name -->
+    <a href="index.html" class="flex items-center space-x-3 group">
+      <img src="logo.jpg" alt="The 5% Club Logo" class="w-10 h-10 object-contain rounded-full bg-white p-1 shadow-md group-hover:scale-105 transition-transform">
+      <span class="font-black text-xl tracking-tight hidden sm:inline">The 5% Club</span>
+    </a>
+
+    <!-- Navigation Links -->
+    <nav class="flex items-center space-x-4 md:space-x-8 text-sm font-semibold">
+      <a href="index.html" class="text-yellow-400 font-bold border-b-2 border-yellow-400 pb-1">Home</a>
+      <a href="exam.html" class="hover:text-yellow-400 transition-colors">Practice Exam</a>
+      <a href="materials.html" class="hover:text-yellow-400 transition-colors">Resources</a>
+      <a href="about.html" class="hover:text-yellow-400 transition-colors">About Us</a>
+
+      <!-- Quick Action Button -->
+      <a href="https://t.me/Bruuzed" target="_blank" class="bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-extrabold px-4 py-2 rounded-xl text-xs md:text-sm transition-all shadow-md hover:shadow-yellow-500/20 active:scale-95">
+        ተመዝገብ (VIP)
+      </a>
+    </nav>
+
+  </div>
+</header>
+
+<!-- Hero Section with AAU Image & Green Overlay Hover Style -->
+<section class="hero-banner-container text-white py-20 px-6 text-center">
+  <div class="hero-bg-image"></div>
+  <div class="hero-green-overlay"></div>
+
+  <div class="hero-content max-w-4xl mx-auto space-y-6">
+    <span class="bg-yellow-500/20 text-yellow-300 border border-yellow-500/40 font-bold px-4 py-1.5 rounded-full text-xs md:text-sm uppercase tracking-widest inline-block backdrop-blur-md">
+      🎓 ለአዲስ አበባ ዩኒቨርሲቲ (AAU) ተፈታኞች በሙሉ
+    </span>
+    <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight drop-shadow-md">
+      የአዲስ አበባ ዩኒቨርሲቲ መግቢያ ፈተናን (UAT) በከፍተኛ ውጤት ማለፍ ይፈልጋሉ?
+    </h1>
+    <p class="text-emerald-100 max-w-2xl mx-auto text-base md:text-lg leading-relaxed font-medium drop-shadow-sm">
+      ዘንድሮ 12ኛ ክፍል ወይም Remedial ተፈትናችሁ የጨረሳችሁ ተማሪዎች፤ <strong>The 5% Club</strong> ወደ አዲስ አበባ ዩኒቨርሲቲ ለመግባት የሚያስፈልጋችሁን "To the point" የUAT ፈተና ዝግጅት፣ ጥያቄዎች፣ የ1-on-1 ማማከር እና ካምፓስ የመመደብ ሂደቶችን በሙሉ ለመሸፈን ዝግጁ ነው!
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-4 pt-6">
+      <a href="#packages" class="bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-extrabold px-8 py-4 rounded-2xl transition-all shadow-xl hover:shadow-yellow-500/20 text-base">
+        የአገልግሎት ጥቅሎች (Packages)
+      </a>
+      <a href="exam.html" class="bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold px-8 py-4 rounded-2xl transition-all backdrop-blur-md text-base">
+        የነፃ መለማመጃ ፈተና ይውሰዱ
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Proof & Stats Bar -->
+<section class="bg-white border-b border-gray-200 py-8 px-6">
+  <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+    <div>
+      <div class="text-3xl font-black text-brand">~95%</div>
+      <div class="text-xs font-bold text-gray-500 uppercase mt-1">AAU Admission Rate</div>
+    </div>
+    <div>
+      <div class="text-3xl font-black text-brand">1st Rank</div>
+      <div class="text-xs font-bold text-gray-500 uppercase mt-1">Social Science in AA (2017 E.C.)</div>
+    </div>
+    <div>
+      <div class="text-3xl font-black text-brand">5 Students</div>
+      <div class="text-xs font-bold text-gray-500 uppercase mt-1">Presidential Scholarships</div>
+    </div>
+    <div>
+      <div class="text-3xl font-black text-brand">24/7</div>
+      <div class="text-xs font-bold text-gray-500 uppercase mt-1">Person-to-Person Support</div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content Area -->
+<main class="max-w-7xl mx-auto w-full p-6 md:p-10 space-y-24 flex-grow">
+
+  <!-- UPGRADED FEATURE / DESCRIBING SECTION -->
+  <section class="space-y-12 relative">
+    <div class="text-center space-y-4 max-w-3xl mx-auto">
+      <span class="bg-emerald-100 text-brand text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest inline-block border border-emerald-200">
+        ✨ ለምን THE 5% CLUB?
+      </span>
+      <h2 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">
+        ለማንኛውም UAT ተፈታኝ የተዘጋጀ ዘመናዊ አሰራር
+      </h2>
+      <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+        በአሁኑ ሰዓት በአዲስ አበባ ዩኒቨርሲቲ እየተማርን ካለነው ተማሪዎች ቀጥታ የተዘጋጀ ውጤታማ የጥናትና የፈተና ዘዴ።
+      </p>
+    </div>
+
+    <!-- Interactive Grid Cards with Glassmorphism and Hover Highlights -->
+    <div class="grid md:grid-cols-3 gap-8 relative z-10">
+
+      <!-- Card 1 -->
+      <div class="glass-feature p-8 rounded-3xl border border-emerald-100 shadow-sm hover:shadow-2xl hover:border-emerald-500/50 transition-all duration-300 group relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-emerald-100/50 rounded-full blur-2xl group-hover:bg-emerald-300/50 transition-all"></div>
+        <div class="w-16 h-16 bg-emerald-800 text-yellow-400 rounded-2xl flex items-center justify-center font-black text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
+          🎯
+        </div>
+        <h3 class="font-extrabold text-2xl text-gray-900 mb-3 group-hover:text-brand transition-colors">
+          To-The-Point Strategy
+        </h3>
+        <p class="text-gray-600 text-sm md:text-base leading-relaxed">
+          በፈተናው ላይ የሚመጡትን አይነት የ <strong>Verbal</strong> እና <strong>Quantitative Reasoning</strong> ጥያቄዎች ላይ ብቻ ያተኮረ፣ ጊዜ የማያባክን ልዩ ስልጠና።
+        </p>
+        <div class="mt-6 pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-emerald-800">
+          <span>100% Focused Materials</span>
+          <span class="ml-auto">→</span>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="glass-feature p-8 rounded-3xl border border-emerald-100 shadow-sm hover:shadow-2xl hover:border-emerald-500/50 transition-all duration-300 group relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-emerald-100/50 rounded-full blur-2xl group-hover:bg-emerald-300/50 transition-all"></div>
+        <div class="w-16 h-16 bg-emerald-800 text-yellow-400 rounded-2xl flex items-center justify-center font-black text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
+          🤝
+        </div>
+        <h3 class="font-extrabold text-2xl text-gray-900 mb-3 group-hover:text-brand transition-colors">
+          1-on-1 Mentorship
+        </h3>
+        <p class="text-gray-600 text-sm md:text-base leading-relaxed">
+          በፈተና አሰራር ህጎች፣ የጊዜ አጠቃቀም እና ጭንቀትን በመቀነስ በሙሉ ብቃት እንድትፈተኑ የሚያስችል Person-to-Person የማማከር ድጋፍ።
+        </p>
+        <div class="mt-6 pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-emerald-800">
+          <span>Direct AAU Student Mentors</span>
+          <span class="ml-auto">→</span>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="glass-feature p-8 rounded-3xl border border-emerald-100 shadow-sm hover:shadow-2xl hover:border-emerald-500/50 transition-all duration-300 group relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-emerald-100/50 rounded-full blur-2xl group-hover:bg-emerald-300/50 transition-all"></div>
+        <div class="w-16 h-16 bg-emerald-800 text-yellow-400 rounded-2xl flex items-center justify-center font-black text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
+          🏛️
+        </div>
+        <h3 class="font-extrabold text-2xl text-gray-900 mb-3 group-hover:text-brand transition-colors">
+          Complete Campus Onboarding
+        </h3>
+        <p class="text-gray-600 text-sm md:text-base leading-relaxed">
+          ከUAT ማለፍ ጀምሮ የመመዝገቢያ ፎርሞች፣ ካምፓስ ምደባና ኦንላይን ሬጅስትሬሽን ድረስ ያለመንገላታት Person-to-Person አብረናችሁ እንሰራለን።
+        </p>
+        <div class="mt-6 pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-emerald-800">
+          <span>End-to-End Registration Support</span>
+          <span class="ml-auto">→</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- UPGRADED PACKAGES SECTION WITH INTERACTIVE JS CONTROLS -->
+  <section id="packages" class="space-y-12 scroll-mt-24 relative">
+    <div class="text-center space-y-4 max-w-3xl mx-auto">
+      <span class="bg-yellow-100 text-yellow-900 text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider inline-block border border-yellow-300">
+        💎 የምዝገባ ጥቅሎች
+      </span>
+      <h2 class="text-3xl md:text-5xl font-black text-gray-900">
+        ለእርስዎ የሚስማማውን ፓኬጅ ይምረጡ
+      </h2>
+      <p class="text-gray-600 text-sm md:text-base">
+        ከታች ካሉት ፓኬጆች የመረጡትን ተጭነው በቀጥታ ምዝገባዎን በቴሌግራም ያጠናቅቁ!
+      </p>
+
+      <!-- Dynamic Price Mode Toggle Switcher -->
+      <div class="pt-4 flex justify-center items-center space-x-4">
+        <span class="text-xs md:text-sm font-bold text-gray-600">Standard Pricing</span>
+        <button id="pricingToggle" onclick="togglePricing()" class="w-14 h-8 bg-brand rounded-full p-1 transition-colors relative focus:outline-none shadow-inner">
+          <div id="toggleDot" class="w-6 h-6 bg-yellow-400 rounded-full shadow-md transform transition-transform translate-x-6"></div>
+        </button>
+        <span class="text-xs md:text-sm font-bold text-emerald-900 flex items-center gap-1">
+          Full VIP Access <span class="bg-yellow-400 text-gray-900 text-[10px] font-black px-2 py-0.5 rounded-full uppercase">Best Value</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- 4 Modern Responsive Packages Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch pt-4">
+
+      <!-- Package 1 -->
+      <div class="package-card bg-white p-8 rounded-3xl shadow-md border border-gray-200 flex flex-col justify-between relative overflow-hidden group">
+        <div class="absolute top-0 right-0 w-20 h-20 bg-emerald-500/10 rounded-bl-full"></div>
+        <div>
+          <div class="flex justify-between items-center mb-4">
+            <span class="text-xs font-black bg-emerald-100 text-brand px-3 py-1 rounded-full uppercase">Package 1</span>
+          </div>
+          <h3 class="font-extrabold text-2xl text-gray-900">Basic Resources</h3>
+          <p class="text-xs text-gray-500 mt-1">ለልምምድ ጥያቄዎችና መراجعዎች</p>
+
+          <div class="my-6">
+            <span class="text-4xl font-black text-brand price-value" data-base="300">300</span>
+            <span class="text-gray-500 text-sm font-bold">ETB</span>
+          </div>
+
+          <ul class="text-gray-600 text-sm space-y-3.5 border-t border-gray-100 pt-6">
+            <li class="flex items-start"><span class="mr-2.5 text-emerald-600 font-bold">✓</span> የUAT መለማመጃ ጥያቄዎች</li>
+            <li class="flex items-start"><span class="mr-2.5 text-emerald-600 font-bold">✓</span> Resource Materials ብቻ</li>
+          </ul>
+        </div>
+
+        <button onclick="selectPackage('Package 1 (300 ETB)')" class="mt-8 w-full bg-slate-900 hover:bg-brand text-white font-bold py-3.5 rounded-xl transition-all shadow-md active:scale-95 text-sm">
+          ይህንን ይምረጡ
+        </button>
+      </div>
+
+      <!-- Package 2 -->
+      <div class="package-card bg-white p-8 rounded-3xl shadow-md border border-gray-200 flex flex-col justify-between relative overflow-hidden group">
+        <div class="absolute top-0 right-0 w-20 h-20 bg-emerald-500/10 rounded-bl-full"></div>
+        <div>
+          <div class="flex justify-between items-center mb-4">
+            <span class="text-xs font-black bg-emerald-100 text-brand px-3 py-1 rounded-full uppercase">Package 2</span>
+          </div>
+          <h3 class="font-extrabold text-2xl text-gray-900">Resource + Mentorship</h3>
+          <p class="text-xs text-gray-500 mt-1">ለጥያቄዎችና ለ 1-on-1 ማማከር</p>
+
+          <div class="my-6">
+            <span class="text-4xl font-black text-brand price-value" data-base="400">400</span>
+            <span class="text-gray-500 text-sm font-bold">ETB</span>
+          </div>
+
+          <ul class="text-gray-600 text-sm space-y-3.5 border-t border-gray-100 pt-6">
+            <li class="flex items-start"><span class="mr-2.5 text-emerald-600 font-bold">✓</span> የUAT መለማመጃ ጥያቄዎች</li>
+            <li class="flex items-start"><span class="mr-2.5 text-emerald-600 font-bold">✓</span> Resource Materials</li>
+            <li class="flex items-start"><span class="mr-2.5 text-emerald-600 font-bold">✓</span> <strong>1-on-1 Mentorship (የማማከር አገልግሎት)</strong></li>
+          </ul>
+        </div>
+
+        <button onclick="selectPackage('Package 2 (400 ETB)')" class="mt-8 w-full bg-slate-900 hover:bg-brand text-white font-bold py-3.5 rounded-xl transition-all shadow-md active:scale-95 text-sm">
+          ይህንን ይምረጡ
+        </button>
+      </div>
+
+      <!-- Package 3 -->
+      <div class="package-card bg-white p-8 rounded-3xl shadow-md border border-gray-200 flex flex-col justify-between relative overflow-hidden group">
+        <div class="absolute top-0 right-0 w-20 h-20 bg-emerald-500/10 rounded-bl-full"></div>
+        <div>
+          <div class="flex justify-between items-center mb-4">
+            <span class="text-xs font-black bg-emerald-100 text-brand px-3 py-1 rounded-full uppercase">Package 3</span>
+          </div>
+          <h3 class="font-extrabold text-2xl text-gray-900">Full Guidance & Reg.</h3>
+
+          <div class="bg-emerald-50 text-emerald-900 text-xs font-bold p-2.5 rounded-xl border border-emerald-200 mt-2 mb-4">
+            📌 Includes Package 1 & 2
+          </div>
+
+          <div class="my-6">
+            <span class="text-4xl font-black text-brand price-value" data-base="500">500</span>
+            <span class="text-gray-500 text-sm font-bold">ETB</span>
+          </div>
+
+          <ul class="text-gray-600 text-sm space-y-3.5 border-t border-gray-100 pt-6">
+            <li class="flex items-start"><span class="mr-2.5 text-emerald-600 font-bold">✓</span> <strong>Package 1 + 2 (ሙሉ አገልግሎቶች)</strong></li>
+            <li class="flex items-start"><span class="mr-2.5 text-emerald-600 font-bold">✓</span> የ AAU Application ፎርም መሙላት</li>
+            <li class="flex items-start"><span class="mr-2.5 text-emerald-600 font-bold">✓</span> የካምፓስ Online Registration መጨረስ</li>
+          </ul>
+        </div>
+
+        <button onclick="selectPackage('Package 3 (500 ETB)')" class="mt-8 w-full bg-slate-900 hover:bg-brand text-white font-bold py-3.5 rounded-xl transition-all shadow-md active:scale-95 text-sm">
+          ይህንን ይምረጡ
+        </button>
+      </div>
+
+      <!-- Package 4 (VIP HIGHLIGHT CARD WITH GLOW) -->
+      <div class="package-card bg-white p-8 rounded-3xl shadow-2xl border-2 border-yellow-500 flex flex-col justify-between relative lg:-translate-y-4 bg-gradient-to-b from-white via-yellow-50/20 to-white">
+
+        <!-- Top Badge -->
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-500 text-gray-900 font-black text-xs px-5 py-1.5 rounded-full uppercase tracking-wider shadow-lg flex items-center space-x-1 whitespace-nowrap">
+          <span>⭐ MOST RECOMMENDED</span>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-4 mt-2">
+            <span class="text-xs font-black bg-yellow-400 text-gray-900 px-3 py-1 rounded-full uppercase">Package 4 (VIP)</span>
+          </div>
+          <h3 class="font-extrabold text-2xl text-gray-900">Ultimate AAU Prep</h3>
+
+          <div class="bg-yellow-100 text-yellow-900 text-xs font-bold p-2.5 rounded-xl border border-yellow-300 mt-2 mb-4">
+            📌 Includes All Packages + Physical Working
+          </div>
+
+          <div class="my-6">
+            <span class="text-4xl font-black text-brand price-value" data-base="700">700</span>
+            <span class="text-gray-500 text-sm font-bold">ETB</span>
+          </div>
+
+          <ul class="text-gray-600 text-sm space-y-3.5 border-t border-gray-100 pt-6">
+            <li class="flex items-start"><span class="mr-2.5 text-yellow-600 font-bold">✓</span> <strong>Package 3 (ሙሉ አገልግሎቶች)</strong></li>
+            <li class="flex items-start"><span class="mr-2.5 text-yellow-600 font-bold">✓</span> <strong>In-Person 2 Times Question Working:</strong> በአብርሆት ላይብረሪ</li>
+            <li class="flex items-start"><span class="mr-2.5 text-yellow-600 font-bold">✓</span> <strong>Live Online Question Sessions</strong></li>
+          </ul>
+        </div>
+
+        <button onclick="selectPackage('Package 4 VIP (700 ETB)')" class="mt-8 w-full bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-black py-4 rounded-xl transition-all shadow-xl hover:shadow-yellow-500/30 active:scale-95 text-sm uppercase">
+          ይህንን ይምረጡ (VIP)
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Payment Instructions & Verification -->
+  <section id="payment" class="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-gray-200 scroll-mt-24 space-y-8">
+    <div class="text-center space-y-2 max-w-2xl mx-auto">
+      <span class="text-3xl">💳</span>
+      <h2 class="text-3xl font-black text-gray-900">የአከፋፈል እና የምዝገባ መረጃ</h2>
+      <p id="selectedPackageNotice" class="text-emerald-700 font-bold text-sm bg-emerald-50 py-2 px-4 rounded-full inline-block border border-emerald-200">
+        እባክዎን የመረጡትን ፓኬጅ ክፍያ ይፈፅሙ።
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <!-- Telebirr Account Details -->
+      <div class="bg-sky-50/70 p-6 md:p-8 rounded-3xl border border-sky-200 space-y-3 relative overflow-hidden">
+        <div class="absolute top-0 right-0 bg-sky-500 text-white font-black text-xs px-4 py-1 rounded-bl-xl uppercase">TeleBirr</div>
+        <div class="text-xs font-extrabold text-sky-700 uppercase tracking-widest">ቴሌብር መክፈያ</div>
+        <div class="text-3xl font-black text-gray-900 tracking-wider">0932938452</div>
+        <div class="text-sm font-semibold text-gray-700 pt-2"><strong>የሂሳብ ስም፦</strong> Tigist</div>
+      </div>
+
+      <!-- CBE Account Details -->
+      <div class="bg-emerald-50/70 p-6 md:p-8 rounded-3xl border border-emerald-200 space-y-3 relative overflow-hidden">
+        <div class="absolute top-0 right-0 bg-emerald-600 text-white font-black text-xs px-4 py-1 rounded-bl-xl uppercase">CBE Bank</div>
+        <div class="text-xs font-extrabold text-emerald-700 uppercase tracking-widest">የኢትዮጵያ ንግድ ባንክ</div>
+        <div class="text-2xl md:text-3xl font-black text-gray-900 tracking-wider">1000650064546</div>
+        <div class="text-sm font-semibold text-gray-700 pt-2"><strong>የሂሳብ ስም፦</strong> BIRUK ZEWDU</div>
+      </div>
+    </div>
+
+    <!-- Action Telegram Submission Card -->
+    <div class="bg-brand-dark text-white p-8 md:p-10 rounded-3xl text-center space-y-4 max-w-4xl mx-auto shadow-2xl relative overflow-hidden border border-emerald-800">
+      <h3 class="text-2xl font-extrabold">📤 ክፍያ ፈፅመዋል? ደረሰኙን ይላኩ</h3>
+      <p class="text-emerald-200 text-sm max-w-xl mx-auto leading-relaxed">
+        የከፈሉበትን የቴሌብር ወይም የባንክ ደረሰኝ (Screenshot ወይም SMS) በቀጥታ በቴሌግራም አድራሻችን ይላኩልን። ባጭር ደቂቃዎች ውስጥ የVIP አባልነትዎ ይረጋገጣል!
+      </p>
+      <div class="pt-2">
+        <a href="https://t.me/Bruuzed" target="_blank" class="inline-flex items-center space-x-2 bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-black px-8 py-4 rounded-2xl transition-all shadow-lg hover:shadow-yellow-500/20 text-base">
+          <span>ደረሰኝ ለመላክ ይጫኑ 👉 @Bruuzed</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Comprehensive Professional Footer -->
+<footer class="bg-brand-dark text-gray-300 border-t border-emerald-900 pt-16 pb-12 px-6">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-emerald-900/80">
+
+    <!-- Column 1: Brand Info -->
+    <div class="space-y-4">
+      <div class="flex items-center space-x-3">
+        <img src="logo.jpg" alt="The 5% Club Logo" class="w-10 h-10 object-contain rounded-full bg-white p-1">
+        <span class="font-black text-xl text-white">The 5% Club</span>
+      </div>
+      <p class="text-xs text-emerald-200 leading-relaxed">
+        በአዲስ አበባ ዩኒቨርሲቲ ተማሪዎች የተመሰረተ፤ የUAT ተፈታኞች በከፍተኛ ውጤት ወደ AAU እንዲቀላቀሉ የሚያግዝ የትምህርትና የማማከር መድረክ።
+      </p>
+      <div class="text-xs font-bold text-yellow-400">
+        💪 "Register today! Work until it's done."
+      </div>
+    </div>
+
+    <!-- Column 2: Quick Links -->
+    <div class="space-y-3">
+      <h4 class="text-white font-bold text-sm tracking-wider uppercase">Quick Links</h4>
+      <ul class="space-y-2 text-xs">
+        <li><a href="index.html" class="hover:text-yellow-400 transition">Home Page</a></li>
+        <li><a href="exam.html" class="hover:text-yellow-400 transition">Online Practice Exam</a></li>
+        <li><a href="materials.html" class="hover:text-yellow-400 transition">PDF Resources & YouTube</a></li>
+        <li><a href="about.html" class="hover:text-yellow-400 transition">About the Creators</a></li>
+      </ul>
+    </div>
+
+    <!-- Column 3: Contact & Support -->
+    <div class="space-y-3">
+      <h4 class="text-white font-bold text-sm tracking-wider uppercase">Contact Support</h4>
+      <ul class="space-y-2 text-xs">
+        <li><strong>Telegram Admin:</strong> <a href="https://t.me/Bruuzed" class="text-yellow-400 hover:underline">@Bruuzed</a></li>
+        <li><strong>TeleBirr:</strong> 0932938452 (Tigist)</li>
+        <li><strong>CBE Account:</strong> 1000650064546</li>
+        <li><strong>Location:</strong> Addis Ababa University, Ethiopia</li>
+      </ul>
+    </div>
+
+    <!-- Column 4: Official Hashtags -->
+    <div class="space-y-3">
+      <h4 class="text-white font-bold text-sm tracking-wider uppercase">Community</h4>
+      <p class="text-xs text-gray-400">Join thousands of prospective AAU students preparing for the UAT examination.</p>
+      <div class="flex flex-wrap gap-1.5 pt-1 text-[10px] font-bold text-yellow-400">
+        <span class="bg-emerald-950 px-2 py-1 rounded border border-emerald-800">#The5PercentClub</span>
+        <span class="bg-emerald-950 px-2 py-1 rounded border border-emerald-800">#TeamUAT</span>
+        <span class="bg-emerald-950 px-2 py-1 rounded border border-emerald-800">#AAUReady</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Copyright Sub-Footer -->
+  <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+    <p>© 2026 The 5% Club. All Rights Reserved.</p>
+    <p>Designed for Addis Ababa University (AAU) UAT Candidates</p>
+  </div>
+</footer>
+
+<!-- Interactive JavaScript Logic -->
+<script>
+  // Package Selection Dynamic Auto-scroll & Highlight Logic
+  function selectPackage(packageName) {
+    const notice = document.getElementById('selectedPackageNotice');
+    notice.innerText = `የተመረጠው ፓኬጅ፦ ${packageName} | እባክዎን ክፍያውን ፈፅመው ደረሰኙን ይላኩ።`;
+    notice.classList.add('animate-bounce');
+
+    // Smooth scroll to payment section
+    document.getElementById('payment').scrollIntoView({ behavior: 'smooth' });
+
+    setTimeout(() => {
+      notice.classList.remove('animate-bounce');
+    }, 2000);
+  }
+
+  // Interactive Pricing Mode Toggle Switcher
+  let isVipMode = false;
+  function togglePricing() {
+    isVipMode = !isVipMode;
+    const dot = document.getElementById('toggleDot');
+    const priceElements = document.querySelectorAll('.price-value');
+
+    if (isVipMode) {
+      dot.classList.remove('translate-x-6');
+      dot.classList.add('translate-x-0');
+      priceElements.forEach(el => {
+        const base = parseInt(el.getAttribute('data-base'));
+        el.innerText = Math.round(base * 0.9); // Apply 10% VIP bundle discount
+      });
+    } else {
+      dot.classList.remove('translate-x-0');
+      dot.classList.add('translate-x-6');
+      priceElements.forEach(el => {
+        el.innerText = el.getAttribute('data-base');
+      });
+    }
+  }
+</script>
+
+</body>
+</html>
