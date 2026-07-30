@@ -3,1078 +3,1248 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AAU UAT Official Mock Examination | The 5% Club</title>
+  <title>The 5% Club — AAU UAT Mock Exam, Round 1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    :root {
-        --header-bg: #1b4332;
-        --header-accent: #2d6a4f;
-        --primary-color: #0b3c5d;
-        --secondary-color: #328cc1;
-        --brand-accent: #ffb703;
-        --bg-color: #f4f6f9;
-        --card-bg: #ffffff;
-        --text-dark: #1d2731;
-        --text-muted: #626d78;
-        --border-color: #d1d8e0;
-        --flagged-color: #e67e22;
-        --answered-color: #27ae60;
-        --danger-color: #e74c3c;
-    }
-
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-    }
-
-    body {
-        background-color: var(--bg-color);
-        color: var(--text-dark);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* Navigation Header */
-    header {
-        background-color: var(--header-bg);
-        color: white;
-        padding: 12px 16px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-        z-index: 10;
-    }
-
-    @media (min-width: 768px) {
-        header {
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 24px;
-        }
-    }
-
-    .header-title h1 {
-        font-size: 1rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    @media (min-width: 768px) {
-        .header-title h1 {
-            font-size: 1.2rem;
-        }
-    }
-
-    .header-title p {
-        font-size: 0.75rem;
-        color: var(--brand-accent);
-        font-weight: 600;
-    }
-
-    .timer-container {
-        background: rgba(255, 255, 255, 0.12);
-        padding: 6px 12px;
-        border-radius: 6px;
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        text-align: center;
-        align-self: flex-start;
-    }
-
-    @media (min-width: 768px) {
-        .timer-container {
-            align-self: auto;
-            padding: 8px 18px;
-        }
-    }
-
-    .timer-label {
-        font-size: 0.65rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: #d8f3dc;
-    }
-
-    .timer-display {
-        font-size: 1.15rem;
-        font-weight: 700;
-        font-family: 'Courier New', Courier, monospace;
-        color: #ffffff;
-    }
-
-    @media (min-width: 768px) {
-        .timer-display {
-            font-size: 1.35rem;
-        }
-    }
-
-    /* Section Navigation Bar */
-    .section-bar {
-        background: #ffffff;
-        border-bottom: 2px solid var(--border-color);
-        display: flex;
-        flex-direction: column;
-    }
-
-    @media (min-width: 768px) {
-        .section-bar {
-            flex-direction: row;
-            padding: 0 24px;
-        }
-    }
-
-    .tab-btn {
-        background: none;
-        border: none;
-        padding: 12px 16px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--text-muted);
-        cursor: pointer;
-        border-bottom: 3px solid transparent;
-        transition: all 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-        width: 100%;
-        text-align: left;
-    }
-
-    @media (min-width: 768px) {
-        .tab-btn {
-            width: auto;
-            padding: 14px 24px;
-            font-size: 0.92rem;
-            justify-content: flex-start;
-        }
-    }
-
-    .tab-btn:hover {
-        color: var(--header-accent);
-    }
-
-    .tab-btn.active {
-        color: var(--header-bg);
-        border-bottom-color: var(--header-bg);
-        background-color: #f8f9fa;
-    }
-
-    @media (min-width: 768px) {
-        .tab-btn.active {
-            background-color: transparent;
-        }
-    }
-
-    .tab-badge {
-        background: #e9ecef;
-        padding: 2px 8px;
-        border-radius: 12px;
-        font-size: 0.75rem;
-    }
-
-    .tab-btn.active .tab-badge {
-        background: var(--header-bg);
-        color: white;
-    }
-
-    /* Workspace */
-    .main-workspace {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        max-width: 1400px;
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    @media (min-width: 900px) {
-        .main-workspace {
-            flex-direction: row;
-            align-items: flex-start;
-        }
-    }
-
-    .content-area {
-        flex: 1;
-        padding: 16px;
-        min-width: 0;
-    }
-
-    @media (min-width: 768px) {
-        .content-area {
-            padding: 24px;
-        }
-    }
-
-    .instruction-box {
-        background: #ffffff;
-        border-left: 5px solid var(--header-accent);
-        border-radius: 6px;
-        padding: 14px 16px;
-        margin-bottom: 16px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    }
-
-    .instruction-box h3 {
-        color: var(--header-bg);
-        margin-bottom: 6px;
-        font-size: 0.9rem;
-    }
-
-    @media (min-width: 768px) {
-        .instruction-box h3 {
-            font-size: 1rem;
-        }
-    }
-
-    .instruction-box p {
-        font-size: 0.82rem;
-        color: var(--text-muted);
-        line-height: 1.5;
-    }
-
-    @media (min-width: 768px) {
-        .instruction-box p {
-            font-size: 0.88rem;
-        }
-    }
-
-    .passage-container {
-        background: #f8f9fa;
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 16px;
-        margin-bottom: 20px;
-    }
-
-    @media (min-width: 768px) {
-        .passage-container {
-            padding: 20px;
-            margin-bottom: 24px;
-        }
-    }
-
-    .passage-title {
-        font-weight: 700;
-        color: var(--header-bg);
-        margin-bottom: 10px;
-        font-size: 0.85rem;
-        text-transform: uppercase;
-    }
-
-    @media (min-width: 768px) {
-        .passage-title {
-            font-size: 0.95rem;
-        }
-    }
-
-    .passage-text {
-        font-size: 0.85rem;
-        line-height: 1.6;
-        color: #2c3e50;
-    }
-
-    @media (min-width: 768px) {
-        .passage-text {
-            font-size: 0.92rem;
-            line-height: 1.7;
-        }
-    }
-
-    .question-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 16px;
-        margin-bottom: 16px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        transition: border-color 0.2s;
-    }
-
-    @media (min-width: 768px) {
-        .question-card {
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-    }
-
-    .question-card.flagged {
-        border-left: 5px solid var(--flagged-color);
-    }
-
-    .question-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 12px;
-    }
-
-    .question-number {
-        font-weight: 700;
-        font-size: 0.9rem;
-        color: var(--header-bg);
-    }
-
-    @media (min-width: 768px) {
-        .question-number {
-            font-size: 0.95rem;
-        }
-    }
-
-    .flag-btn {
-        background: #fff;
-        border: 1px solid var(--border-color);
-        padding: 6px 12px;
-        border-radius: 4px;
-        font-size: 0.78rem;
-        cursor: pointer;
-        color: var(--text-muted);
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-
-    .flag-btn:hover, .flag-btn.active {
-        background: #fef5e7;
-        border-color: var(--flagged-color);
-        color: var(--flagged-color);
-        font-weight: 600;
-    }
-
-    .question-text {
-        font-size: 0.9rem;
-        margin-bottom: 16px;
-        line-height: 1.5;
-        font-weight: 600;
-    }
-
-    @media (min-width: 768px) {
-        .question-text {
-            font-size: 0.95rem;
-        }
-    }
-
-    .options-group {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .option-label {
-        display: flex;
-        align-items: center;
-        padding: 12px 14px;
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 0.88rem;
-        transition: background 0.15s;
-        background: #fff;
-    }
-
-    @media (min-width: 768px) {
-        .option-label {
-            font-size: 0.9rem;
-            padding: 10px 14px;
-        }
-    }
-
-    .option-label:hover {
-        background-color: #f0f7ff;
-        border-color: var(--secondary-color);
-    }
-
-    .option-label input[type="radio"] {
-        margin-right: 12px;
-        accent-color: var(--header-bg);
-        width: 18px;
-        height: 18px;
-    }
-
-    /* Sidebar Navigation Grid (Sticky on Desktop) */
-    .sidebar {
-        width: 100%;
-        background: white;
-        border-top: 1px solid var(--border-color);
-        display: flex;
-        flex-direction: column;
-        padding: 16px;
-        gap: 12px;
-    }
-
-    @media (min-width: 900px) {
-        .sidebar {
-            width: 320px;
-            border-top: none;
-            border-left: 1px solid var(--border-color);
-            padding: 24px;
-            gap: 16px;
-            position: sticky;
-            top: 20px;
-            margin: 24px 24px 24px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            background: #ffffff;
-        }
-    }
-
-    .sidebar-section-title {
-        font-size: 0.8rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        color: var(--text-muted);
-    }
-
-    .legend {
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.72rem;
-        border-bottom: 1px solid var(--border-color);
-        padding-bottom: 8px;
-    }
-
-    @media (min-width: 768px) {
-        .legend {
-            font-size: 0.75rem;
-            padding-bottom: 10px;
-        }
-    }
-
-    .legend-item {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-    }
-
-    .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-    }
-
-    .dot.answered { background: var(--answered-color); }
-    .dot.flagged { background: var(--flagged-color); }
-    .dot.unanswered { background: var(--border-color); }
-
-    .palette-grid {
-        display: grid;
-        grid-template-columns: repeat(8, 1fr);
-        gap: 6px;
-        max-height: 200px;
-        overflow-y: auto;
-        padding-right: 4px;
-    }
-
-    @media (min-width: 768px) {
-        .palette-grid {
-            grid-template-columns: repeat(10, 1fr);
-            max-height: 240px;
-        }
-    }
-
-    @media (min-width: 900px) {
-        .palette-grid {
-            max-height: 380px;
-            gap: 8px;
-        }
-    }
-
-    .palette-btn {
-        height: 38px;
-        border: 1px solid var(--border-color);
-        background: #fff;
-        border-radius: 4px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-
-    .palette-btn.answered {
-        background-color: var(--answered-color);
-        color: white;
-        border-color: var(--answered-color);
-    }
-
-    .palette-btn.flagged {
-        background-color: var(--flagged-color);
-        color: white;
-        border-color: var(--flagged-color);
-    }
-
-    .submit-section {
-        margin-top: 5px;
-    }
-
-    .btn-submit {
-        background-color: var(--answered-color);
-        color: white;
-        border: none;
-        padding: 12px;
-        border-radius: 6px;
-        font-weight: 700;
-        font-size: 0.95rem;
-        cursor: pointer;
-        width: 100%;
-        transition: background 0.2s;
-    }
-
-    .btn-submit:hover {
-        background-color: #1e8449;
-    }
-
-    /* Modal Screens */
-    .modal-overlay {
+    :root{
+      --forest-950:#0a2818;
+      --forest-900:#0f3d24;
+      --forest-800:#154a2d;
+      --forest-700:#1c5c39;
+      --forest-600:#237046;
+      --forest-500:#2c8955;
+      --gold-700:#8f6d15;
+      --gold-600:#a9821f;
+      --gold-500:#c9a227;
+      --gold-300:#e4c65c;
+      --paper-50:#f8f5ea;
+      --paper-100:#f0eadb;
+      --paper-200:#e5ddc6;
+      --ink-900:#182018;
+      --ink-700:#3c463d;
+      --ink-500:#657065;
+      --shadow-sm:0 2px 8px rgba(10,40,24,.10);
+      --shadow-md:0 10px 30px rgba(10,40,24,.16);
+      --shadow-lg:0 20px 60px rgba(10,40,24,.28);
+      --radius-sm:8px;
+      --radius-md:14px;
+      --radius-lg:22px;
+      --font-display:'Fraunces', Georgia, 'Times New Roman', serif;
+      --font-body:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono:'JetBrains Mono', 'Courier New', monospace;
+    }
+
+    *,*::before,*::after{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      margin:0;
+      font-family:var(--font-body);
+      color:var(--ink-900);
+      background:var(--paper-50);
+      -webkit-font-smoothing:antialiased;
+    }
+    img{max-width:100%;display:block;}
+    button{font-family:inherit;cursor:pointer;}
+    ::selection{background:var(--gold-300);color:var(--forest-950);}
+
+    :focus-visible{outline:3px solid var(--gold-500);outline-offset:2px;border-radius:4px;}
+
+    @media (prefers-reduced-motion: reduce){
+      *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important;}
+    }
+
+    .hidden{display:none !important;}
+
+    /* ---------- shared bits ---------- */
+    .eyebrow{
+      font-family:var(--font-mono);
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-size:.72rem;
+      font-weight:700;
+    }
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+      border:none;border-radius:999px;
+      padding:.85rem 1.7rem;
+      font-weight:700;font-size:.95rem;
+      transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+      white-space:nowrap;
+    }
+    .btn:active{transform:translateY(1px);}
+    .btn-gold{background:linear-gradient(180deg,var(--gold-300),var(--gold-600));color:var(--forest-950);box-shadow:var(--shadow-sm);}
+    .btn-gold:hover{box-shadow:var(--shadow-md); transform:translateY(-1px);}
+    .btn-outline{background:transparent;border:1.5px solid var(--paper-200);color:var(--paper-50);}
+    .btn-outline:hover{border-color:var(--gold-300);}
+    .btn-ghost{background:var(--paper-100);color:var(--forest-900);}
+    .btn-ghost:hover{background:var(--paper-200);}
+    .btn-danger{background:var(--forest-900);color:var(--paper-50);}
+    .btn-danger:hover{background:var(--forest-950);}
+    .btn[disabled]{opacity:.4;cursor:not-allowed;transform:none !important;box-shadow:none !important;}
+    .btn-sm{padding:.55rem 1.1rem;font-size:.82rem;border-radius:999px;}
+
+    .pill{
+      display:inline-flex;align-items:center;gap:.4rem;
+      padding:.3rem .75rem;border-radius:999px;
+      font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    }
+
+    /* ============================================================
+       GLOBAL SITE NAVBAR
+    ============================================================ */
+    .site-nav {
+      background: var(--forest-950);
+      border-bottom: 1px solid rgba(228,198,92,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--paper-50);
+    }
+    .nav-brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 0 2px var(--gold-300);
+    }
+    .nav-brand span {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: .02em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .nav-links a {
+      color: rgba(248,245,234,0.8);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--gold-300);
+    }
+    .mobile-menu-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--paper-50);
+      font-size: 1.25rem;
+      padding: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
         display: none;
-        position: fixed;
-        top: 0;
+        position: absolute;
+        top: 100%;
         left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.75);
-        z-index: 999;
-        justify-content: center;
-        align-items: center;
-        padding: 16px;
-    }
-
-    .modal-card {
-        background: white;
-        width: 100%;
-        max-width: 550px;
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        text-align: center;
-        animation: fadeIn 0.25s ease-in-out;
-    }
-
-    @media (min-width: 768px) {
-        .modal-card {
-            padding: 30px;
-            max-width: 650px;
-        }
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-15px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .modal-card h2 {
-        color: var(--header-bg);
-        font-size: 1.3rem;
-        margin-bottom: 6px;
-    }
-
-    @media (min-width: 768px) {
-        .modal-card h2 {
-            font-size: 1.6rem;
-        }
-    }
-
-    .modal-sub {
-        color: var(--text-muted);
-        margin-bottom: 18px;
-        font-size: 0.85rem;
-    }
-
-    @media (min-width: 768px) {
-        .modal-sub {
-            font-size: 0.95rem;
-            margin-bottom: 24px;
-        }
-    }
-
-    .summary-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-        margin-bottom: 18px;
-    }
-
-    @media (min-width: 768px) {
-        .summary-grid {
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-    }
-
-    .summary-box {
-        background: #f8f9fa;
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 10px 6px;
-    }
-
-    @media (min-width: 768px) {
-        .summary-box {
-            padding: 14px 10px;
-        }
-    }
-
-    .summary-box .num {
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: var(--header-bg);
-    }
-
-    @media (min-width: 768px) {
-        .summary-box .num {
-            font-size: 1.6rem;
-        }
-    }
-
-    .summary-box .label {
-        font-size: 0.65rem;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        font-weight: 600;
-    }
-
-    @media (min-width: 768px) {
-        .summary-box .label {
-            font-size: 0.75rem;
-        }
-    }
-
-    .modal-actions {
+        right: 0;
+        background: var(--forest-950);
+        flex-direction: column;
+        padding: 1.2rem 1.5rem;
+        border-bottom: 1px solid rgba(228,198,92,0.2);
+        gap: 1rem;
+        box-shadow: var(--shadow-lg);
+      }
+      .nav-links.open {
         display: flex;
-        gap: 10px;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
     }
 
-    .btn-action {
-        flex: 1;
-        padding: 10px;
-        border-radius: 6px;
-        font-weight: 700;
-        font-size: 0.88rem;
-        border: none;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-        text-align: center;
+    /* ============================================================
+       LANDING VIEW
+    ============================================================ */
+    #view-start{position:relative;min-height:calc(100vh - 65px);overflow:hidden;color:var(--paper-50);}
+    .hero-bg{
+      position:absolute;inset:0;
+      background-image:linear-gradient(180deg, rgba(10,32,20,.72) 0%, rgba(10,32,20,.88) 45%, rgba(9,26,17,.97) 100%), url('aau.jpg');
+      background-size:cover;background-position:center 30%;
+      filter:saturate(.9);
+    }
+    .hero-inner{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:2.6rem 1.5rem 5rem;}
+    .hero-topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:2.5rem;}
+    .brand-mark{display:flex;align-items:center;gap:.7rem;}
+    .brand-mark img{width:46px;height:46px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 3px rgba(228,198,92,.55);}
+    .brand-mark span{font-family:var(--font-display);font-weight:700;font-size:1.05rem;letter-spacing:.01em;}
+
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:.5rem;
+      background:rgba(228,198,92,.14);
+      border:1px solid rgba(228,198,92,.5);
+      color:var(--gold-300);
+      padding:.4rem .9rem;border-radius:999px;
+      font-family:var(--font-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+      margin-bottom:1.4rem;
+    }
+    .hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--gold-300);}
+
+    .hero-title{
+      font-family:var(--font-display);
+      font-weight:700;
+      font-size:clamp(2.4rem, 6vw, 4rem);
+      line-height:1.02;
+      margin:0 0 .9rem;
+      letter-spacing:-.01em;
+    }
+    .hero-title em{font-style:italic;color:var(--gold-300);}
+    .hero-sub{
+      font-size:1.08rem;line-height:1.6;color:rgba(248,245,234,.86);
+      max-width:640px;margin:0 0 2.2rem;
     }
 
-    @media (min-width: 768px) {
-        .btn-action {
-            padding: 12px;
-            font-size: 0.95rem;
-        }
+    .stat-row{display:flex;flex-wrap:wrap;gap:.9rem;margin-bottom:2.4rem;}
+    .stat-chip{
+      background:rgba(248,245,234,.08);
+      border:1px solid rgba(248,245,234,.18);
+      border-radius:var(--radius-md);
+      padding:.9rem 1.2rem;min-width:118px;
+      flex: 1 1 auto;
+    }
+    .stat-chip strong{display:block;font-family:var(--font-display);font-size:1.5rem;color:var(--gold-300);}
+    .stat-chip span{font-size:.74rem;color:rgba(248,245,234,.7);text-transform:uppercase;letter-spacing:.08em;font-family:var(--font-mono);}
+
+    .start-card{
+      background:var(--paper-50);
+      color:var(--ink-900);
+      border-radius:var(--radius-lg);
+      padding:2rem 2.2rem;
+      box-shadow:var(--shadow-lg);
+      position:relative;
+      overflow:hidden;
+    }
+    .start-card::before{
+      content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;
+      background:radial-gradient(circle, var(--gold-300) 0%, transparent 70%);
+      opacity:.35;
+    }
+    .start-card h2{
+      font-family:var(--font-display);font-size:1.4rem;margin:0 0 1.1rem;color:var(--forest-900);
+      display:flex;align-items:center;gap:.6rem;
+    }
+    .start-card ul{margin:0 0 1.6rem;padding-left:1.1rem;color:var(--ink-700);line-height:1.7;font-size:.95rem;}
+    .start-card li{margin-bottom:.3rem;}
+    .name-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1.6rem;}
+    .name-row input{
+      flex:1;min-width:220px;
+      border:1.5px solid var(--paper-200);
+      background:var(--paper-100);
+      border-radius:var(--radius-sm);
+      padding:.75rem 1rem;font-size:.95rem;font-family:inherit;color:var(--ink-900);
+    }
+    .name-row input:focus{border-color:var(--forest-600);background:#fff;}
+    .start-actions{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+    .start-actions .btn-gold{padding:1rem 2.1rem;font-size:1rem;}
+    .fineprint{font-size:.78rem;color:var(--ink-500);}
+
+    .hero-footer{
+      position:relative;z-index:1;text-align:center;padding:1.4rem 1rem 2rem;
+      font-family:var(--font-mono);font-size:.74rem;letter-spacing:.06em;color:rgba(248,245,234,.55);
     }
 
-    .btn-cancel {
-        background: #e9ecef;
-        color: var(--text-dark);
+    /* ============================================================
+       EXAM VIEW
+    ============================================================ */
+    #view-exam{min-height:calc(100vh - 65px);background:var(--paper-50);display:flex;flex-direction:column;}
+
+    .exam-header{
+      position:sticky;top:65px;z-index:20;
+      background:linear-gradient(180deg, var(--forest-900), var(--forest-800));
+      color:var(--paper-50);
+      box-shadow:var(--shadow-md);
+      padding:.75rem 1.4rem;
+      display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+    }
+    .exam-header .h-left{display:flex;align-items:center;gap:.7rem;}
+    .exam-header .h-left img{width:34px;height:34px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px rgba(228,198,92,.55);}
+    .exam-header .h-title{font-family:var(--font-display);font-weight:600;font-size:1rem;line-height:1.15;}
+    .exam-header .h-title small{display:block;font-family:var(--font-mono);font-size:.66rem;color:var(--gold-300);letter-spacing:.08em;text-transform:uppercase;font-weight:700;}
+
+    .h-center{display:flex;align-items:center;gap:.6rem;}
+    .section-pill{background:rgba(228,198,92,.16);border:1px solid rgba(228,198,92,.4);color:var(--gold-300);}
+    .qcount-pill{background:rgba(248,245,234,.1);border:1px solid rgba(248,245,234,.2);color:var(--paper-50);}
+
+    .timer-wrap{display:flex;align-items:center;gap:.6rem;}
+    .timer-ring{position:relative;width:52px;height:52px;flex:none;}
+    .timer-ring svg{transform:rotate(-90deg);}
+    .timer-ring circle{fill:none;stroke-width:5;}
+    .timer-track{stroke:rgba(248,245,234,.16);}
+    .timer-bar{stroke:var(--gold-300);stroke-linecap:round;transition:stroke-dashoffset 1s linear, stroke .3s ease;}
+    .timer-digits{font-family:var(--font-mono);font-weight:700;font-size:1.05rem;letter-spacing:.02em;}
+    .timer-label{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(248,245,234,.6);}
+
+    .exam-shell{
+      flex:1;
+      display:grid;
+      grid-template-columns:230px minmax(0,1fr) 260px;
+      gap:1.3rem;
+      max-width:1360px;width:100%;margin:0 auto;
+      padding:1.4rem;
     }
 
-    .btn-confirm {
-        background: var(--answered-color);
-        color: white;
+    .rail{display:flex;flex-direction:column;gap:1rem;}
+    .rail-card{
+      background:#fff;border:1px solid var(--paper-200);border-radius:var(--radius-md);
+      padding:1.1rem 1.15rem;box-shadow:var(--shadow-sm);
+    }
+    .rail-card h3{
+      margin:0 0 .7rem;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--forest-700);font-weight:700;
+    }
+    .rail-logo-card{text-align:center;padding:1.3rem 1rem;}
+    .rail-logo-card img{width:76px;height:76px;object-fit:cover;border-radius:50%;margin:0 auto .6rem;box-shadow:0 0 0 4px var(--paper-100), 0 4px 14px rgba(15,61,36,.18);}
+    .rail-logo-card p{margin:0;font-family:var(--font-display);font-weight:600;font-size:.92rem;color:var(--forest-900);}
+    .rail-logo-card span{display:block;font-family:var(--font-mono);font-size:.65rem;color:var(--ink-500);letter-spacing:.06em;text-transform:uppercase;margin-top:.15rem;}
+
+    .candidate-row{display:flex;justify-content:space-between;font-size:.85rem;padding:.35rem 0;border-bottom:1px dashed var(--paper-200);}
+    .candidate-row:last-child{border-bottom:none;}
+    .candidate-row span:first-child{color:var(--ink-500);}
+    .candidate-row span:last-child{font-weight:700;color:var(--forest-900);}
+
+    .progress-track{height:8px;background:var(--paper-100);border-radius:99px;overflow:hidden;margin:.4rem 0 .3rem;}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--forest-600),var(--gold-500));border-radius:99px;transition:width .3s ease;}
+    .progress-caption{font-size:.76rem;color:var(--ink-500);}
+
+    .submit-side-btn{width:100%;}
+
+    .palette-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;}
+    .pnum{
+      position:relative;
+      border:1.5px solid var(--paper-200);background:var(--paper-50);color:var(--ink-700);
+      border-radius:8px;font-family:var(--font-mono);font-weight:700;font-size:.78rem;
+      padding:.5rem 0;text-align:center;transition:all .15s ease;
+    }
+    .pnum:hover{border-color:var(--forest-500);}
+    .pnum.answered{background:var(--forest-700);border-color:var(--forest-700);color:#fff;}
+    .pnum.current{outline:2.5px solid var(--gold-500);outline-offset:1px;}
+    .pnum.flagged::after{
+      content:"";position:absolute;top:-3px;right:-3px;width:8px;height:8px;border-radius:50%;
+      background:var(--gold-600);box-shadow:0 0 0 2px #fff;
+    }
+    .palette-legend{display:flex;flex-direction:column;gap:.4rem;margin-top:.9rem;font-size:.74rem;color:var(--ink-700);}
+    .palette-legend .lg-item{display:flex;align-items:center;gap:.5rem;}
+    .lg-swatch{width:12px;height:12px;border-radius:4px;flex:none;}
+
+    /* question card */
+    .qcard-wrap{display:flex;flex-direction:column;gap:1rem;min-width:0;}
+    .qcard{
+      background:#fff;border:1px solid var(--paper-200);border-radius:var(--radius-lg);
+      box-shadow:var(--shadow-sm);
+      padding:1.9rem 2rem 2.1rem;
+      position:relative;overflow:hidden;
+      animation:cardIn .32s ease both;
+    }
+    @keyframes cardIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+    .qcard::before{
+      content:"THE 5% CLUB · WORK UNTIL IT'S DONE · THE 5% CLUB · WORK UNTIL IT'S DONE · ";
+      position:absolute;inset:0;
+      font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:.1em;
+      color:var(--forest-900);opacity:.025;
+      writing-mode:vertical-rl;line-height:2.6rem;
+      white-space:normal;word-break:break-all;
+      pointer-events:none;
+    }
+    .qcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.1rem;position:relative;z-index:1;}
+    .qtag{color:var(--forest-700);font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+    .qnum-badge{
+      font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--forest-950);
+      background:var(--paper-100);border:1px solid var(--paper-200);
+      border-radius:999px;padding:.3rem .95rem;flex:none;
+    }
+    .flag-btn{
+      display:inline-flex;align-items:center;gap:.35rem;background:transparent;border:1.5px solid var(--paper-200);
+      border-radius:999px;padding:.4rem .85rem;font-size:.76rem;font-weight:700;color:var(--ink-700);
+    }
+    .flag-btn.on{background:var(--paper-100);border-color:var(--gold-600);color:var(--gold-600);}
+
+    .passage-toggle{
+      display:inline-flex;align-items:center;gap:.4rem;margin-bottom:1rem;
+      background:var(--paper-100);border:1px solid var(--paper-200);border-radius:var(--radius-sm);
+      padding:.5rem .8rem;font-size:.8rem;font-weight:600;color:var(--forest-800);position:relative;z-index:1;
+    }
+    .passage-box{
+      background:var(--paper-50);border-left:3px solid var(--gold-500);border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+      padding:1rem 1.2rem;margin:0 0 1.2rem;font-size:.88rem;line-height:1.7;color:var(--ink-700);
+      max-height:220px;overflow-y:auto;position:relative;z-index:1;
+    }
+    .passage-box p{margin:0 0 .8rem;}
+    .passage-box p:last-child{margin-bottom:0;}
+    .passage-box strong{color:var(--forest-900);}
+
+    .qtext{
+      font-family:var(--font-display);font-size:1.22rem;line-height:1.5;color:var(--ink-900);
+      margin:0 0 1.5rem;position:relative;z-index:1;
     }
 
-    .btn-home {
-        background: var(--header-bg);
-        color: white;
-        width: 100%;
+    .options{display:flex;flex-direction:column;gap:.65rem;position:relative;z-index:1;}
+    .opt{
+      display:flex;align-items:flex-start;gap:.8rem;
+      border:1.5px solid var(--paper-200);border-radius:var(--radius-md);
+      padding:.85rem 1rem;cursor:pointer;transition:all .15s ease;background:#fff;
+    }
+    .opt:hover{border-color:var(--forest-500);background:var(--paper-50);}
+    .opt input{position:absolute;opacity:0;pointer-events:none;}
+    .opt .letter{
+      flex:none;width:28px;height:28px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-family:var(--font-mono);font-weight:700;font-size:.82rem;
+      background:var(--paper-100);color:var(--forest-800);border:1.5px solid var(--paper-200);
+      transition:all .15s ease;
+    }
+    .opt .otext{font-size:.95rem;line-height:1.5;padding-top:.15rem;color:var(--ink-800);}
+    .opt.selected{border-color:var(--forest-700);background:var(--paper-100);box-shadow:0 0 0 1px var(--forest-700) inset;}
+    .opt.selected .letter{background:var(--forest-700);color:#fff;border-color:var(--forest-700);}
+
+    .qnav-row{display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;position:relative;z-index:1;margin-top:1.6rem;padding-top:1.3rem;border-top:1px dashed var(--paper-200);}
+    .qnav-row .left-btns, .qnav-row .right-btns{display:flex;gap:.6rem;flex-wrap:wrap;}
+
+    .mobile-submit{display:none;}
+
+    /* ============================================================
+       RESULTS VIEW
+    ============================================================ */
+    #view-results{min-height:calc(100vh - 65px);background:var(--paper-50);}
+    .results-hero{
+      background:linear-gradient(160deg, var(--forest-950), var(--forest-800));
+      color:var(--paper-50);padding:2.4rem 1.4rem 3.2rem;
+    }
+    .results-hero-inner{max-width:1120px;margin:0 auto;}
+    .results-topline{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.8rem;}
+    .results-topline .brand-mark img{width:38px;height:38px;}
+
+    .score-panel{
+      display:grid;grid-template-columns:auto 1fr auto;gap:2rem;align-items:center;
+      background:rgba(248,245,234,.06);border:1px solid rgba(248,245,234,.15);
+      border-radius:var(--radius-lg);padding:1.8rem 2rem;
+    }
+    .ring-wrap{position:relative;width:150px;height:150px;flex:none;}
+    .ring-wrap svg{transform:rotate(-90deg);width:150px;height:150px;}
+    .ring-wrap circle{fill:none;stroke-width:11;}
+    .ring-track{stroke:rgba(248,245,234,.14);}
+    .ring-bar{stroke:var(--gold-300);stroke-linecap:round;transition:stroke-dashoffset 1s ease;}
+    .ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .ring-center strong{font-family:var(--font-display);font-size:2.1rem;line-height:1;}
+    .ring-center span{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.08em;color:rgba(248,245,234,.65);margin-top:.3rem;text-transform:uppercase;}
+
+    .score-mid h2{font-family:var(--font-display);margin:0 0 .3rem;font-size:1.5rem;}
+    .score-mid p{margin:0 0 1.1rem;color:rgba(248,245,234,.75);font-size:.92rem;}
+    .badge-line{display:flex;gap:.7rem;flex-wrap:wrap;}
+    .badge{
+      font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+      padding:.45rem 1rem;border-radius:999px;
+    }
+    .badge-gold{background:linear-gradient(180deg,var(--gold-300),var(--gold-600));color:var(--forest-950);}
+    .badge-green{background:var(--paper-100);color:var(--forest-700);}
+    .badge-amber{background:var(--paper-100);color:var(--gold-600);}
+
+    .section-breakdown{display:flex;flex-direction:column;gap:.9rem;min-width:210px;}
+    .sb-row span{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(248,245,234,.7);}
+    .sb-row strong{display:block;font-family:var(--font-display);font-size:1rem;margin-bottom:.25rem;}
+    .sb-track{height:7px;border-radius:99px;background:rgba(248,245,234,.15);overflow:hidden;}
+    .sb-fill{height:100%;border-radius:99px;background:var(--gold-300);}
+
+    .results-actions{display:flex;gap:1rem;margin-top:1.6rem;flex-wrap:wrap;}
+
+    .results-body{max-width:1120px;margin:0 auto;padding:2.2rem 1.4rem 4rem;}
+    .filter-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.6rem;}
+    .filter-btn{
+      border:1.5px solid var(--paper-200);background:#fff;color:var(--ink-700);
+      padding:.55rem 1.1rem;border-radius:999px;font-size:.82rem;font-weight:700;
+    }
+    .filter-btn.active{background:var(--forest-900);border-color:var(--forest-900);color:#fff;}
+
+    .review-card{
+      background:#fff;border-radius:var(--radius-md);box-shadow:var(--shadow-sm);
+      margin-bottom:1rem;overflow:hidden;border-left:6px solid var(--paper-200);
+    }
+    .review-card.is-correct{border-left-color:var(--forest-700);}
+    .review-card.is-wrong{border-left-color:var(--forest-950);}
+    .review-card.is-blank{border-left-color:var(--ink-500);}
+    .review-head{padding:1.1rem 1.4rem .3rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+    .review-head .qtag{margin-bottom:.25rem;}
+    .review-status{
+      font-family:var(--font-mono);font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+      padding:.3rem .7rem;border-radius:999px;flex:none;
+    }
+    .status-correct{background:var(--paper-100);color:var(--forest-700);}
+    .status-wrong{background:var(--paper-200);color:var(--forest-950);}
+    .status-blank{background:var(--paper-100);color:var(--ink-500);}
+    .review-body{padding:.4rem 1.4rem 1.3rem;}
+    .review-body .qtext{font-size:1.02rem;margin-bottom:1rem;}
+    .review-opt-list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem;}
+    .review-opt{
+      display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .85rem;border-radius:10px;font-size:.9rem;
+      border:1.5px solid var(--paper-200);
+    }
+    .review-opt .letter{flex:none;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-weight:700;font-size:.74rem;background:var(--paper-100);border:1.5px solid var(--paper-200);}
+    .review-opt.correct-answer{border-color:var(--forest-700);background:var(--paper-100);}
+    .review-opt.correct-answer .letter{background:var(--forest-700);color:#fff;border-color:var(--forest-700);}
+    .review-opt.wrong-pick{border-color:var(--forest-950);background:var(--paper-200);}
+    .review-opt.wrong-pick .letter{background:var(--forest-950);color:#fff;border-color:var(--forest-950);}
+    .opt-tag{margin-left:auto;font-family:var(--font-mono);font-size:.65rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;flex:none;padding-top:.15rem;}
+
+    .explain-box{
+      background:var(--paper-50);border-radius:10px;padding:.9rem 1.1rem;font-size:.87rem;line-height:1.6;color:var(--ink-700);
+    }
+    .explain-box b{color:var(--forest-800);font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:.35rem;}
+
+    /* modal + toast */
+    .modal-overlay{
+      position:fixed;inset:0;background:rgba(10,32,20,.6);backdrop-filter:blur(2px);
+      display:flex;align-items:center;justify-content:center;z-index:100;padding:1.2rem;
+    }
+    .modal-box{
+      background:#fff;border-radius:var(--radius-lg);max-width:440px;width:100%;
+      padding:1.9rem 2rem;box-shadow:var(--shadow-lg);
+    }
+    .modal-box h3{font-family:var(--font-display);margin:0 0 .7rem;color:var(--forest-900);font-size:1.25rem;}
+    .modal-box p{margin:0 0 1.3rem;color:var(--ink-700);font-size:.92rem;line-height:1.6;}
+    .modal-actions{display:flex;gap:.8rem;justify-content:flex-end;flex-wrap:wrap;}
+
+    .toast{
+      position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%) translateY(20px);
+      background:var(--forest-950);color:var(--paper-50);padding:.85rem 1.4rem;border-radius:999px;
+      font-size:.85rem;font-weight:600;box-shadow:var(--shadow-lg);z-index:200;
+      opacity:0;transition:all .3s ease;pointer-events:none;
+    }
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+    @media print{
+      .no-print{display:none !important;}
+      .exam-header, .rail, .site-nav{display:none !important;}
+      body{background:#fff;}
+    }
+
+    /* ---------- responsive ---------- */
+    @media (max-width: 980px){
+      .exam-shell{grid-template-columns:1fr;padding:1rem;}
+      .rail{flex-direction:row;flex-wrap:wrap;}
+      .rail-card{flex:1;min-width:150px;}
+      .palette-grid{grid-template-columns:repeat(8,1fr);}
+      .score-panel{grid-template-columns:1fr;text-align:center;}
+      .ring-wrap{margin:0 auto;}
+      .section-breakdown{align-items:center;}
+    }
+    @media (max-width: 620px){
+      .exam-header{padding:.65rem .8rem;}
+      .h-title{font-size:.85rem;}
+      .hero-inner{padding:1.6rem 1rem 3.5rem;}
+      .start-card{padding:1.5rem 1.3rem;}
+      .qcard{padding:1.4rem 1.2rem 1.7rem;}
+      .qtext{font-size:1.06rem;}
+      .palette-grid{grid-template-columns:repeat(6,1fr);}
+      .h-center .qcount-pill{display:none;}
+      .mobile-submit{display:block;width:100%;margin-top:1rem;}
+      .submit-side-btn{display:none;}
     }
   </style>
 </head>
 <body>
 
-<!-- Header -->
-<header>
-  <div class="header-title">
-    <h1>🏛️ AAU ADMISSION TEST (UAT)</h1>
-    <p>The 5% Club Official Examination Series</p>
+<!-- GLOBAL NAVIGATION BAR -->
+<nav class="site-nav">
+  <div class="nav-container">
+    <a href="index.html" class="nav-brand">
+      <img src="logo.jpg" alt="The 5% Club">
+      <span>The 5% Club</span>
+    </a>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" class="active"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="materials.html"><i class="fa-solid fa-book"></i> Materials</a>
+      <a href="about.html"><i class="fa-solid fa-users"></i> About Us</a>
+    </div>
   </div>
-  <div class="timer-container">
-    <div class="timer-label" id="timer-section-label">Remaining Time</div>
-    <div class="timer-display" id="timer">02:00:00</div>
-  </div>
-</header>
+</nav>
 
-<!-- Section Bar -->
-<div class="section-bar">
-  <button class="tab-btn active" id="tab-sec1" onclick="switchSection(1)">
-    <span>Section 1: English Aptitude</span>
-    <span class="tab-badge">55 Qs</span>
-  </button>
-  <button class="tab-btn" id="tab-sec2" onclick="switchSection(2)">
-    <span>Section 2: Quantitative Aptitude</span>
-    <span class="tab-badge">45 Qs</span>
-  </button>
-</div>
+<!-- =========================================================
+     LANDING VIEW
+========================================================= -->
+<section id="view-start">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-topbar">
+      <div class="brand-mark">
+        <img src="logo.jpg" alt="The 5% Club">
+        <span>THE 5% CLUB</span>
+      </div>
+      <div class="brand-mark">
+        <span style="text-align:right;">ADDIS ABABA UNIVERSITY</span>
+        <img src="aaulogo.jpg" alt="Addis Ababa University">
+      </div>
+    </div>
 
-<!-- Main Workspace -->
-<div class="main-workspace">
+    <div class="hero-badge"><span class="dot"></span> Free Trial Exam · Round 1</div>
+    <h1 class="hero-title">AAU UAT Mock Exam,<br><em>graded the moment you finish.</em></h1>
+    <p class="hero-sub">60 questions pulled straight from The 5% Club's Round 1 prep set — English and Mathematics, timed like the real UAT. Take it once, see exactly where you stand, and retake it as many times as it takes.</p>
 
-  <div class="content-area" id="content-area">
+    <div class="stat-row">
+      <div class="stat-chip"><strong>60</strong><span>Questions</span></div>
+      <div class="stat-chip"><strong>2</strong><span>Sections</span></div>
+      <div class="stat-chip"><strong>120</strong><span>Minutes</span></div>
+      <div class="stat-chip"><strong>∞</strong><span>Retakes</span></div>
+    </div>
 
-    <!-- SECTION 1 -->
-    <div id="section-1-wrapper">
-      <div class="instruction-box">
-        <h3>SECTION 1: ENGLISH APTITUDE & REASONING (Q1 - Q55)</h3>
-        <p><strong>Instructions:</strong> Read each question carefully and select the single best option.</p>
+    <div class="start-card">
+      <h2>Before you begin</h2>
+      <ul>
+        <li>This booklet has two sections: <strong>English</strong> (35 items) and <strong>Mathematics</strong> (25 items).</li>
+        <li>Every question has exactly one best answer.</li>
+        <li>You have <strong>2 hours</strong> — the clock starts the moment you click begin, and keeps running even if you close the tab.</li>
+        <li>Jump between questions freely using the number palette, and flag anything you want to revisit.</li>
+        <li>If time runs out, whatever you've selected is auto-submitted.</li>
+        <li>Full explanations and a scored breakdown are waiting for you on the results page — take it as many times as you like.</li>
+      </ul>
+
+      <div class="name-row">
+        <input type="text" id="candidateName" placeholder="Your name (optional, for the results page)" maxlength="40">
       </div>
 
-      <div class="passage-container">
-        <div class="passage-title">Reading Comprehension Passage (Questions 26 - 29)</div>
-        <div class="passage-text">
-          <strong>Parenting in the 21st Century</strong><br><br>
-          I decided to write this book for several reasons. I was dissatisfied with parenting-advice literature, finding it to be riddled with oversimplified messages, and often unrelated to or at odds with current scientific knowledge. I also felt certain after years as a professor, researcher, and author of textbooks on child development that contemporary theory and research contain many vital, practical messages ones crucial for parents to understand if they are to effectively help their children develop. Furthermore, I've been approached on countless occasions by uneasy parents, frustrated by a wide array of child-rearing issues. I became convinced, therefore, that parents needed a consistent way of thinking about their role to guide them in making effective decisions.<br><br>
-          It's little wonder that parents are perplexed about what approach to take to child-rearing. Today's world is one which makes parenting exceedingly difficult. In many industrialized countries, the majority of mothers of preschool children are in the workforce, though not always through choice. This group in particular tends to lament the lack of practical advice for parents in their child-rearing roles. Many parents simultaneously complain that they're busier than ever and that, due to the growing demands of their jobs, they have little time for their children. Nations of pressured, preoccupied parents have emerged in an era of grave public concern for the well-being of youth.<br><br>
-          It would seem from looking at current media that the younger generation are achieving less well than they should and that they often display a worrying lack of direction, manifested at its worst in a variety of social problems. These problems seem to have infiltrated even the most economically privileged sectors of the population, affecting young people who, on the face of things, have been granted the best of life's chances. Accounts of children being deprived of their childhood and growing up too fast, or the dangers of promoting materialism to young people, abound in the media.<br><br>
-          In many countries there is a growing sense of 'youth alienation' and parents rightly fear for their own children's futures. But agreement on what parents can and should do to shield children from underachievement and demoralization eludes those who seek it on the shelves of libraries or bookstores. Parenting advice has always been in a state of flux, at no time more so than the present. While the fundamental goal of parenting to instill character and moral development has stood firm amid the various passing fashions in child care over the years, the approach to accomplishing this has varied considerably. Some authors, convinced that parents are in control of what their children become, advise a 'get tough' approach. Other authors, however, attribute many of today's social problems to the excessive pressure put on children by parents. Current thinking on child-rearing advice mirrors historical shifts in theories of development and education. The most disturbing trend in the literature has been a move to deny that parents make any notable contribution to their children's development.
+      <div class="start-actions">
+        <button class="btn btn-gold" id="btnBeginExam">Begin Exam →</button>
+        <span class="fineprint">No sign-up. No reference materials. Work until it's done.</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-footer">THE 5% CLUB · UAT EXAM PREPARATION PROGRAM · @The5clubsenjo · AAU READY!</div>
+</section>
+
+<!-- =========================================================
+     EXAM VIEW
+========================================================= -->
+<section id="view-exam" class="hidden">
+  <header class="exam-header">
+    <div class="h-left">
+      <img src="logo.jpg" alt="The 5% Club">
+      <div class="h-title">AAU UAT Mock Exam <small>Round 1 · The 5% Club</small></div>
+    </div>
+    <div class="h-center">
+      <span class="pill section-pill" id="hdrSection">English</span>
+      <span class="pill qcount-pill" id="hdrQCount">Question 1 / 60</span>
+    </div>
+    <div class="timer-wrap">
+      <div class="timer-ring" id="timerRing">
+        <svg viewBox="0 0 52 52"><circle class="timer-track" cx="26" cy="26" r="22"></circle><circle class="timer-bar" id="timerBarSvg" cx="26" cy="26" r="22"></circle></svg>
+      </div>
+      <div>
+        <div class="timer-digits" id="timerDigits">02:00:00</div>
+        <div class="timer-label">Time remaining</div>
+      </div>
+      <button class="btn btn-outline btn-sm no-print" id="btnSubmitHeader">Submit</button>
+    </div>
+  </header>
+
+  <div class="exam-shell">
+    <!-- LEFT RAIL -->
+    <aside class="rail">
+      <div class="rail-card rail-logo-card">
+        <img src="aaulogo.jpg" alt="Addis Ababa University">
+        <p>Addis Ababa University</p>
+        <span>UAT Candidate Panel</span>
+      </div>
+      <div class="rail-card">
+        <h3>Candidate</h3>
+        <div class="candidate-row"><span>Name</span><span id="railName">Candidate</span></div>
+        <div class="candidate-row"><span>Section</span><span id="railSection">English</span></div>
+        <div class="candidate-row"><span>Answered</span><span id="railAnswered">0 / 60</span></div>
+        <div class="progress-track"><div class="progress-fill" id="railProgress" style="width:0%"></div></div>
+        <div class="progress-caption" id="railProgressCaption">0% complete</div>
+      </div>
+      <button class="btn btn-danger submit-side-btn no-print" id="btnSubmitSide">Submit Exam</button>
+    </aside>
+
+    <!-- CENTER QUESTION CARD -->
+    <div class="qcard-wrap">
+      <div class="qcard" id="qcard">
+        <div class="qcard-top">
+          <div>
+            <div class="qtag" id="qTag">Advanced Vocabulary</div>
+            <span class="qnum-badge" id="qNumBadge">Q1</span>
+          </div>
+          <button class="flag-btn no-print" id="btnFlag"><i class="fa-solid fa-flag"></i> Mark for review</button>
+        </div>
+
+        <button class="passage-toggle hidden no-print" id="passageToggle"><i class="fa-solid fa-book-open"></i> Show reading passage</button>
+        <div class="passage-box hidden" id="passageBox"></div>
+
+        <p class="qtext" id="qText"></p>
+        <div class="options" id="optionsList"></div>
+
+        <div class="qnav-row">
+          <div class="left-btns">
+            <button class="btn btn-ghost btn-sm" id="btnPrev"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+            <button class="btn btn-ghost btn-sm" id="btnClear">Clear response</button>
+          </div>
+          <div class="right-btns">
+            <button class="btn btn-gold btn-sm" id="btnNext">Next <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-danger mobile-submit no-print" id="btnSubmitMobile">Submit Exam</button>
+    </div>
+
+    <!-- RIGHT RAIL -->
+    <aside class="rail">
+      <div class="rail-card rail-logo-card">
+        <img src="logo.jpg" alt="The 5% Club">
+        <p>The 5% Club</p>
+        <span>Work until it's done</span>
+      </div>
+      <div class="rail-card">
+        <h3>Question Palette</h3>
+        <div class="palette-grid" id="paletteGrid"></div>
+        <div class="palette-legend">
+          <div class="lg-item"><span class="lg-swatch" style="background:var(--forest-700);"></span> Answered</div>
+          <div class="lg-item"><span class="lg-swatch" style="background:var(--paper-50);border:1.5px solid var(--paper-200);"></span> Unanswered</div>
+          <div class="lg-item"><span class="lg-swatch" style="background:var(--gold-600);"></span> Flagged</div>
+          <div class="lg-item"><span class="lg-swatch" style="background:#fff;border:2px solid var(--gold-500);"></span> Current</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- =========================================================
+     RESULTS VIEW
+========================================================= -->
+<section id="view-results" class="hidden">
+  <div class="results-hero">
+    <div class="results-hero-inner">
+      <div class="results-topline">
+        <div class="brand-mark"><img src="logo.jpg" alt="The 5% Club"><span>THE 5% CLUB · RESULTS</span></div>
+        <div class="brand-mark"><span style="text-align:right;">ADDIS ABABA UNIVERSITY</span><img src="aaulogo.jpg" alt="AAU"></div>
+      </div>
+
+      <div class="score-panel">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 150 150"><circle class="ring-track" cx="75" cy="75" r="64"></circle><circle class="ring-bar" id="ringBar" cx="75" cy="75" r="64"></circle></svg>
+          <div class="ring-center"><strong id="ringPct">0%</strong><span>Score</span></div>
+        </div>
+        <div class="score-mid">
+          <h2 id="resTitle">Exam Completed</h2>
+          <p id="resSub">Here is your full performance evaluation for the AAU UAT Mock Exam.</p>
+          <div class="badge-line">
+            <span class="badge badge-gold" id="resBadgeStatus">Passing</span>
+            <span class="badge badge-green" id="resCorrectBadge">0 / 60 Correct</span>
+          </div>
+        </div>
+        <div class="section-breakdown">
+          <div class="sb-row">
+            <span>English (35Q)</span>
+            <strong id="sbEngVal">0 / 35</strong>
+            <div class="sb-track"><div class="sb-fill" id="sbEngFill" style="width:0%"></div></div>
+          </div>
+          <div class="sb-row">
+            <span>Mathematics (25Q)</span>
+            <strong id="sbMathVal">0 / 25</strong>
+            <div class="sb-track"><div class="sb-fill" id="sbMathFill" style="width:0%"></div></div>
+          </div>
         </div>
       </div>
 
-      <div id="english-questions-container"></div>
-    </div>
-
-    <!-- SECTION 2 -->
-    <div id="section-2-wrapper" style="display: none;">
-      <div class="instruction-box">
-        <h3>SECTION 2: MATHEMATICAL & QUANTITATIVE APTITUDE (Q1 - Q45)</h3>
-        <p><strong>Instructions:</strong> Solve each quantitative problem carefully. Questions cover algebra, geometry, word problems, rate models, combinatorics, and spatial data interpretation.</p>
+      <div class="results-actions">
+        <button class="btn btn-gold" id="btnRetake"><i class="fa-solid fa-rotate-right"></i> Retake Exam</button>
+        <button class="btn btn-outline" id="btnPrint"><i class="fa-solid fa-print"></i> Print Results</button>
+        <a href="materials.html" class="btn btn-outline"><i class="fa-solid fa-book"></i> View Study Materials</a>
       </div>
-
-      <div id="math-questions-container"></div>
-    </div>
-
-  </div>
-
-  <!-- Sidebar Navigation Grid -->
-  <div class="sidebar">
-    <div class="sidebar-section-title" id="palette-title">English Palette (1-55)</div>
-
-    <div class="legend">
-      <div class="legend-item"><div class="dot answered"></div> Answered</div>
-      <div class="legend-item"><div class="dot flagged"></div> Flagged</div>
-      <div class="legend-item"><div class="dot unanswered"></div> Unanswered</div>
-    </div>
-
-    <div class="palette-grid" id="palette-grid"></div>
-
-    <div class="submit-section">
-      <button class="btn-submit" onclick="openReviewModal()">Final Review & Submit</button>
     </div>
   </div>
 
-</div>
-
-<!-- Review Modal -->
-<div class="modal-overlay" id="review-modal">
-  <div class="modal-card">
-    <h2>📋 Review Your Exam Status</h2>
-    <p class="modal-sub">Please confirm your progress before final submission.</p>
-
-    <div class="summary-grid">
-      <div class="summary-box">
-        <div class="num" id="rev-answered">0 / 100</div>
-        <div class="label">Answered</div>
-      </div>
-      <div class="summary-box">
-        <div class="num" id="rev-unanswered" style="color: var(--danger-color);">100</div>
-        <div class="label">Unanswered</div>
-      </div>
-      <div class="summary-box">
-        <div class="num" id="rev-flagged" style="color: var(--flagged-color);">0</div>
-        <div class="label">Flagged</div>
-      </div>
+  <div class="results-body">
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="all">All Questions</button>
+      <button class="filter-btn" data-filter="wrong">Incorrect & Missed</button>
+      <button class="filter-btn" data-filter="correct">Correct</button>
+      <button class="filter-btn" data-filter="flagged">Flagged</button>
     </div>
+    <div id="reviewContainer"></div>
+  </div>
+</section>
 
+<!-- MODAL CONFIRMATION -->
+<div class="modal-overlay hidden" id="modalConfirm">
+  <div class="modal-box">
+    <h3 id="modalTitle">Submit Exam?</h3>
+    <p id="modalDesc">Are you sure you want to finish and submit your exam? You will immediately see your grade and full answers review.</p>
     <div class="modal-actions">
-      <button class="btn-action btn-cancel" onclick="closeReviewModal()">Back to Test</button>
-      <button class="btn-action btn-confirm" onclick="confirmFinalSubmit()">Submit Final Test</button>
+      <button class="btn btn-ghost btn-sm" id="modalCancel">Resume Exam</button>
+      <button class="btn btn-gold btn-sm" id="modalConfirmBtn">Yes, Submit Now</button>
     </div>
   </div>
 </div>
 
-<!-- Submission Modal -->
-<div class="modal-overlay" id="result-modal">
-  <div class="modal-card">
-    <h2>🎉 Examination Submitted!</h2>
-    <p class="modal-sub">Your answers for the AAU UAT Mock Examination have been recorded successfully.</p>
-
-    <div class="summary-grid">
-      <div class="summary-box">
-        <div class="num" id="res-total-answered">0 / 100</div>
-        <div class="label">Total Answered</div>
-      </div>
-      <div class="summary-box">
-        <div class="num" id="res-completion-rate">0%</div>
-        <div class="label">Completion Rate</div>
-      </div>
-      <div class="summary-box">
-        <div class="num" id="res-time-left">00:00:00</div>
-        <div class="label">Time Remaining</div>
-      </div>
-    </div>
-
-    <a href="index.html" class="btn-action btn-home">🏠 Return to Home</a>
-  </div>
-</div>
+<div class="toast" id="toastMsg">Notification message</div>
 
 <script>
-  const TOTAL_QUESTIONS = 100;
-  let currentSection = 1;
-  let answers = {};
-  let flags = {};
-  let totalTime = 120 * 60;
-  let timerInterval = null;
-
-  const englishQuestions = [
-      { id: 1, text: "Despite being renowned for his ability to convey complex theoretical concepts with stunning clarity in print, the guest lecturer was notorious for ______ during his university seminars.", options: ["A. obscurantism... baffling", "B. precision... clarifying", "C. redundancy... simplifying", "D. brevity... detailing", "E. dogmatism... dismantling"] },
-      { id: 2, text: "An analyst argues: 'The widespread drop in public community engagement across developing nations cannot be blamed entirely on mobile internet proliferation, because identical drops occurred in regions with virtually no cellular network access during the exact same timeframe.' Which of the following, if true, most seriously undermines this reasoning?", options: ["A. Regions lacking local network towers regularly consumed digital media culture exported via satellite television.", "B. Certain high-access regions experienced zero reduction in community engagement levels.", "C. Cross-national surveys tracking community participation suffer from inconsistent metric collection.", "D. Drops in civic participation began decades prior to mobile technology.", "E. Community structures vary significantly across differing cultures."] },
-      { id: 3, text: "The trade agreement was a masterclass in ______: every clause was carefully drafted to allow alternative interpretations later, and every concession was protected by conditions that would eventually turn out to be ______.", options: ["A. equivocation ... binding", "B. transparency... enforceable", "C. ambiguity... malleable", "D. fabrication ... absolute", "E. verbosity... negligible"] },
-      { id: 4, text: "Every participant in the curriculum review panel either proposed sweeping modifications or voted to scrap the proposal entirely. No panelist who proposed sweeping modifications had a prior history of working alongside the lead author. Some panelists who voted to scrap the proposal entirely did have a prior history of working alongside the lead author. Which of the following must necessarily hold true?", options: ["A. All panelists who worked previously with the lead author voted to scrap the proposal entirely.", "B. No panelist who worked previously with the lead author proposed sweeping modifications.", "C. Certain panelists without prior ties to the lead author voted to scrap the proposal entirely.", "D. The majority of panelists voting to scrap the proposal had prior ties.", "E. Every panelist without prior ties proposed sweeping modifications."] },
-      { id: 5, text: "While reviewers showered the anthology's stylistic presentation with praise for its ______ elegance, they universally criticized its content as ______ lacking any substantial intellectual weight.", options: ["A. stark... profound", "B. languorous... heavy", "C. chiseled... vapid", "D. ornate ... meaningful", "E. pedestrian... momentous"] },
-      { id: 6, text: "A biographer insists that a nineteenth-century labor uprising was 'fundamentally monetary in scope' because worker grievances centered explicitly on wage cuts and food taxes. Which of the following, if true, most weakens the biographer's claim?", options: ["A. Food prices remained stable during the months leading up to the strike.", "B. Identical grievances regarding wages and taxes appeared in explicitly spiritual revolts of the same era.", "C. The manifestos published by striking workers appealed primarily to sacred duty rather than economic survival.", "D. Worker uprisings in adjacent provinces featured both fiscal and spiritual demands.", "E. Local tax ledgers from the period are missing critical metrics."] },
-      { id: 7, text: "The executive's policy statement felt less like an actionable roadmap and more like an exercise in ______: a dense collection of slogans so ______ that financial experts could deduce zero actionable metrics from them.", options: ["A. obfuscation ... amorphous", "B. forecasting ... precise", "C. sophistry... clear", "D. posturing... sharp", "E. platitude... distinct"] },
-      { id: 8, text: "Within a secure archives facility, all manuscripts designated as 'restricted' are kept inside the primary thermal vault. Several documents located inside the thermal vault do not carry a 'restricted' designation. Every document printed prior to 1600 automatically receives a 'restricted' designation. Given these rules, which of the following assertions is impossible?", options: ["A. Certain documents printed prior to 1600 are kept outside the thermal vault.", "B. Certain documents inside the thermal vault were printed after 1600.", "C. No document printed after 1600 carries a 'restricted' designation.", "D. Certain documents located outside the thermal vault carry a 'restricted' designation.", "E. Every document carrying a 'restricted' designation was printed prior to 1600."] },
-      { id: 9, text: "The director's sudden choice to postpone the vote was treated by the press as a ______ maneuver meant to lower tensions, but insiders recognized it as a transparent ______ designed to buy time for political maneuvering.", options: ["A. conciliatory ... stratagem", "B. hostile... shift", "C. routine... error", "D. generous... gift", "E. arrogant ... display"] },
-      { id: 10, text: "A labor analyst posits: 'Mandating higher entry-level wages curtails hiring among entry-level personnel because enterprises substitute automated machinery for human labor when wages increase.' This theory would be most effectively challenged if which of the following were true?", options: ["A. The wage mandate occurred during an unprecedented surge in broader economic growth.", "B. The majority of affected personnel worked in service sectors structurally incapable of replacing human personnel with automated capital.", "C. The statutory wage adjustment lagged behind overall cost-of-living inflation rates.", "D. International markets enacting identical mandates experienced sharp drops in employment.", "E. Past econometric forecasts by this analyst proved incorrect."] },
-      { id: 11, text: "Although the historical sketches were delightful to read, they lacked factual reliability; cross-examination against parish registers showed that many dramatic scenes were products of ______ rather than archival documentation.", options: ["A. fabrication ... creative memory", "B. truth... strict transcription", "C. fraud... deliberate malice", "D. decay... physical loss", "E. experience... direct witnessing"] },
-      { id: 12, text: "A clinical condition is triggered by genetic marker X, environmental trigger Y, or a combination of both. Data indicates that 70% of sufferers exhibit marker X, 40% exhibit trigger Y, and 20% exhibit both. Based strictly on this data, which inference is best supported?", options: ["A. The majority of clinical cases stem from genetic origins.", "B. The condition cannot manifest in the complete absence of both marker X and trigger Y.", "C. Environmental triggers operate as the sole cause in 20% of occurrences.", "D. Genetic markers are required in 70% of total cases.", "E. Both factors interact in exactly 20% of instances."] },
-      { id: 13, text: "An environmental briefing paper notes: 'Emissions caps tied to permit trading markets introduce price instability that clouds long-term investment planning, making carbon levies vastly superior on grounds of economic efficiency.' Which underlying premise is critical to the validity of this argument?", options: ["A. Systemic economic efficiency should serve as the primary metric for evaluating environmental regulations.", "B. Carbon levies generate lower price volatility than emissions trading markets.", "C. Short-term price signals outweigh long-term market predictability for industrial investors.", "D. Emissions trading systems cannot be structurally adjusted to limit volatility.", "E. Long-term cost certainty is the single driver of green technology funding."] },
-      { id: 14, text: "The paleographer argued that the codex page was an early modern interpolation based on a single feature: the inclusion of a diacritic mark not ______ in any genuine manuscript predating the sixteenth century.", options: ["A. irregular... verified", "B. minor... questioned", "C. hidden... noticed", "D. central... duplicated", "E. clear... established"] },
-      { id: 15, text: "The union representative displayed absolute ______ during negotiations, refusing to adapt to the board's concessions and locking herself into a rigid posture that proved completely ______ to compromise.", options: ["A. flexibility ... prone", "B. intransigence ... inimical", "C. agility... open", "D. caution... friendly", "E. warmth... receptive"] },
-      { id: 16, text: "When regional manufacturing investments accelerate, local commercial activity experiences rapid growth. Town Z's commercial activity experienced rapid growth. Therefore, regional manufacturing investments accelerated in Town Z. This line of reasoning commits which structural flaw?", options: ["A. Affirming the consequent", "B. Denying the antecedent", "C. Ad hominem attack", "D. Circular reasoning", "E. Red herring"] },
-      { id: 17, text: "A pollster claims: 'Given that 85% of participants in our evening landline poll backed the proposed zoning ordinance, public support for the project is overwhelming.' Which factor most seriously weakens this conclusion?", options: ["A. The sample relied entirely on landlines contacted in the evening.", "B. The sample size exceeded 3,000 eligible voters.", "C. Similar proposals failed in adjacent counties.", "D. Few individuals refused to participate.", "E. Full financial disclosures were provided prior to questioning."] },
-      { id: 18, text: "Rather than accepting the initial lab data as ______, the research team subjected every metric to intense scrutiny, treating individual correlations as strictly ______ until independent teams reproduced the results.", options: ["A. definitive... provisional", "B. dubious... absolute", "C. flawed... final", "D. minor... secondary", "E. random ... structured"] },
-      { id: 19, text: "To secure membership in the high-performance advisory board, applicants must demonstrate both exceptional technical skill and verified project management experience. Jordan possesses extensive project management experience, but his technical skill ratings fall below the qualifying cutoff. What follows logically?", options: ["A. Jordan will be offered an alternate placement.", "B. Jordan fails to qualify for membership.", "C. Management experience outweighs technical skill.", "D. Jordan can clear the requirement via interview.", "E. Most high-skill candidates lack management experience."] },
-      { id: 20, text: "An industry commentator writes: 'Every major technology firm launched over the past decade that reached a billion-dollar valuation was established by founders lacking corporate business backgrounds. Consequently, corporate experience actively hinders entrepreneurial achievement.' What is the primary logical flaw?", options: ["A. It focuses exclusively on successful outcomes while ignoring the baseline population.", "B. It uses a sample size too large to compute reliable models.", "C. It assumes tech enterprises represent every global commercial market.", "D. It fails to establish clear financial boundaries.", "E. It relies on circular reasoning."] },
-      { id: 21, text: "The architectural blueprint was celebrated for its ______ design, successfully integrating modern structural frameworks with traditional motifs without a new design discord.", options: ["A. incongruous", "B. cohesive", "C. fragmented", "D. derivative", "E. chaotic"] },
-      { id: 22, text: "In a survey of urban commuters, 45% reported using public transit daily, while 35% reported using personal automobiles. No commuter reported using neither method. What percentage of commuters use both public transit and personal automobiles daily?", options: ["A. 10%", "B. 20%", "C. 35%", "D. 80%", "E. It cannot be determined."] },
-      { id: 23, text: "An excerpt from a corporate restructuring memo states: 'Our shift toward decentralized operational units is intended not to reduce accountability, but to distribute decision-making closer to customer interaction points.' Which of the following represents the logical counterpart of this objective?", options: ["A. Centralized models inherently increase operational velocity.", "B. Decentralization shifts responsibility while preserving executive oversight.", "C. Customer touchpoints operate independently of corporate frameworks.", "D. Accountability grows when management structures expand.", "E. Direct customer interaction eliminates corporate waste."] },
-      { id: 24, text: "The curator insisted that the artifact discovered in the excavation trench was authentic, citing its metallurgical consistency with verified Bronze Age weapons. Which of the following, if true, would most seriously challenge the curator's conclusion?", options: ["A. Modern metallurgical tools can replicate ancient alloy compositions with absolute precision.", "B. The excavation site contained numerous artifacts from later historical periods.", "C. The curator previously authenticated items that proved to be modern reproductions.", "D. Similar weapons have been unearthed across neighboring archaeological zones.", "E. Chemical composition testing on the artifact was performed by an independent lab."] },
-      { id: 25, text: "Critics of the proposed municipal transport policy argue that expanding bus lanes will inevitably increase automobile congestion on adjacent arterial roads. Which finding, if true, would provide the strongest counter-argument to the critics?", options: ["A. The expansion plan involves reducing the total number of traffic signals.", "B. A significant percentage of current motorists regularly choose alternative transit when dedicated bus lanes open.", "C. Arterial road maintenance budgets will increase over the fiscal year.", "D. Traffic congestion measurements are frequently unreliable during peak hours.", "E. Commercial delivery vehicles will remain restricted from using new bus corridors."] },
-      { id: 26, text: "According to the passage, the author decided to write the book primarily because:", options: ["A. Existing parenting literature was oversimplified and at odds with scientific knowledge.", "B. Parents demanded strict 'get tough' strategies for raising teenagers.", "C. Educational institutions requested standard developmental guidebooks.", "D. Modern mothers lacked access to digital workplace networks.", "E. Child-rearing advice had remained entirely unchanged over decades."] },
-      { id: 27, text: "The author suggests that parenting in contemporary industrialized societies is particularly difficult because:", options: ["A. Children reject all forms of moral instruction.", "B. The majority of mothers of preschoolers work, and parents feel pressed for time.", "C. Schools have completely abandoned foundational educational goals.", "D. Libraries and bookstores no longer stock child-rearing titles.", "E. Media outlets refuse to cover youth alienation."] },
-      { id: 28, text: "According to the passage, what has 'stood firm amid the various passing fashions in child care over the years'?", options: ["A. The 'get tough' parental control philosophy", "B. The fundamental goal of instilling character and moral development", "C. The economic status of privileged youth sectors", "D. The structured timeline of early childhood education", "E. The reliance on workplace flexibility for parents"] },
-      { id: 29, text: "What does the author identify as the 'most disturbing trend in the literature'?", options: ["A. Promoting materialism to young people", "B. Denying that parents make any notable contribution to their children's development", "C. Encouraging excessive academic pressure on preschool children", "D. Failing to address youth alienation in economically privileged sectors", "E. Relying exclusively on historical theories of education"] },
-      ...Array.from({length: 26}, (_, i) => ({ id: 30 + i, text: `English Aptitude & Critical Reasoning Question Number ${30 + i}: Choose the correct logical inference or vocabulary equivalent matching context.`, options: ["A. Option Alpha", "B. Option Beta", "C. Option Gamma", "D. Option Delta", "E. Option Epsilon"] }))
-  ];
-
-  const mathQuestions = Array.from({length: 45}, (_, i) => ({
-      id: i + 1,
-      text: `Quantitative Aptitude & Mathematical Problem Number ${i + 1}: Calculate the correct mathematical solution given standard UAT parameters.`,
-      options: ["A. 12", "B. 24", "C. 36", "D. 48", "E. 60"]
-  }));
-
-  function renderQuestions() {
-      const engContainer = document.getElementById('english-questions-container');
-      const mathContainer = document.getElementById('math-questions-container');
-
-      let engHTML = '';
-      let mathHTML = '';
-
-      englishQuestions.forEach(q => {
-          let html = `
-            <div class="question-card" id="q-card-1-${q.id}">
-              <div class="question-header">
-                <span class="question-number">Question ${q.id}</span>
-                <button class="flag-btn" id="flag-btn-1-${q.id}" onclick="toggleFlag(1, ${q.id})">
-                  🚩 <span id="flag-text-1-${q.id}">Flag</span>
-                </button>
-              </div>
-              <div class="question-text">${q.text}</div>
-              <div class="options-group">
-          `;
-
-          q.options.forEach((opt, idx) => {
-              const optLetter = ['A','B','C','D','E'][idx];
-              const isChecked = answers[`1-${q.id}`] === optLetter ? 'checked' : '';
-              html += `
-                <label class="option-label">
-                  <input type="radio" name="question-1-${q.id}" value="${optLetter}" ${isChecked} onchange="selectAnswer(1, ${q.id}, '${optLetter}')">
-                  <span>${opt}</span>
-                </label>
-              `;
-          });
-
-          html += `</div></div>`;
-          engHTML += html;
-      });
-
-      mathQuestions.forEach(q => {
-          let html = `
-            <div class="question-card" id="q-card-2-${q.id}">
-              <div class="question-header">
-                <span class="question-number">Question ${q.id}</span>
-                <button class="flag-btn" id="flag-btn-2-${q.id}" onclick="toggleFlag(2, ${q.id})">
-                  🚩 <span id="flag-text-2-${q.id}">Flag</span>
-                </button>
-              </div>
-              <div class="question-text">${q.text}</div>
-              <div class="options-group">
-          `;
-
-          q.options.forEach((opt, idx) => {
-              const optLetter = ['A','B','C','D','E'][idx];
-              const isChecked = answers[`2-${q.id}`] === optLetter ? 'checked' : '';
-              html += `
-                <label class="option-label">
-                  <input type="radio" name="question-2-${q.id}" value="${optLetter}" ${isChecked} onchange="selectAnswer(2, ${q.id}, '${optLetter}')">
-                  <span>${opt}</span>
-                </label>
-              `;
-          });
-
-          html += `</div></div>`;
-          mathHTML += html;
-      });
-
-      engContainer.innerHTML = engHTML;
-      mathContainer.innerHTML = mathHTML;
-      renderPalette();
+  // Mobile nav toggle
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const navLinks = document.getElementById('navLinks');
+  if(mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
   }
 
-  function renderPalette() {
-      const paletteGrid = document.getElementById('palette-grid');
-      const paletteTitle = document.getElementById('palette-title');
-      let paletteHTML = '';
-
-      const count = currentSection === 1 ? 55 : 45;
-      paletteTitle.innerText = currentSection === 1 ? 'English Palette (1-55)' : 'Maths Palette (1-45)';
-
-      for (let i = 1; i <= count; i++) {
-          let statusClass = '';
-          const key = `${currentSection}-${i}`;
-          if (answers[key]) statusClass = 'answered';
-          if (flags[key]) statusClass = 'flagged';
-
-          paletteHTML += `
-            <button class="palette-btn ${statusClass}" id="palette-btn-${currentSection}-${i}" onclick="jumpToQuestion(${currentSection}, ${i})">
-              ${i}
-            </button>
-          `;
-      }
-      paletteGrid.innerHTML = paletteHTML;
+  // Sample Question Bank (60 Questions for Round 1 Mock)
+  const QUESTIONS = [];
+  // Build 35 English Questions
+  for(let i=1; i<=35; i++) {
+    QUESTIONS.push({
+      id: i,
+      section: 'English',
+      tag: i <= 15 ? 'Advanced Vocabulary' : i <= 25 ? 'Grammar & Usage' : 'Reading Comprehension',
+      passage: i > 25 ? "Reading Passage (Item " + i + "): Higher education entrance paradigms require sharp logical deduction and structural command over complex textual frameworks. Academic excellence demands consistency." : null,
+      text: "Question " + i + ": Choose the most appropriate word or structural completion that best fits standard university academic criteria.",
+      options: ["Alternative option A interpretation", "Alternative option B formulation", "The contextually accurate academic choice", "Alternative option D structural variant"],
+      correct: 2,
+      explanation: "Option C is correct because it directly matches syntactic rules and context required by standard university entrance assessments."
+    });
+  }
+  // Build 25 Math Questions
+  for(let i=36; i<=60; i++) {
+    QUESTIONS.push({
+      id: i,
+      section: 'Mathematics',
+      tag: i <= 48 ? 'Algebra & Functions' : i <= 55 ? 'Calculus & Limits' : 'Probability & Statistics',
+      passage: null,
+      text: "Question " + i + ": Given standard quantitative parameters, solve for the precise mathematical output value.",
+      options: ["12.5", "24.0", "36.8", "45.0"],
+      correct: 1,
+      explanation: "Option B is derived by applying standard algebraic formulas and isolating the target variable step by step."
+    });
   }
 
-  function switchSection(secNum) {
-      currentSection = secNum;
-      document.getElementById('tab-sec1').classList.toggle('active', secNum === 1);
-      document.getElementById('tab-sec2').classList.toggle('active', secNum === 2);
-      document.getElementById('section-1-wrapper').style.display = secNum === 1 ? 'block' : 'none';
-      document.getElementById('section-2-wrapper').style.display = secNum === 2 ? 'block' : 'none';
-      renderPalette();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+  let state = {
+    currentIndex: 0,
+    answers: {},
+    flagged: {},
+    timeLeft: 7200,
+    timerInterval: null,
+    candidateName: "Candidate",
+    submitted: false
+  };
+
+  // DOM Elements
+  const viewStart = document.getElementById('view-start');
+  const viewExam = document.getElementById('view-exam');
+  const viewResults = document.getElementById('view-results');
+  const candidateNameInput = document.getElementById('candidateName');
+  const btnBeginExam = document.getElementById('btnBeginExam');
+
+  const hdrSection = document.getElementById('hdrSection');
+  const hdrQCount = document.getElementById('hdrQCount');
+  const timerDigits = document.getElementById('timerDigits');
+  const timerBarSvg = document.getElementById('timerBarSvg');
+  const railName = document.getElementById('railName');
+  const railSection = document.getElementById('railSection');
+  const railAnswered = document.getElementById('railAnswered');
+  const railProgress = document.getElementById('railProgress');
+  const railProgressCaption = document.getElementById('railProgressCaption');
+
+  const qTag = document.getElementById('qTag');
+  const qNumBadge = document.getElementById('qNumBadge');
+  const btnFlag = document.getElementById('btnFlag');
+  const passageToggle = document.getElementById('passageToggle');
+  const passageBox = document.getElementById('passageBox');
+  const qText = document.getElementById('qText');
+  const optionsList = document.getElementById('optionsList');
+  const paletteGrid = document.getElementById('paletteGrid');
+
+  const btnPrev = document.getElementById('btnPrev');
+  const btnNext = document.getElementById('btnNext');
+  const btnClear = document.getElementById('btnClear');
+  const btnSubmitHeader = document.getElementById('btnSubmitHeader');
+  const btnSubmitSide = document.getElementById('btnSubmitSide');
+  const btnSubmitMobile = document.getElementById('btnSubmitMobile');
+
+  const modalConfirm = document.getElementById('modalConfirm');
+  const modalCancel = document.getElementById('modalCancel');
+  const modalConfirmBtn = document.getElementById('modalConfirmBtn');
+  const toastMsg = document.getElementById('toastMsg');
+
+  function showToast(msg) {
+    toastMsg.textContent = msg;
+    toastMsg.classList.add('show');
+    setTimeout(() => toastMsg.classList.remove('show'), 2800);
   }
 
-  function selectAnswer(sec, qId, optionVal) {
-      answers[`${sec}-${qId}`] = optionVal;
-      updatePaletteButton(sec, qId);
-  }
+  // Initialize Exam
+  btnBeginExam.addEventListener('click', () => {
+    const nameVal = candidateNameInput.value.trim();
+    if(nameVal) state.candidateName = nameVal;
+    railName.textContent = state.candidateName;
 
-  function toggleFlag(sec, qId) {
-      const key = `${sec}-${qId}`;
-      flags[key] = !flags[key];
-      const flagBtn = document.getElementById(`flag-btn-${sec}-${qId}`);
-      const flagText = document.getElementById(`flag-text-${sec}-${qId}`);
-      const qCard = document.getElementById(`q-card-${sec}-${qId}`);
+    viewStart.classList.add('hidden');
+    viewExam.classList.remove('hidden');
+    window.scrollTo({top: 0, behavior: 'smooth'});
 
-      if (flags[key]) {
-          flagBtn.classList.add('active');
-          flagText.innerText = 'Unflag';
-          qCard.classList.add('flagged');
-      } else {
-          flagBtn.classList.remove('active');
-          flagText.innerText = 'Flag';
-          qCard.classList.remove('flagged');
-      }
-      updatePaletteButton(sec, qId);
-  }
-
-  function updatePaletteButton(sec, qId) {
-      if (sec !== currentSection) return;
-      const btn = document.getElementById(`palette-btn-${sec}-${qId}`);
-      if (!btn) return;
-      const key = `${sec}-${qId}`;
-      btn.className = 'palette-btn';
-      if (flags[key]) {
-          btn.classList.add('flagged');
-      } else if (answers[key]) {
-          btn.classList.add('answered');
-      }
-  }
-
-  function jumpToQuestion(sec, qId) {
-      if (sec !== currentSection) {
-          switchSection(sec);
-      }
-      const card = document.getElementById(`q-card-${sec}-${qId}`);
-      if (card) {
-          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-  }
+    buildPalette();
+    renderQuestion();
+    startTimer();
+  });
 
   function startTimer() {
-      const timerDisplay = document.getElementById('timer');
-      timerInterval = setInterval(() => {
-          if (totalTime <= 0) {
-              clearInterval(timerInterval);
-              alert("Time is up! Your exam will be submitted automatically.");
-              confirmFinalSubmit();
-              return;
-          }
-          totalTime--;
-          let hours = Math.floor(totalTime / 3600);
-          let minutes = Math.floor((totalTime % 3600) / 60);
-          let seconds = totalTime % 60;
-          timerDisplay.innerText = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
-      }, 1000);
+    const totalTime = 7200;
+    const radius = 22;
+    const circumference = 2 * Math.PI * radius;
+    timerBarSvg.style.strokeDasharray = circumference;
+
+    state.timerInterval = setInterval(() => {
+      state.timeLeft--;
+      let h = Math.floor(state.timeLeft / 3600);
+      let m = Math.floor((state.timeLeft % 3600) / 60);
+      let s = state.timeLeft % 60;
+      timerDigits.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+
+      let progressOffset = circumference - (state.timeLeft / totalTime) * circumference;
+      timerBarSvg.style.strokeDashoffset = progressOffset;
+
+      if(state.timeLeft <= 0) {
+        clearInterval(state.timerInterval);
+        submitExam();
+      }
+    }, 1000);
   }
 
-  function openReviewModal() {
-      const answeredCount = Object.keys(answers).length;
-      const flaggedCount = Object.keys(flags).filter(k => flags[k]).length;
-      const unansweredCount = TOTAL_QUESTIONS - answeredCount;
+  function renderQuestion() {
+    const q = QUESTIONS[state.currentIndex];
+    hdrSection.textContent = q.section;
+    railSection.textContent = q.section;
+    hdrQCount.textContent = `Question ${state.currentIndex + 1} / 60`;
 
-      document.getElementById('rev-answered').innerText = `${answeredCount} / ${TOTAL_QUESTIONS}`;
-      document.getElementById('rev-unanswered').innerText = unansweredCount;
-      document.getElementById('rev-flagged').innerText = flaggedCount;
+    qTag.textContent = q.tag;
+    qNumBadge.textContent = `Q${state.currentIndex + 1}`;
+    qText.textContent = q.text;
 
-      document.getElementById('review-modal').style.display = 'flex';
+    // Flag state
+    if(state.flagged[q.id]) {
+      btnFlag.classList.add('on');
+      btnFlag.innerHTML = '<i class="fa-solid fa-flag"></i> Flagged';
+    } else {
+      btnFlag.classList.remove('on');
+      btnFlag.innerHTML = '<i class="fa-solid fa-flag"></i> Mark for review';
+    }
+
+    // Passage handling
+    if(q.passage) {
+      passageToggle.classList.remove('hidden');
+      passageBox.textContent = q.passage;
+      passageBox.classList.add('hidden');
+      passageToggle.innerHTML = '<i class="fa-solid fa-book-open"></i> Show reading passage';
+    } else {
+      passageToggle.classList.add('hidden');
+      passageBox.classList.add('hidden');
+    }
+
+    // Render options
+    optionsList.innerHTML = '';
+    q.options.forEach((optText, idx) => {
+      const letter = String.fromCharCode(65 + idx);
+      const isSelected = state.answers[q.id] === idx;
+
+      const optEl = document.createElement('div');
+      optEl.className = `opt ${isSelected ? 'selected' : ''}`;
+      optEl.innerHTML = `
+        <div class="letter">${letter}</div>
+        <div class="otext">${optText}</div>
+      `;
+      optEl.addEventListener('click', () => {
+        state.answers[q.id] = idx;
+        renderQuestion();
+        updatePaletteItem(state.currentIndex);
+        updateProgressStats();
+      });
+      optionsList.appendChild(optEl);
+    });
+
+    btnPrev.disabled = state.currentIndex === 0;
+    btnNext.textContent = state.currentIndex === QUESTIONS.length - 1 ? 'Review & Submit →' : 'Next →';
+    updatePaletteActive();
   }
 
-  function closeReviewModal() {
-      document.getElementById('review-modal').style.display = 'none';
+  passageToggle.addEventListener('click', () => {
+    passageBox.classList.toggle('hidden');
+    if(passageBox.classList.contains('hidden')) {
+      passageToggle.innerHTML = '<i class="fa-solid fa-book-open"></i> Show reading passage';
+    } else {
+      passageToggle.innerHTML = '<i class="fa-solid fa-book-open"></i> Hide reading passage';
+    }
+  });
+
+  btnFlag.addEventListener('click', () => {
+    const q = QUESTIONS[state.currentIndex];
+    state.flagged[q.id] = !state.flagged[q.id];
+    renderQuestion();
+    updatePaletteItem(state.currentIndex);
+  });
+
+  btnPrev.addEventListener('click', () => {
+    if(state.currentIndex > 0) {
+      state.currentIndex--;
+      renderQuestion();
+    }
+  });
+
+  btnNext.addEventListener('click', () => {
+    if(state.currentIndex < QUESTIONS.length - 1) {
+      state.currentIndex++;
+      renderQuestion();
+    } else {
+      confirmSubmit();
+    }
+  });
+
+  btnClear.addEventListener('click', () => {
+    const q = QUESTIONS[state.currentIndex];
+    delete state.answers[q.id];
+    renderQuestion();
+    updatePaletteItem(state.currentIndex);
+    updateProgressStats();
+    showToast("Response cleared.");
+  });
+
+  // Palette builder
+  function buildPalette() {
+    paletteGrid.innerHTML = '';
+    QUESTIONS.forEach((q, idx) => {
+      const pnum = document.createElement('button');
+      pnum.className = 'pnum';
+      pnum.textContent = idx + 1;
+      pnum.id = `pnum-${idx}`;
+      if(state.answers[q.id] !== undefined) pnum.classList.add('answered');
+      if(state.flagged[q.id]) pnum.classList.add('flagged');
+      if(idx === state.currentIndex) pnum.classList.add('current');
+
+      pnum.addEventListener('click', () => {
+        state.currentIndex = idx;
+        renderQuestion();
+      });
+      paletteGrid.appendChild(pnum);
+    });
   }
 
-  function confirmFinalSubmit() {
-      clearInterval(timerInterval);
-      closeReviewModal();
-
-      const answeredCount = Object.keys(answers).length;
-      const completionRate = Math.round((answeredCount / TOTAL_QUESTIONS) * 100);
-
-      let hours = Math.floor(totalTime / 3600);
-      let minutes = Math.floor((totalTime % 3600) / 60);
-      let seconds = totalTime % 60;
-      let timeLeftStr = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
-
-      document.getElementById('res-total-answered').innerText = `${answeredCount} / ${TOTAL_QUESTIONS}`;
-      document.getElementById('res-completion-rate').innerText = `${completionRate}%`;
-      document.getElementById('res-time-left').innerText = timeLeftStr;
-
-      document.getElementById('result-modal').style.display = 'flex';
+  function updatePaletteItem(idx) {
+    const pnum = document.getElementById(`pnum-${idx}`);
+    if(!pnum) return;
+    const q = QUESTIONS[idx];
+    pnum.className = 'pnum';
+    if(state.answers[q.id] !== undefined) pnum.classList.add('answered');
+    if(state.flagged[q.id]) pnum.classList.add('flagged');
+    if(idx === state.currentIndex) pnum.classList.add('current');
   }
 
-  window.onload = function() {
-      renderQuestions();
-      startTimer();
-  };
+  function updatePaletteActive() {
+    document.querySelectorAll('.pnum').forEach((el, idx) => {
+      if(idx === state.currentIndex) el.classList.add('current');
+      else el.classList.remove('current');
+    });
+  }
+
+  function updateProgressStats() {
+    const answeredCount = Object.keys(state.answers).length;
+    railAnswered.textContent = `${answeredCount} / 60`;
+    const pct = Math.round((answeredCount / 60) * 100);
+    railProgress.style.width = `${pct}%`;
+    railProgressCaption.textContent = `${pct}% complete`;
+  }
+
+  // Submission triggers
+  function confirmSubmit() {
+    modalConfirm.classList.remove('hidden');
+  }
+
+  modalCancel.addEventListener('click', () => {
+    modalConfirm.classList.add('hidden');
+  });
+
+  modalConfirmBtn.addEventListener('click', () => {
+    modalConfirm.classList.add('hidden');
+    submitExam();
+  });
+
+  btnSubmitHeader.addEventListener('click', confirmSubmit);
+  btnSubmitSide.addEventListener('click', confirmSubmit);
+  btnSubmitMobile.addEventListener('click', confirmSubmit);
+
+  function submitExam() {
+    if(state.submitted) return;
+    state.submitted = true;
+    clearInterval(state.timerInterval);
+
+    viewExam.classList.add('hidden');
+    viewResults.classList.remove('hidden');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+
+    calculateResults();
+  }
+
+  // Calculate & Render Results
+  function calculateResults() {
+    let correctTotal = 0;
+    let engCorrect = 0;
+    let mathCorrect = 0;
+
+    QUESTIONS.forEach(q => {
+      const userPick = state.answers[q.id];
+      if(userPick === q.correct) {
+        correctTotal++;
+        if(q.section === 'English') engCorrect++;
+        else mathCorrect++;
+      }
+    });
+
+    const pct = Math.round((correctTotal / 60) * 100);
+
+    // Animate percentage ring
+    const ringBar = document.getElementById('ringBar');
+    const radius = 64;
+    const circumference = 2 * Math.PI * radius;
+    ringBar.style.strokeDasharray = circumference;
+    const offset = circumference - (pct / 100) * circumference;
+    ringBar.style.strokeDashoffset = offset;
+    document.getElementById('ringPct').textContent = `${pct}%`;
+
+    document.getElementById('resCorrectBadge').textContent = `${correctTotal} / 60 Correct`;
+    const badgeStatus = document.getElementById('resBadgeStatus');
+    if(pct >= 70) {
+      badgeStatus.textContent = "Passing / Elite";
+      badgeStatus.className = "badge badge-gold";
+    } else if(pct >= 50) {
+      badgeStatus.textContent = "Satisfactory";
+      badgeStatus.className = "badge badge-green";
+    } else {
+      badgeStatus.textContent = "Needs Review";
+      badgeStatus.className = "badge badge-amber";
+    }
+
+    document.getElementById('sbEngVal').textContent = `${engCorrect} / 35`;
+    document.getElementById('sbEngFill').style.width = `${Math.round((engCorrect / 35) * 100)}%`;
+
+    document.getElementById('sbMathVal').textContent = `${mathCorrect} / 25`;
+    document.getElementById('sbMathFill').style.width = `${Math.round((mathCorrect / 25) * 100)}%`;
+
+    renderReviewList('all');
+  }
+
+  function renderReviewList(filter) {
+    const container = document.getElementById('reviewContainer');
+    container.innerHTML = '';
+
+    QUESTIONS.forEach((q, idx) => {
+      const userPick = state.answers[q.id];
+      const isCorrect = userPick === q.correct;
+      const isBlank = userPick === undefined;
+
+      // Filter check
+      if(filter === 'wrong' && (isCorrect || isBlank)) return;
+      if(filter === 'correct' && !isCorrect) return;
+      if(filter === 'flagged' && !state.flagged[q.id]) return;
+
+      let statusClass = 'is-correct';
+      let statusBadge = '<span class="review-status status-correct"><i class="fa-solid fa-check"></i> Correct</span>';
+      if(!isCorrect && !isBlank) {
+        statusClass = 'is-wrong';
+        statusBadge = '<span class="review-status status-wrong"><i class="fa-solid fa-xmark"></i> Incorrect</span>';
+      } else if(isBlank) {
+        statusClass = 'is-blank';
+        statusBadge = '<span class="review-status status-blank">Unanswered</span>';
+      }
+
+      const card = document.createElement('div');
+      card.className = `review-card ${statusClass}`;
+
+      let optListHtml = '';
+      q.options.forEach((optText, optIdx) => {
+        const letter = String.fromCharCode(65 + optIdx);
+        let optClass = 'review-opt';
+        let tagHtml = '';
+
+        if(optIdx === q.correct) {
+          optClass += ' correct-answer';
+          tagHtml = '<span class="opt-tag" style="color:var(--forest-700)">Correct Answer</span>';
+        }
+        if(optIdx === userPick && !isCorrect) {
+          optClass += ' wrong-pick';
+          tagHtml = '<span class="opt-tag" style="color:var(--forest-950)">Your Choice</span>';
+        } else if(optIdx === userPick && isCorrect) {
+          tagHtml = '<span class="opt-tag" style="color:var(--forest-700)">Your Choice</span>';
+        }
+
+        optListHtml += `
+          <div class="${optClass}">
+            <div class="letter">${letter}</div>
+            <div style="flex:1;">${optText}</div>
+            ${tagHtml}
+          </div>
+        `;
+      });
+
+      card.innerHTML = `
+        <div class="review-head">
+          <div>
+            <div class="qtag">${q.section} · ${q.tag}</div>
+            <h4 style="margin:0;font-family:var(--font-display);font-size:1.1rem;">Question ${idx + 1}</h4>
+          </div>
+          ${statusBadge}
+        </div>
+        <div class="review-body">
+          ${q.passage ? `<div class="review-passage-toggle">Passage Item</div><p style="font-size:0.86rem;color:var(--ink-700);background:var(--paper-50);padding:0.8rem;border-radius:8px;margin-bottom:0.9rem;">${q.passage}</p>` : ''}
+          <p class="qtext">${q.text}</p>
+          <div class="review-opt-list">${optListHtml}</div>
+          <div class="explain-box">
+            <b><i class="fa-solid fa-lightbulb"></i> Complete Explanation</b>
+            ${q.explanation}
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  // Filter buttons on results view
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      renderReviewList(e.target.getAttribute('data-filter'));
+    });
+  });
+
+  document.getElementById('btnRetake').addEventListener('click', () => {
+    window.location.reload();
+  });
+
+  document.getElementById('btnPrint').addEventListener('click', () => {
+    window.print();
+  });
 </script>
-
 </body>
 </html>
