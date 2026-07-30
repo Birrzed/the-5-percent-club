@@ -19,19 +19,32 @@
     .text-brand { color: var(--brand-green); }
     .border-brand { border-color: var(--brand-green); }
 
-    /* Glowing Effect & Hero Styling - Clean White & Light Green/Gold Accents */
+    /* Glowing Effect & Hero Styling */
     .bulb-glow {
-      box-shadow: 0 0 40px 10px rgba(245, 158, 11, 0.2);
+      box-shadow: 0 0 45px 12px rgba(245, 158, 11, 0.25);
     }
     .hero-light {
-      background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #E2E8F0 100%);
+      background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 50%, #FEF3C7 100%);
     }
 
-    /* Clean Card Styling for Light Background */
-    .card-light {
+    /* Enhanced Interactive Card Styling */
+    .card-interactive {
       background: #FFFFFF;
-      border: 1px solid rgba(10, 77, 52, 0.12);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      border: 1.5px solid rgba(10, 77, 52, 0.15);
+      box-shadow: 0 10px 30px -5px rgba(10, 77, 52, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-interactive:hover {
+      border-color: #F59E0B;
+      transform: translateY(-4px);
+      box-shadow: 0 20px 35px -10px rgba(10, 77, 52, 0.18);
+    }
+
+    /* Founder Special Glow Card */
+    .founder-card {
+      background: linear-gradient(145deg, #FFFFFF 0%, #F0FDF4 100%);
+      border: 2px solid #F59E0B;
+      box-shadow: 0 15px 35px -5px rgba(245, 158, 11, 0.2);
     }
 
     /* Bar Graph Animations */
@@ -41,46 +54,46 @@
     html { scroll-behavior: smooth; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col selection:bg-yellow-400 selection:text-slate-900">
+<body class="bg-emerald-50/30 text-slate-900 font-sans antialiased min-h-screen flex flex-col selection:bg-yellow-400 selection:text-slate-900">
 
-<!-- ==================== HEADER & NAVIGATION (Brand Green) ==================== -->
-<header class="bg-[#0A4D34] text-white sticky top-0 z-50 shadow-xl border-b border-emerald-700/80">
+<!-- ==================== HEADER & NAVIGATION ==================== -->
+<header class="bg-[#0A4D34] text-white sticky top-0 z-50 shadow-xl border-b-2 border-yellow-400/30">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
 
-    <!-- Brand Logo (With Interactive Hover Effect) -->
+    <!-- Brand Logo -->
     <a href="index.html" class="flex items-center space-x-3 group transition transform hover:scale-105">
       <div class="relative">
-        <div class="w-12 h-12 rounded-full bg-white p-0.5 border-2 border-yellow-400 flex items-center justify-center shadow-lg group-hover:ring-4 group-hover:ring-yellow-300 transition duration-300">
+        <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white p-0.5 border-2 border-yellow-400 flex items-center justify-center shadow-lg group-hover:ring-4 group-hover:ring-yellow-300 transition duration-300">
           <img src="logo.jpg" alt="The 5% Club Logo" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/150/0A4D34/FFFFFF?text=5%25';">
         </div>
         <span class="absolute -top-1 -right-1 flex h-4 w-4">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-4 w-4 bg-yellow-500 border border-emerald-950"></span>
-          </span>
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-4 w-4 bg-yellow-500 border border-emerald-950"></span>
+        </span>
       </div>
       <div class="flex flex-col">
-        <span class="font-black text-xl tracking-tight text-white group-hover:text-yellow-300 transition">The 5% Club</span>
-        <span class="text-[10px] text-emerald-200 uppercase tracking-widest font-bold">AAU & Matric Excellence Hub</span>
+        <span class="font-black text-lg sm:text-xl tracking-tight text-white group-hover:text-yellow-300 transition">The 5% Club</span>
+        <span class="text-[9px] sm:text-[10px] text-emerald-200 uppercase tracking-widest font-bold">AAU & Matric Excellence</span>
       </div>
     </a>
 
-    <!-- Navigation Links -->
-    <nav class="hidden md:flex items-center space-x-6 font-semibold text-xs uppercase tracking-wider">
+    <!-- Desktop Navigation Links -->
+    <nav class="hidden md:flex items-center space-x-5 font-semibold text-xs uppercase tracking-wider">
       <a href="index.html" class="text-white hover:text-yellow-300 hover:border-b-2 border-yellow-400 py-1 transition flex items-center space-x-1.5">
         <i class="fa-solid fa-house text-yellow-400"></i>
         <span>Home</span>
       </a>
-      <a href="index.html#take-exam" class="text-white hover:text-yellow-300 hover:border-b-2 border-yellow-400 py-1 transition flex items-center space-x-1.5">
+      <a href="exam.html" class="text-white hover:text-yellow-300 hover:border-b-2 border-yellow-400 py-1 transition flex items-center space-x-1.5">
         <i class="fa-solid fa-pen-to-square text-yellow-400"></i>
         <span>Take Exam</span>
       </a>
-      <a href="#about-us" class="text-white border-b-2 border-yellow-400 py-1 transition flex items-center space-x-1.5 font-bold">
+      <a href="about.html" class="text-white border-b-2 border-yellow-400 py-1 transition flex items-center space-x-1.5 font-bold">
         <i class="fa-solid fa-star text-yellow-400"></i>
-        <span>About Us & Track Record</span>
+        <span>About Us</span>
       </a>
       <a href="materials.html" class="text-white hover:text-yellow-300 hover:border-b-2 border-yellow-400 py-1 transition flex items-center space-x-1.5">
         <i class="fa-solid fa-circle-play text-yellow-400"></i>
-        <span>Material Videos</span>
+        <span>Materials</span>
       </a>
       <a href="#creators" class="text-white hover:text-yellow-300 hover:border-b-2 border-yellow-400 py-1 transition flex items-center space-x-1.5">
         <i class="fa-solid fa-user-graduate text-yellow-400"></i>
@@ -88,24 +101,43 @@
       </a>
     </nav>
 
-    <!-- Action Buttons -->
-    <div class="flex items-center space-x-3">
+    <!-- Desktop Action Buttons -->
+    <div class="hidden sm:flex items-center space-x-3">
       <a href="#register" class="bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider shadow-lg transition transform hover:-translate-y-0.5 flex items-center space-x-2">
         <i class="fa-solid fa-user-plus"></i>
-        <span>Register Now</span>
+        <span>Register</span>
       </a>
     </div>
 
+    <!-- Mobile Menu Toggle Button -->
+    <button id="menu-btn" class="md:hidden text-white text-2xl focus:outline-none p-2 bg-emerald-900/60 rounded-xl border border-emerald-700">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-[#063523] border-t border-emerald-700 px-6 py-5 space-y-4 shadow-2xl">
+    <a href="index.html" class="block text-white hover:text-yellow-300 font-semibold text-sm py-1"><i class="fa-solid fa-house text-yellow-400 mr-2"></i> Home</a>
+    <a href="exam.html" class="block text-white hover:text-yellow-300 font-semibold text-sm py-1"><i class="fa-solid fa-pen-to-square text-yellow-400 mr-2"></i> Take Exam</a>
+    <a href="about.html" class="block text-yellow-300 font-bold text-sm py-1"><i class="fa-solid fa-star text-yellow-400 mr-2"></i> About Us & Track Record</a>
+    <a href="materials.html" class="block text-white hover:text-yellow-300 font-semibold text-sm py-1"><i class="fa-solid fa-circle-play text-yellow-400 mr-2"></i> Material Videos</a>
+    <a href="#creators" class="block text-white hover:text-yellow-300 font-semibold text-sm py-1"><i class="fa-solid fa-user-graduate text-yellow-400 mr-2"></i> Creators</a>
+    <div class="pt-2 border-t border-emerald-800">
+      <a href="#register" class="block text-center bg-yellow-400 text-slate-950 font-black px-4 py-3 rounded-xl text-xs uppercase tracking-wider shadow-md">
+        <i class="fa-solid fa-user-plus mr-1"></i> Register Now
+      </a>
+    </div>
   </div>
 </header>
 
-<!-- ==================== HERO SECTION (Clean White Background Combination) ==================== -->
-<section class="hero-light relative py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-200 overflow-hidden">
-  <div class="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-12 gap-12 items-center">
+<!-- ==================== HERO SECTION ==================== -->
+<section class="hero-light relative py-12 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-emerald-100 overflow-hidden">
+  <div class="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
 
     <!-- Hero Content Left -->
     <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-      <div class="inline-flex items-center space-x-2 bg-emerald-50 border border-emerald-600/30 text-emerald-800 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-sm">
+      <div class="inline-flex items-center space-x-2 bg-white border border-emerald-600/30 text-emerald-900 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-sm">
         <i class="fa-solid fa-lightbulb text-yellow-500 animate-pulse text-sm"></i>
         <span>Empowering Ethiopia's Top Achievers</span>
       </div>
@@ -114,16 +146,16 @@
         Turning Student Dreams Into <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#0A4D34] via-emerald-700 to-amber-600">Real Campus Life.</span>
       </h1>
 
-      <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl">
+      <p class="text-slate-700 text-sm sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
         From high school Grade 12 National Matric Exams to the elite Addis Ababa University Admission Test (UAT), we bridge the gap between hard work and top-tier university acceptance. Join the top 5% who secure their dream departments.
       </p>
 
-      <div class="pt-2 flex flex-wrap justify-center lg:justify-start gap-4">
-        <a href="#impact" class="bg-[#0A4D34] hover:bg-emerald-800 text-white font-bold px-6 py-3.5 rounded-2xl text-xs uppercase tracking-wider shadow-xl transition flex items-center space-x-2">
+      <div class="pt-2 flex flex-col sm:flex-row justify-center lg:justify-start gap-3 sm:gap-4">
+        <a href="#impact" class="bg-[#0A4D34] hover:bg-emerald-800 text-white font-bold px-6 py-3.5 rounded-2xl text-xs uppercase tracking-wider shadow-xl transition flex items-center justify-center space-x-2 border border-emerald-700">
           <i class="fa-solid fa-chart-line text-yellow-400"></i>
           <span>Explore Success Record</span>
         </a>
-        <a href="materials.html" class="bg-white hover:bg-slate-100 text-[#0A4D34] border border-[#0A4D34]/30 font-bold px-6 py-3.5 rounded-2xl text-xs uppercase tracking-wider shadow-sm transition flex items-center space-x-2">
+        <a href="materials.html" class="bg-white hover:bg-emerald-50 text-[#0A4D34] border-2 border-[#0A4D34]/30 font-bold px-6 py-3.5 rounded-2xl text-xs uppercase tracking-wider shadow-sm transition flex items-center justify-center space-x-2">
           <i class="fa-solid fa-circle-play text-yellow-500"></i>
           <span>Watch Material Videos</span>
         </a>
@@ -132,19 +164,19 @@
 
     <!-- Hero Visual Right: Glowing Lightbulb Card -->
     <div class="lg:col-span-5 flex justify-center">
-      <div class="w-full max-w-md p-8 rounded-3xl bg-white border border-emerald-900/10 shadow-xl relative overflow-hidden flex flex-col items-center text-center space-y-6">
-        <div class="absolute -top-12 -right-12 w-40 h-40 bg-yellow-400/15 rounded-full blur-2xl"></div>
+      <div class="w-full max-w-md p-6 sm:p-8 rounded-3xl bg-white border-2 border-emerald-900/10 shadow-2xl relative overflow-hidden flex flex-col items-center text-center space-y-6">
+        <div class="absolute -top-12 -right-12 w-40 h-40 bg-yellow-400/20 rounded-full blur-2xl"></div>
 
         <!-- Bright Yellow Bulb Badge -->
-        <div class="w-24 h-24 bg-[#0A4D34] border-2 border-yellow-400 rounded-3xl flex items-center justify-center text-yellow-400 text-4xl shadow-lg bulb-glow">
+        <div class="w-20 h-20 sm:w-24 sm:h-24 bg-[#0A4D34] border-2 border-yellow-400 rounded-3xl flex items-center justify-center text-yellow-400 text-3xl sm:text-4xl shadow-lg bulb-glow">
           <i class="fa-solid fa-lightbulb"></i>
         </div>
 
         <div class="space-y-2">
-            <span class="text-xs font-bold text-[#0A4D34] bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full uppercase tracking-wider">
-              Proven Track Record
-            </span>
-          <h3 class="text-xl font-bold text-slate-900 pt-1">95% AAU Admission Rate</h3>
+          <span class="text-xs font-bold text-[#0A4D34] bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full uppercase tracking-wider">
+            Proven Track Record
+          </span>
+          <h3 class="text-xl sm:text-2xl font-black text-slate-900 pt-1">95% AAU Admission Rate</h3>
           <p class="text-xs text-slate-600 leading-relaxed">
             Targeted prep designed by AAU Engineering students to make Grade 12 & UAT exam preparation efficient and high-yielding.
           </p>
@@ -152,13 +184,13 @@
 
         <!-- Highlight Badges -->
         <div class="grid grid-cols-2 gap-3 w-full pt-2">
-          <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-left">
-            <p class="text-[#0A4D34] font-bold text-sm">500+ Scores</p>
-            <p class="text-[10px] text-slate-500">90%+ Matric Candidates</p>
+          <div class="bg-emerald-50/50 p-3 rounded-2xl border border-emerald-200/60 text-left">
+            <p class="text-[#0A4D34] font-black text-sm">500+ Scores</p>
+            <p class="text-[10px] text-slate-600 font-medium">90%+ Matric Candidates</p>
           </div>
-          <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-left">
-            <p class="text-[#0A4D34] font-bold text-sm">Top Rank</p>
-            <p class="text-[10px] text-slate-500">Highest Female Social</p>
+          <div class="bg-amber-50/50 p-3 rounded-2xl border border-amber-200/60 text-left">
+            <p class="text-[#0A4D34] font-black text-sm">Top Rank</p>
+            <p class="text-[10px] text-slate-600 font-medium">Highest Female Social</p>
           </div>
         </div>
 
@@ -169,26 +201,26 @@
 </section>
 
 <!-- ==================== ABOUT US & TRACK RECORD ==================== -->
-<section id="about-us" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-16">
+<section id="about-us" class="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-14">
 
   <!-- Header -->
   <div class="text-center max-w-3xl mx-auto space-y-3">
-    <span class="text-xs font-bold text-[#0A4D34] bg-emerald-50 border border-emerald-200 px-3.5 py-1 rounded-full uppercase tracking-widest">Our Legacy & Mission</span>
-    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">More Than Just UAT Preparation</h2>
-    <p class="text-slate-600 text-sm sm:text-base">
+    <span class="text-xs font-bold text-[#0A4D34] bg-white border border-emerald-300 px-4 py-1.5 rounded-full uppercase tracking-widest shadow-sm">Our Legacy & Mission</span>
+    <h2 class="text-2xl sm:text-4xl font-black text-slate-900">More Than Just UAT Preparation</h2>
+    <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
       Our journey didn't start with university admission tests—we built our foundation by helping high school Grade 12 Matric entrance exam takers across different high schools achieve academic brilliance and enter top universities.
     </p>
   </div>
 
   <!-- Impact Cards Grid -->
-  <div class="grid md:grid-cols-3 gap-8">
+  <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
 
     <!-- Card 1 -->
-    <div class="card-light p-8 rounded-3xl space-y-4 hover:border-yellow-500 transition duration-300 relative group">
-      <div class="w-14 h-14 bg-emerald-50 border border-emerald-200 text-[#0A4D34] rounded-2xl flex items-center justify-center text-2xl font-bold group-hover:scale-110 transition">
-        <i class="fa-solid fa-award text-yellow-600"></i>
+    <div class="card-interactive p-6 sm:p-8 rounded-3xl space-y-4 group">
+      <div class="w-14 h-14 bg-emerald-50 border-2 border-emerald-200 text-[#0A4D34] rounded-2xl flex items-center justify-center text-2xl font-bold group-hover:scale-110 group-hover:bg-yellow-400 group-hover:text-slate-950 transition duration-300">
+        <i class="fa-solid fa-award text-yellow-600 group-hover:text-slate-950"></i>
       </div>
-      <h3 class="text-xl font-bold text-slate-900">Grade 12 Matric Victory</h3>
+      <h3 class="text-xl font-black text-slate-900">Grade 12 Matric Victory</h3>
       <p class="text-slate-600 text-sm leading-relaxed">
         Through intensive tutorials and high school outreach programs, our students achieved astounding results on their National Entrance Examinations.
       </p>
@@ -199,11 +231,11 @@
     </div>
 
     <!-- Card 2 -->
-    <div class="card-light p-8 rounded-3xl space-y-4 hover:border-yellow-500 transition duration-300 relative group">
-      <div class="w-14 h-14 bg-emerald-50 border border-emerald-200 text-[#0A4D34] rounded-2xl flex items-center justify-center text-2xl font-bold group-hover:scale-110 transition">
-        <i class="fa-solid fa-crown text-yellow-600"></i>
+    <div class="card-interactive p-6 sm:p-8 rounded-3xl space-y-4 group">
+      <div class="w-14 h-14 bg-emerald-50 border-2 border-emerald-200 text-[#0A4D34] rounded-2xl flex items-center justify-center text-2xl font-bold group-hover:scale-110 group-hover:bg-yellow-400 group-hover:text-slate-950 transition duration-300">
+        <i class="fa-solid fa-crown text-yellow-600 group-hover:text-slate-950"></i>
       </div>
-      <h3 class="text-xl font-bold text-slate-900">Top Social Science Rank</h3>
+      <h3 class="text-xl font-black text-slate-900">Top Social Science Rank</h3>
       <p class="text-slate-600 text-sm leading-relaxed">
         We proudly guided the student who earned the highest female result in Social Science on the Grade 12 Matric national examination.
       </p>
@@ -214,11 +246,11 @@
     </div>
 
     <!-- Card 3 -->
-    <div class="card-light p-8 rounded-3xl space-y-4 hover:border-yellow-500 transition duration-300 relative group">
-      <div class="w-14 h-14 bg-emerald-50 border border-emerald-200 text-[#0A4D34] rounded-2xl flex items-center justify-center text-2xl font-bold group-hover:scale-110 transition">
-        <i class="fa-solid fa-building-columns text-yellow-600"></i>
+    <div class="card-interactive p-6 sm:p-8 rounded-3xl space-y-4 group sm:col-span-2 md:col-span-1">
+      <div class="w-14 h-14 bg-emerald-50 border-2 border-emerald-200 text-[#0A4D34] rounded-2xl flex items-center justify-center text-2xl font-bold group-hover:scale-110 group-hover:bg-yellow-400 group-hover:text-slate-950 transition duration-300">
+        <i class="fa-solid fa-building-columns text-yellow-600 group-hover:text-slate-950"></i>
       </div>
-      <h3 class="text-xl font-bold text-slate-900">AAU & Elite Acceptance</h3>
+      <h3 class="text-xl font-black text-slate-900">AAU & Elite Acceptance</h3>
       <p class="text-slate-600 text-sm leading-relaxed">
         We converted dreams into reality by helping 95% of our UAT candidates get accepted into Addis Ababa University and placed 5 scholars into prestigious Presidential Schools.
       </p>
@@ -231,14 +263,14 @@
   </div>
 
   <!-- ==================== GRAPH SECTION ==================== -->
-  <div id="impact" class="card-light p-8 sm:p-12 rounded-3xl space-y-10">
+  <div id="impact" class="card-interactive p-6 sm:p-10 lg:p-12 rounded-3xl space-y-8 bg-white">
 
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
       <div>
-        <span class="text-xs font-bold text-[#0A4D34] uppercase tracking-widest">Verified Performance</span>
-        <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Our Student Success Rates Visualized</h3>
+        <span class="text-xs font-bold text-[#0A4D34] uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Verified Performance</span>
+        <h3 class="text-xl sm:text-3xl font-black text-slate-900 mt-2">Our Student Success Rates Visualized</h3>
       </div>
-      <div class="bg-slate-100 border border-slate-200 px-4 py-2 rounded-xl text-xs text-slate-700 font-mono">
+      <div class="bg-slate-100 border border-slate-200 px-4 py-2 rounded-xl text-xs text-slate-700 font-mono shadow-sm">
         <i class="fa-solid fa-database text-[#0A4D34] mr-2"></i>Historical Cohort Metrics
       </div>
     </div>
@@ -248,56 +280,56 @@
 
       <!-- Metric 1 -->
       <div class="space-y-2">
-        <div class="flex justify-between text-sm font-bold">
-          <span class="text-slate-700">AAU UAT Acceptance Rate among 5% Club Students</span>
+        <div class="flex justify-between text-xs sm:text-sm font-bold">
+          <span class="text-slate-800">AAU UAT Acceptance Rate among 5% Club Students</span>
           <span class="text-[#0A4D34] font-mono">95%</span>
         </div>
-        <div class="w-full bg-slate-100 h-4 rounded-full overflow-hidden p-0.5 border border-slate-200">
-          <div class="bg-gradient-to-r from-[#0A4D34] to-emerald-600 h-full rounded-full bar-grow" style="width: 95%;"></div>
+        <div class="w-full bg-slate-100 h-4 rounded-full overflow-hidden p-0.5 border border-slate-200 shadow-inner">
+          <div class="bg-gradient-to-r from-[#0A4D34] via-emerald-600 to-amber-500 h-full rounded-full bar-grow" style="width: 95%;"></div>
         </div>
       </div>
 
       <!-- Metric 2 -->
       <div class="space-y-2">
-        <div class="flex justify-between text-sm font-bold">
-          <span class="text-slate-700">Grade 12 Matric Students Scoring Above 500+ Points</span>
+        <div class="flex justify-between text-xs sm:text-sm font-bold">
+          <span class="text-slate-800">Grade 12 Matric Students Scoring Above 500+ Points</span>
           <span class="text-[#0A4D34] font-mono">90%</span>
         </div>
-        <div class="w-full bg-slate-100 h-4 rounded-full overflow-hidden p-0.5 border border-slate-200">
-          <div class="bg-gradient-to-r from-[#0A4D34] to-emerald-600 h-full rounded-full bar-grow" style="width: 90%;"></div>
+        <div class="w-full bg-slate-100 h-4 rounded-full overflow-hidden p-0.5 border border-slate-200 shadow-inner">
+          <div class="bg-gradient-to-r from-[#0A4D34] via-emerald-600 to-amber-500 h-full rounded-full bar-grow" style="width: 90%;"></div>
         </div>
       </div>
 
       <!-- Metric 3 -->
       <div class="space-y-2">
-        <div class="flex justify-between text-sm font-bold">
-          <span class="text-slate-700">First-Choice Department Placement Success</span>
+        <div class="flex justify-between text-xs sm:text-sm font-bold">
+          <span class="text-slate-800">First-Choice Department Placement Success</span>
           <span class="text-[#0A4D34] font-mono">92%</span>
         </div>
-        <div class="w-full bg-slate-100 h-4 rounded-full overflow-hidden p-0.5 border border-slate-200">
-          <div class="bg-gradient-to-r from-[#0A4D34] to-emerald-600 h-full rounded-full bar-grow" style="width: 92%;"></div>
+        <div class="w-full bg-slate-100 h-4 rounded-full overflow-hidden p-0.5 border border-slate-200 shadow-inner">
+          <div class="bg-gradient-to-r from-[#0A4D34] via-emerald-600 to-amber-500 h-full rounded-full bar-grow" style="width: 92%;"></div>
         </div>
       </div>
 
     </div>
 
     <!-- Stat Counter Highlights -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-6 border-t border-slate-100 text-center">
-      <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-        <p class="text-3xl font-black text-[#0A4D34] font-mono">500+</p>
-        <p class="text-xs text-slate-600 mt-1 uppercase font-semibold">Matric Score Average</p>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-6 border-t border-slate-100 text-center">
+      <div class="p-4 bg-emerald-50/60 rounded-2xl border border-emerald-200/60 hover:bg-emerald-50 transition">
+        <p class="text-2xl sm:text-3xl font-black text-[#0A4D34] font-mono">500+</p>
+        <p class="text-[10px] sm:text-xs text-slate-700 mt-1 uppercase font-bold">Matric Average</p>
       </div>
-      <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-        <p class="text-3xl font-black text-[#0A4D34] font-mono">#1</p>
-        <p class="text-xs text-slate-600 mt-1 uppercase font-semibold">Female Social Result</p>
+      <div class="p-4 bg-amber-50/60 rounded-2xl border border-amber-200/60 hover:bg-amber-50 transition">
+        <p class="text-2xl sm:text-3xl font-black text-[#0A4D34] font-mono">#1</p>
+        <p class="text-[10px] sm:text-xs text-slate-700 mt-1 uppercase font-bold">Female Social Result</p>
       </div>
-      <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-        <p class="text-3xl font-black text-[#0A4D34] font-mono">5</p>
-        <p class="text-xs text-slate-600 mt-1 uppercase font-semibold">Presidential School Admits</p>
+      <div class="p-4 bg-emerald-50/60 rounded-2xl border border-emerald-200/60 hover:bg-emerald-50 transition">
+        <p class="text-2xl sm:text-3xl font-black text-[#0A4D34] font-mono">5</p>
+        <p class="text-[10px] sm:text-xs text-slate-700 mt-1 uppercase font-bold">Presidential Admits</p>
       </div>
-      <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-        <p class="text-3xl font-black text-[#0A4D34] font-mono">95%</p>
-        <p class="text-xs text-slate-600 mt-1 uppercase font-semibold">AAU Admission Success</p>
+      <div class="p-4 bg-amber-50/60 rounded-2xl border border-amber-200/60 hover:bg-amber-50 transition">
+        <p class="text-2xl sm:text-3xl font-black text-[#0A4D34] font-mono">95%</p>
+        <p class="text-[10px] sm:text-xs text-slate-700 mt-1 uppercase font-bold">AAU Success Rate</p>
       </div>
     </div>
 
@@ -305,82 +337,110 @@
 
 </section>
 
-<!-- ==================== MEET THE CREATORS SECTION ==================== -->
-<section id="creators" class="py-16 bg-white border-y border-slate-200 px-4 sm:px-6 lg:px-8">
+<!-- ==================== MEET THE CREATORS SECTION (INTERACTIVE JS TABS) ==================== -->
+<section id="creators" class="py-14 sm:py-20 bg-white border-y border-emerald-200 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto space-y-12">
 
     <div class="text-center max-w-2xl mx-auto space-y-3">
-      <span class="text-xs font-bold text-[#0A4D34] bg-emerald-50 border border-emerald-200 px-3.5 py-1 rounded-full uppercase tracking-widest">Founders & Mentors</span>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Meet the Creators</h2>
-      <p class="text-slate-600 text-sm">
+      <span class="text-xs font-bold text-[#0A4D34] bg-emerald-50 border border-emerald-200 px-4 py-1.5 rounded-full uppercase tracking-widest shadow-sm">Founders & Mentors</span>
+      <h2 class="text-2xl sm:text-4xl font-black text-slate-900">Meet the Creators</h2>
+      <p class="text-slate-700 text-sm">
         We are two active Addis Ababa University students who navigated the entrance journey firsthand and now dedicate ourselves to preparing the next generation of top performers.
       </p>
+
+      <!-- Interactive Tab Buttons (JS Trigger) -->
+      <div class="flex justify-center gap-3 pt-4">
+        <button onclick="switchFounder('all')" id="tab-all" class="px-5 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-[#0A4D34] text-yellow-300 shadow-md transition">
+          <i class="fa-solid fa-users mr-1"></i> View Both
+        </button>
+        <button onclick="switchFounder('biruk-z')" id="tab-biruk-z" class="px-5 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-slate-100 text-slate-700 hover:bg-emerald-50 border border-slate-200 shadow-sm transition">
+          <i class="fa-solid fa-crown mr-1 text-yellow-500"></i> Founder (Biruk Zewdu)
+        </button>
+        <button onclick="switchFounder('biruk-c')" id="tab-biruk-c" class="px-5 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-slate-100 text-slate-700 hover:bg-emerald-50 border border-slate-200 shadow-sm transition">
+          <i class="fa-solid fa-compass-drafting mr-1 text-yellow-500"></i> Co-Founder (Biruk Chiche)
+        </button>
+      </div>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-8">
+    <!-- Founders Grid -->
+    <div id="creators-grid" class="grid md:grid-cols-2 gap-8">
 
-      <!-- Creator 1 -->
-      <div class="bg-slate-50 p-8 rounded-3xl shadow-md border border-slate-200 flex flex-col items-center text-center relative overflow-hidden group hover:border-[#0A4D34] transition duration-300">
-        <div class="absolute top-0 right-0 bg-[#0A4D34] text-yellow-300 text-[10px] font-black px-4 py-1 rounded-bl-2xl uppercase tracking-wider">
-          Lead Instructor
+      <!-- Creator 1: Biruk Zewdu (Founder) -->
+      <div id="card-biruk-z" class="founder-card p-6 sm:p-8 rounded-3xl shadow-xl flex flex-col items-center text-center relative overflow-hidden group transition duration-300">
+        <div class="absolute top-0 right-0 bg-yellow-500 text-slate-950 text-[10px] font-black px-5 py-1.5 rounded-bl-2xl uppercase tracking-wider shadow-md">
+          <i class="fa-solid fa-star mr-1"></i> Founder & Lead
         </div>
 
         <!-- Creator Profile Image Box -->
-        <div class="relative mb-6">
-          <div class="w-28 h-28 bg-white rounded-full overflow-hidden border-4 border-yellow-400 shadow-xl group-hover:scale-105 group-hover:ring-4 group-hover:ring-emerald-500 transition duration-300">
+        <div class="relative mb-6 mt-3">
+          <div class="w-28 h-28 sm:w-32 sm:h-32 bg-white rounded-full overflow-hidden border-4 border-yellow-400 shadow-2xl group-hover:scale-105 group-hover:ring-4 group-hover:ring-emerald-600 transition duration-300">
             <img src="biruk_zewdu.jpg" alt="Biruk Zewdu" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://via.placeholder.com/150/0A4D34/FFFFFF?text=Biruk+Z';">
           </div>
-          <span class="absolute bottom-1 right-1 bg-yellow-400 text-slate-950 text-xs p-1.5 rounded-full border-2 border-white">
-              <i class="fa-solid fa-code"></i>
-            </span>
+          <span class="absolute bottom-1 right-1 bg-yellow-400 text-slate-950 text-xs p-2 rounded-full border-2 border-white shadow-lg">
+            <i class="fa-solid fa-code"></i>
+          </span>
         </div>
 
         <h3 class="text-2xl font-black text-slate-900">Biruk Zewdu</h3>
-        <span class="text-xs font-bold text-[#0A4D34] bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full mt-2">
-            AAU Software Engineering Student & Software Developer
-          </span>
+        <span class="text-xs font-extrabold text-[#0A4D34] bg-yellow-100/80 border border-yellow-300 px-3.5 py-1 rounded-full mt-2 shadow-sm">
+          Founder of The 5% Club & AAU Software Engineering Student
+        </span>
 
-        <p class="text-slate-600 text-sm mt-5 leading-relaxed">
-          Specializes in Quantitative Reasoning shortcuts, algebra problem-solving, video tutorial preparation for Grade 12 & UAT candidates, admissions workflow guides, platform development, and active community mentorship across YouTube, TikTok, and Telegram.
+        <p class="text-slate-700 text-sm mt-5 leading-relaxed">
+          Visionary creator and software engineer behind The 5% Club platform. Specializes in Quantitative Reasoning shortcuts, algebra problem-solving, digital platform development, automated workflows, and high-yielding mentorship across YouTube, TikTok, and Telegram.
         </p>
+
+        <!-- Interactive Skill Badges -->
+        <div class="flex flex-wrap justify-center gap-2 mt-4">
+          <span class="text-[10px] bg-emerald-100 text-emerald-900 font-bold px-2.5 py-1 rounded-lg">Platform Architect</span>
+          <span class="text-[10px] bg-emerald-100 text-emerald-900 font-bold px-2.5 py-1 rounded-lg">Quantitative Expert</span>
+          <span class="text-[10px] bg-emerald-100 text-emerald-900 font-bold px-2.5 py-1 rounded-lg">Lead Instructor</span>
+        </div>
 
         <!-- Personal Contact CTA -->
         <div class="mt-6 w-full pt-6 border-t border-slate-200 flex flex-col sm:flex-row justify-center items-center gap-3">
-          <a href="https://t.me/Bruuzed" target="_blank" class="w-full sm:w-auto bg-[#0A4D34] hover:bg-emerald-800 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition flex items-center justify-center space-x-2 shadow-sm">
+          <a href="https://t.me/Bruuzed" target="_blank" class="w-full sm:w-auto bg-[#0A4D34] hover:bg-emerald-800 text-white font-bold px-6 py-3 rounded-xl text-xs transition flex items-center justify-center space-x-2 shadow-lg transform hover:scale-105">
             <i class="fa-brands fa-telegram text-yellow-400 text-base"></i>
-            <span>Personal Talk: @Bruuzed</span>
+            <span>Talk to Founder: @Bruuzed</span>
           </a>
         </div>
       </div>
 
-      <!-- Creator 2 -->
-      <div class="bg-slate-50 p-8 rounded-3xl shadow-md border border-slate-200 flex flex-col items-center text-center relative overflow-hidden group hover:border-[#0A4D34] transition duration-300">
-        <div class="absolute top-0 right-0 bg-[#0A4D34] text-yellow-300 text-[10px] font-black px-4 py-1 rounded-bl-2xl uppercase tracking-wider">
-          Material Organizer
+      <!-- Creator 2: Biruk Chiche (Co-Founder) -->
+      <div id="card-biruk-c" class="card-interactive p-6 sm:p-8 rounded-3xl shadow-lg flex flex-col items-center text-center relative overflow-hidden group transition duration-300">
+        <div class="absolute top-0 right-0 bg-[#0A4D34] text-yellow-300 text-[10px] font-black px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider shadow-sm">
+          Co-Founder & Organizer
         </div>
 
         <!-- Creator Profile Image Box -->
-        <div class="relative mb-6">
-          <div class="w-28 h-28 bg-white rounded-full overflow-hidden border-4 border-yellow-400 shadow-xl group-hover:scale-105 group-hover:ring-4 group-hover:ring-emerald-500 transition duration-300">
+        <div class="relative mb-6 mt-3">
+          <div class="w-28 h-28 sm:w-32 sm:h-32 bg-white rounded-full overflow-hidden border-4 border-yellow-400 shadow-2xl group-hover:scale-105 group-hover:ring-4 group-hover:ring-emerald-500 transition duration-300">
             <img src="biruk_chiche.jpg" alt="Biruk Chiche" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://via.placeholder.com/150/0A4D34/FFFFFF?text=Biruk+C';">
           </div>
-          <span class="absolute bottom-1 right-1 bg-yellow-400 text-slate-950 text-xs p-1.5 rounded-full border-2 border-white">
-              <i class="fa-solid fa-compass-drafting"></i>
-            </span>
+          <span class="absolute bottom-1 right-1 bg-yellow-400 text-slate-950 text-xs p-2 rounded-full border-2 border-white shadow-lg">
+            <i class="fa-solid fa-compass-drafting"></i>
+          </span>
         </div>
 
         <h3 class="text-2xl font-black text-slate-900">Biruk Chiche</h3>
-        <span class="text-xs font-bold text-[#0A4D34] bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full mt-2">
-            AAU Civil Engineering Student & Content Creator
-          </span>
+        <span class="text-xs font-bold text-[#0A4D34] bg-emerald-100/70 border border-emerald-300 px-3.5 py-1 rounded-full mt-2 shadow-sm">
+          Co-Founder & AAU Civil Engineering Student
+        </span>
 
-        <p class="text-slate-600 text-sm mt-5 leading-relaxed">
+        <p class="text-slate-700 text-sm mt-5 leading-relaxed">
           Focuses on Verbal Reasoning strategies, Quantitative Reasoning shortcuts, comprehensive practice material organization, and video tutorial production designed specifically for Grade 12 Matric and AAU UAT candidates.
         </p>
 
+        <!-- Interactive Skill Badges -->
+        <div class="flex flex-wrap justify-center gap-2 mt-4">
+          <span class="text-[10px] bg-emerald-100 text-emerald-900 font-bold px-2.5 py-1 rounded-lg">Material Organizer</span>
+          <span class="text-[10px] bg-emerald-100 text-emerald-900 font-bold px-2.5 py-1 rounded-lg">Verbal Strategist</span>
+          <span class="text-[10px] bg-emerald-100 text-emerald-900 font-bold px-2.5 py-1 rounded-lg">Mentor</span>
+        </div>
+
         <!-- Personal Contact CTA -->
         <div class="mt-6 w-full pt-6 border-t border-slate-200 flex flex-col sm:flex-row justify-center items-center gap-3">
-          <a href="https://t.me/biwoch23" target="_blank" class="w-full sm:w-auto bg-[#0A4D34] hover:bg-emerald-800 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition flex items-center justify-center space-x-2 shadow-sm">
+          <a href="https://t.me/biwoch23" target="_blank" class="w-full sm:w-auto bg-[#0A4D34] hover:bg-emerald-800 text-white font-bold px-6 py-3 rounded-xl text-xs transition flex items-center justify-center space-x-2 shadow-lg transform hover:scale-105">
             <i class="fa-brands fa-telegram text-yellow-400 text-base"></i>
             <span>Telegram Contact: @biwoch23</span>
           </a>
@@ -393,28 +453,28 @@
 </section>
 
 <!-- ==================== REGISTRATION SECTION ==================== -->
-<section id="register" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-  <div class="card-light p-8 sm:p-12 rounded-3xl border border-emerald-600/30 text-center space-y-6 relative overflow-hidden">
-    <div class="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-yellow-400/15 rounded-full blur-2xl"></div>
+<section id="register" class="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+  <div class="card-interactive p-8 sm:p-12 rounded-3xl border-2 border-emerald-600/40 text-center space-y-6 relative overflow-hidden bg-gradient-to-br from-white via-emerald-50/50 to-amber-50/40 shadow-2xl">
+    <div class="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-yellow-400/20 rounded-full blur-2xl"></div>
 
-    <span class="bg-yellow-400 text-slate-950 text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-widest inline-block shadow-sm">
-        Take The Next Step
-      </span>
+    <span class="bg-yellow-400 text-slate-950 text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest inline-block shadow-md">
+      Take The Next Step
+    </span>
 
-    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 max-w-2xl mx-auto">
+    <h2 class="text-2xl sm:text-4xl font-black text-slate-900 max-w-2xl mx-auto leading-tight">
       Ready to Be Part of The 5% Who Join Addis Ababa University?
     </h2>
 
-    <p class="text-slate-600 text-sm sm:text-base max-w-xl mx-auto">
+    <p class="text-slate-700 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
       Access our full library of material videos, mock exams, and personalized mentorship for Grade 12 and UAT entrance preparation.
     </p>
 
-    <div class="flex flex-wrap justify-center gap-4 pt-2">
-      <a href="material.html" class="bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-black px-8 py-3.5 rounded-2xl text-xs uppercase tracking-wider shadow-md transition transform hover:scale-105">
+    <div class="flex flex-col sm:flex-row justify-center gap-4 pt-2">
+      <a href="material.html" class="bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-black px-8 py-3.5 rounded-2xl text-xs uppercase tracking-wider shadow-lg transition transform hover:scale-105 flex items-center justify-center">
         <i class="fa-solid fa-circle-play mr-2"></i>Explore Material Videos
       </a>
-      <a href="https://t.me/the5clubs" target="_blank" class="bg-[#0A4D34] hover:bg-emerald-800 text-white font-bold px-8 py-3.5 rounded-2xl text-xs uppercase tracking-wider transition border border-emerald-700 shadow-md">
-        <i class="fa-brands fa-telegram mr-2 text-yellow-400"></i>Join Telegram Channel
+      <a href="https://t.me/the5clubs" target="_blank" class="bg-[#0A4D34] hover:bg-emerald-800 text-white font-bold px-8 py-3.5 rounded-2xl text-xs uppercase tracking-wider transition border border-emerald-700 shadow-lg flex items-center justify-center">
+        <i class="fa-brands fa-telegram mr-2 text-yellow-400 text-base"></i>Join Telegram Channel
       </a>
     </div>
   </div>
@@ -424,28 +484,28 @@
 <footer class="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800 mt-auto text-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
       <!-- Column 1 -->
       <div class="space-y-4">
         <a href="index.html" class="flex items-center space-x-3 group">
-          <div class="w-10 h-10 rounded-full bg-white p-0.5 border border-yellow-400 flex items-center justify-center group-hover:scale-105 transition">
+          <div class="w-10 h-10 rounded-full bg-white p-0.5 border-2 border-yellow-400 flex items-center justify-center group-hover:scale-105 transition shadow-md">
             <img src="logo.jpg" alt="The 5% Club Logo" class="w-full h-full object-cover rounded-full" onerror="this.onerror=null; this.src='https://via.placeholder.com/150/0A4D34/FFFFFF?text=5%25';">
           </div>
-          <span class="font-extrabold text-white text-lg tracking-tight group-hover:text-yellow-300 transition">The 5% Club</span>
+          <span class="font-black text-white text-lg tracking-tight group-hover:text-yellow-300 transition">The 5% Club</span>
         </a>
         <p class="text-xs text-slate-400 leading-relaxed">
           Empowering Ethiopian Grade 12 Matric takers and AAU UAT candidates through elite preparation materials, tutorials, and proven strategies.
         </p>
         <div class="flex items-center space-x-3 pt-2">
-          <a href="https://t.me/the5clubs" target="_blank" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-[#0A4D34] text-yellow-400 border border-slate-700 flex items-center justify-center transition">
-            <i class="fa-brands fa-telegram text-xs"></i>
+          <a href="https://t.me/the5clubs" target="_blank" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-[#0A4D34] text-yellow-400 border border-slate-700 flex items-center justify-center transition shadow-sm">
+            <i class="fa-brands fa-telegram text-sm"></i>
           </a>
-          <a href="https://www.tiktok.com/@entrancehub_brand" target="_blank" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-[#0A4D34] text-yellow-400 border border-slate-700 flex items-center justify-center transition">
-            <i class="fa-brands fa-tiktok text-xs"></i>
+          <a href="https://www.tiktok.com/@entrancehub_brand" target="_blank" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-[#0A4D34] text-yellow-400 border border-slate-700 flex items-center justify-center transition shadow-sm">
+            <i class="fa-brands fa-tiktok text-sm"></i>
           </a>
-          <a href="https://youtu.be/WFIVMmpwH5Q" target="_blank" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-[#0A4D34] text-yellow-400 border border-slate-700 flex items-center justify-center transition">
-            <i class="fa-brands fa-youtube text-xs"></i>
+          <a href="https://youtu.be/WFIVMmpwH5Q" target="_blank" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-[#0A4D34] text-yellow-400 border border-slate-700 flex items-center justify-center transition shadow-sm">
+            <i class="fa-brands fa-youtube text-sm"></i>
           </a>
         </div>
       </div>
@@ -468,11 +528,11 @@
         <ul class="space-y-2 text-xs">
           <li class="flex items-center space-x-2">
             <i class="fa-brands fa-telegram text-yellow-400"></i>
-            <span>Biruk Zewdu (Software Eng): <a href="https://t.me/Bruuzed" class="text-yellow-300 hover:underline">@Bruuzed</a></span>
+            <span>Biruk Zewdu (Founder): <a href="https://t.me/Bruuzed" class="text-yellow-300 hover:underline">@Bruuzed</a></span>
           </li>
           <li class="flex items-center space-x-2">
             <i class="fa-brands fa-telegram text-yellow-400"></i>
-            <span>Biruk Chiche (Civil Eng): <a href="https://t.me/biwoch23" class="text-yellow-300 hover:underline">@biwoch23</a></span>
+            <span>Biruk Chiche (Co-Founder): <a href="https://t.me/biwoch23" class="text-yellow-300 hover:underline">@biwoch23</a></span>
           </li>
           <li class="flex items-center space-x-2 text-slate-400 pt-2">
             <i class="fa-solid fa-location-dot text-yellow-400"></i>
@@ -482,7 +542,7 @@
       </div>
 
       <!-- Column 4 -->
-      <div class="space-y-3 bg-slate-800/60 p-4 rounded-2xl border border-slate-700">
+      <div class="space-y-3 bg-slate-800/80 p-4 rounded-2xl border border-slate-700 shadow-inner">
         <p class="text-xs font-bold text-yellow-400 uppercase tracking-widest">Our Motto</p>
         <p class="text-xs text-slate-300 italic leading-relaxed">
           "Work until it's done. Be part of the 5% who turn entrance preparation into lifelong academic achievement."
@@ -492,13 +552,58 @@
     </div>
 
     <!-- Copyright Bar -->
-    <div class="pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
+    <div class="pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4 text-center sm:text-left">
       <p>© 2026 The 5% Club. All rights reserved.</p>
       <p>Built for Grade 12 & AAU UAT Candidates across Ethiopia.</p>
     </div>
 
   </div>
 </footer>
+
+<!-- JavaScript for Interactive Menus and Founder Tabs -->
+<script>
+  // Mobile Menu Toggle
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+    });
+  });
+
+  // Interactive Creator Tab Switching (JS)
+  function switchFounder(type) {
+    const cardZ = document.getElementById('card-biruk-z');
+    const cardC = document.getElementById('card-biruk-c');
+    const tabAll = document.getElementById('tab-all');
+    const tabZ = document.getElementById('tab-biruk-z');
+    const tabC = document.getElementById('tab-biruk-c');
+
+    // Reset buttons
+    [tabAll, tabZ, tabC].forEach(btn => {
+      btn.className = "px-5 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-slate-100 text-slate-700 hover:bg-emerald-50 border border-slate-200 shadow-sm transition";
+    });
+
+    if (type === 'all') {
+      cardZ.style.display = 'flex';
+      cardC.style.display = 'flex';
+      tabAll.className = "px-5 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-[#0A4D34] text-yellow-300 shadow-md transition";
+    } else if (type === 'biruk-z') {
+      cardZ.style.display = 'flex';
+      cardC.style.display = 'none';
+      tabZ.className = "px-5 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-[#0A4D34] text-yellow-300 shadow-md transition";
+    } else if (type === 'biruk-c') {
+      cardZ.style.display = 'none';
+      cardC.style.display = 'flex';
+      tabC.className = "px-5 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-[#0A4D34] text-yellow-300 shadow-md transition";
+    }
+  }
+</script>
 
 </body>
 </html>
