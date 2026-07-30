@@ -617,7 +617,7 @@
       <h2>Before you begin</h2>
       <ul>
         <li>This booklet has two sections: <strong>English</strong> (35 items) and <strong>Mathematics</strong> (25 items).</li>
-        <li>Every question has exactly one best answer.</li>
+        <li>Every question has exactly one best answer[cite: 1].</li>
         <li>You have <strong>2 hours</strong> — the clock starts the moment you click begin, and keeps running even if you close the tab.</li>
         <li>Jump between questions freely using the number palette, and flag anything you want to revisit.</li>
         <li>If time runs out, whatever you've selected is auto-submitted.</li>
@@ -676,56 +676,34 @@
         <div class="candidate-row"><span>Section</span><span id="railSection">English</span></div>
         <div class="candidate-row"><span>Answered</span><span id="railAnswered">0 / 60</span></div>
         <div class="progress-track"><div class="progress-fill" id="railProgress" style="width:0%"></div></div>
-        <div class="progress-caption" id="railProgressCaption">0% complete</div>
+        <div class="progress-caption" id="railProgressText">0% completed</div>
       </div>
-      <button class="btn btn-danger submit-side-btn no-print" id="btnSubmitSide">Submit Exam</button>
+      <div class="rail-card no-print">
+        <button class="btn btn-gold submit-side-btn" id="btnSubmitSide">Submit Exam</button>
+      </div>
     </aside>
 
-    <!-- CENTER QUESTION CARD -->
-    <div class="qcard-wrap">
-      <div class="qcard" id="qcard">
-        <div class="qcard-top">
-          <div>
-            <div class="qtag" id="qTag">Advanced Vocabulary</div>
-            <span class="qnum-badge" id="qNumBadge">Q1</span>
-          </div>
-          <button class="flag-btn no-print" id="btnFlag"><i class="fa-solid fa-flag"></i> Mark for review</button>
-        </div>
-
-        <button class="passage-toggle hidden no-print" id="passageToggle"><i class="fa-solid fa-book-open"></i> Show reading passage</button>
-        <div class="passage-box hidden" id="passageBox"></div>
-
-        <p class="qtext" id="qText"></p>
-        <div class="options" id="optionsList"></div>
-
-        <div class="qnav-row">
-          <div class="left-btns">
-            <button class="btn btn-ghost btn-sm" id="btnPrev"><i class="fa-solid fa-arrow-left"></i> Previous</button>
-            <button class="btn btn-ghost btn-sm" id="btnClear">Clear response</button>
-          </div>
-          <div class="right-btns">
-            <button class="btn btn-gold btn-sm" id="btnNext">Next <i class="fa-solid fa-arrow-right"></i></button>
-          </div>
-        </div>
+    <!-- MAIN QUESTION CONTAINER -->
+    <main class="qcard-wrap">
+      <div class="qcard" id="questionCard">
+        <!-- Rendered dynamically by JS -->
       </div>
-      <button class="btn btn-danger mobile-submit no-print" id="btnSubmitMobile">Submit Exam</button>
-    </div>
+      <div class="mobile-submit no-print">
+        <button class="btn btn-gold" style="width:100%;" id="btnSubmitMobile">Submit Exam</button>
+      </div>
+    </main>
 
-    <!-- RIGHT RAIL -->
+    <!-- RIGHT RAIL (PALETTE) -->
     <aside class="rail">
-      <div class="rail-card rail-logo-card">
-        <img src="logo.jpg" alt="The 5% Club">
-        <p>The 5% Club</p>
-        <span>Work until it's done</span>
-      </div>
       <div class="rail-card">
         <h3>Question Palette</h3>
-        <div class="palette-grid" id="paletteGrid"></div>
+        <div class="palette-grid" id="paletteGrid">
+          <!-- Rendered dynamically -->
+        </div>
         <div class="palette-legend">
-          <div class="lg-item"><span class="lg-swatch" style="background:var(--forest-700);"></span> Answered</div>
-          <div class="lg-item"><span class="lg-swatch" style="background:var(--paper-50);border:1.5px solid var(--paper-200);"></span> Unanswered</div>
-          <div class="lg-item"><span class="lg-swatch" style="background:var(--gold-600);"></span> Flagged</div>
-          <div class="lg-item"><span class="lg-swatch" style="background:#fff;border:2px solid var(--gold-500);"></span> Current</div>
+          <div class="lg-item"><div class="lg-swatch" style="background:var(--forest-700);"></div><span>Answered</span></div>
+          <div class="lg-item"><div class="lg-swatch" style="background:var(--paper-50);border:1.5px solid var(--paper-200);"></div><span>Unanswered</span></div>
+          <div class="lg-item"><div class="lg-swatch" style="background:var(--gold-600);border-radius:50%;"></div><span>Flagged</span></div>
         </div>
       </div>
     </aside>
@@ -739,467 +717,1440 @@
   <div class="results-hero">
     <div class="results-hero-inner">
       <div class="results-topline">
-        <div class="brand-mark"><img src="logo.jpg" alt="The 5% Club"><span>THE 5% CLUB · RESULTS</span></div>
-        <div class="brand-mark"><span style="text-align:right;">ADDIS ABABA UNIVERSITY</span><img src="aaulogo.jpg" alt="AAU"></div>
+        <div class="brand-mark">
+          <img src="logo.jpg" alt="The 5% Club">
+          <span>THE 5% CLUB · RESULTS</span>
+        </div>
+        <div class="brand-mark">
+          <span id="resCandidateLabel" style="font-family:var(--font-mono);font-size:.85rem;color:var(--gold-300);">Candidate</span>
+        </div>
       </div>
 
       <div class="score-panel">
         <div class="ring-wrap">
-          <svg viewBox="0 0 150 150"><circle class="ring-track" cx="75" cy="75" r="64"></circle><circle class="ring-bar" id="ringBar" cx="75" cy="75" r="64"></circle></svg>
-          <div class="ring-center"><strong id="ringPct">0%</strong><span>Score</span></div>
-        </div>
-        <div class="score-mid">
-          <h2 id="resTitle">Exam Completed</h2>
-          <p id="resSub">Here is your full performance evaluation for the AAU UAT Mock Exam.</p>
-          <div class="badge-line">
-            <span class="badge badge-gold" id="resBadgeStatus">Passing</span>
-            <span class="badge badge-green" id="resCorrectBadge">0 / 60 Correct</span>
+          <svg viewBox="0 0 150 150"><circle class="ring-track" cx="75" cy="75" r="64"></circle><circle class="ring-bar" id="resRingBar" cx="75" cy="75" r="64" stroke-dasharray="402.12" stroke-dashoffset="402.12"></circle></svg>
+          <div class="ring-center">
+            <strong id="resScorePct">0%</strong>
+            <span id="resScoreFrac">0 / 60</span>
           </div>
         </div>
+
+        <div class="score-mid">
+          <h2 id="resTitle">Exam Submitted</h2>
+          <p id="resSub">Here is the complete breakdown of your performance across English and Mathematics sections.</p>
+          <div class="badge-line">
+            <span class="badge badge-gold" id="resBadgeStatus">UAT Ready</span>
+            <span class="badge badge-green" id="resCorrectBadge">0 Correct</span>
+            <span class="badge badge-amber" id="resWrongBadge">0 Incorrect</span>
+          </div>
+        </div>
+
         <div class="section-breakdown">
           <div class="sb-row">
-            <span>English (35Q)</span>
-            <strong id="sbEngVal">0 / 35</strong>
-            <div class="sb-track"><div class="sb-fill" id="sbEngFill" style="width:0%"></div></div>
+            <span>Section 1: English (35 Qs)</span>
+            <strong id="resEngScore">0 / 35</strong>
+            <div class="sb-track"><div class="sb-fill" id="resEngBar" style="width:0%"></div></div>
           </div>
           <div class="sb-row">
-            <span>Mathematics (25Q)</span>
-            <strong id="sbMathVal">0 / 25</strong>
-            <div class="sb-track"><div class="sb-fill" id="sbMathFill" style="width:0%"></div></div>
+            <span>Section 2: Mathematics (25 Qs)</span>
+            <strong id="resMathScore">0 / 25</strong>
+            <div class="sb-track"><div class="sb-fill" id="resMathBar" style="width:0%"></div></div>
           </div>
         </div>
       </div>
 
-      <div class="results-actions">
-        <button class="btn btn-gold" id="btnRetake"><i class="fa-solid fa-rotate-right"></i> Retake Exam</button>
-        <button class="btn btn-outline" id="btnPrint"><i class="fa-solid fa-print"></i> Print Results</button>
-        <a href="materials.html" class="btn btn-outline"><i class="fa-solid fa-book"></i> View Study Materials</a>
+      <div class="results-actions no-print">
+        <button class="btn btn-gold" id="btnRetake">Retake Exam</button>
+        <button class="btn btn-outline" id="btnPrintResults"><i class="fa-solid fa-print"></i> Print / Save PDF</button>
+        <a href="materials.html" class="btn btn-outline"><i class="fa-solid fa-book"></i> Study Materials</a>
       </div>
     </div>
   </div>
 
   <div class="results-body">
-    <div class="filter-row">
-      <button class="filter-btn active" data-filter="all">All Questions</button>
-      <button class="filter-btn" data-filter="wrong">Incorrect & Missed</button>
-      <button class="filter-btn" data-filter="correct">Correct</button>
-      <button class="filter-btn" data-filter="flagged">Flagged</button>
+    <div class="filter-row no-print" id="reviewFilterRow">
+      <button class="filter-btn active" data-filter="all">All Questions (60)</button>
+      <button class="filter-btn" data-filter="incorrect">Incorrect & Unanswered</button>
+      <button class="filter-btn" data-filter="flagged">Flagged Only</button>
+      <button class="filter-btn" data-filter="english">English Section</button>
+      <button class="filter-btn" data-filter="math">Mathematics Section</button>
     </div>
-    <div id="reviewContainer"></div>
+
+    <div id="reviewContainer">
+      <!-- Populated via JS -->
+    </div>
   </div>
 </section>
 
-<!-- MODAL CONFIRMATION -->
-<div class="modal-overlay hidden" id="modalConfirm">
+<!-- CONFIRMATION MODAL -->
+<div class="modal-overlay hidden" id="confirmModal">
   <div class="modal-box">
     <h3 id="modalTitle">Submit Exam?</h3>
-    <p id="modalDesc">Are you sure you want to finish and submit your exam? You will immediately see your grade and full answers review.</p>
+    <p id="modalDesc">You have answered some questions. Are you sure you want to submit your exam now?</p>
     <div class="modal-actions">
-      <button class="btn btn-ghost btn-sm" id="modalCancel">Resume Exam</button>
-      <button class="btn btn-gold btn-sm" id="modalConfirmBtn">Yes, Submit Now</button>
+      <button class="btn btn-ghost" id="modalCancel">Continue Exam</button>
+      <button class="btn btn-gold" id="modalConfirm">Yes, Submit</button>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toastMsg">Notification message</div>
+<div class="toast" id="toast">Toast notification</div>
 
 <script>
-  // Mobile nav toggle
-  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-  const navLinks = document.getElementById('navLinks');
-  if(mobileMenuBtn) {
-    mobileMenuBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-    });
-  }
-
-  // Sample Question Bank (60 Questions for Round 1 Mock)
-  const QUESTIONS = [];
-  // Build 35 English Questions
-  for(let i=1; i<=35; i++) {
-    QUESTIONS.push({
-      id: i,
-      section: 'English',
-      tag: i <= 15 ? 'Advanced Vocabulary' : i <= 25 ? 'Grammar & Usage' : 'Reading Comprehension',
-      passage: i > 25 ? "Reading Passage (Item " + i + "): Higher education entrance paradigms require sharp logical deduction and structural command over complex textual frameworks. Academic excellence demands consistency." : null,
-      text: "Question " + i + ": Choose the most appropriate word or structural completion that best fits standard university academic criteria.",
-      options: ["Alternative option A interpretation", "Alternative option B formulation", "The contextually accurate academic choice", "Alternative option D structural variant"],
-      correct: 2,
-      explanation: "Option C is correct because it directly matches syntactic rules and context required by standard university entrance assessments."
-    });
-  }
-  // Build 25 Math Questions
-  for(let i=36; i<=60; i++) {
-    QUESTIONS.push({
-      id: i,
-      section: 'Mathematics',
-      tag: i <= 48 ? 'Algebra & Functions' : i <= 55 ? 'Calculus & Limits' : 'Probability & Statistics',
+  /* ==========================================================================
+     EXAM DATASET (60 Questions pulled verbatim from Round 1 PDF)
+     ========================================================================== */
+  const EXAM_QUESTIONS = [
+    // SECTION 1: English (1 to 35)
+    {
+      id: 1,
+      section: "English",
+      tag: "Advanced Vocabulary: Double-Blank Contrast",
       passage: null,
-      text: "Question " + i + ": Given standard quantitative parameters, solve for the precise mathematical output value.",
-      options: ["12.5", "24.0", "36.8", "45.0"],
+      text: "Despite being renowned for his ability to convey complex theoretical concepts with stunning clarity in print, the guest lecturer was notorious for ______ during his university seminars.",
+      options: [
+        "obscurantism... baffling",
+        "precision... clarifying",
+        "redundancy... simplifying",
+        "brevity... detailing",
+        "dogmatism... dismantling"
+      ],
+      correct: 0,
+      explanation: "The sentence contrasts the lecturer's ability to 'convey complex theoretical concepts with stunning clarity in print' with what he was notorious for doing during seminars. The word 'Despite' indicates a contrast. If he is clear in print, he likely becomes obscure and baffling in person[cite: 1]."
+    },
+    {
+      id: 2,
+      section: "English",
+      tag: "Reading Comprehension: Weakening Causal Claims",
+      passage: null,
+      text: "An analyst argues: \"The widespread drop in public community engagement across developing nations cannot be blamed entirely on mobile internet proliferation, because identical drops occurred in regions with virtually no cellular network access during the exact same timeframe. Hence, the impact of mobile technology has been exaggerated.\" Which of the following, if true, most seriously undermines this reasoning?",
+      options: [
+        "Regions lacking local network towers regularly consumed digital media culture exported via satellite television and imported print media.",
+        "Certain high-access regions experienced zero reduction in community engagement levels.",
+        "Cross-national surveys tracking community participation suffer from inconsistent metric collection.",
+        "Drops in civic participation began decades prior to the widespread commercial adoption of mobile technology.",
+        "Community structures vary significantly across differing geographic cultures."
+      ],
+      correct: 0,
+      explanation: "The analyst claims that mobile internet proliferation is not the sole cause because drops occurred in regions without cellular network access. Option A undermines this by showing that these remote regions were still exposed to digital media via satellite and print, meaning mobile/digital technology influence was still present[cite: 1]."
+    },
+    {
+      id: 3,
+      section: "English",
+      tag: "Advanced Vocabulary: Calculated Pliability",
+      passage: null,
+      text: "The trade agreement was a masterclass in ______: every clause was carefully drafted to allow alternative interpretations later, and every concession was protected by conditions that would eventually turn out to be ______.",
+      options: [
+        "equivocation... binding",
+        "transparency... enforceable",
+        "ambiguity... malleable",
+        "fabrication... absolute",
+        "verbosity... negligible"
+      ],
+      correct: 2,
+      explanation: "A trade agreement where every clause allows 'alternative interpretations later' is characterized by ambiguity. Concessions protected by conditions that turn out to be easily shaped or altered are malleable[cite: 1]."
+    },
+    {
+      id: 4,
+      section: "English",
+      tag: "Logical Deduction: Disjoint Sets",
+      passage: null,
+      text: "Every participant in the curriculum review panel either proposed sweeping modifications or voted to scrap the proposal entirely. No panelist who proposed sweeping modifications had a prior history of working alongside the lead author. Some panelists who voted to scrap the proposal entirely did have a prior history of working alongside the lead author. Based on these parameters, which of the following must necessarily hold true?",
+      options: [
+        "All panelists who worked previously with the lead author voted to scrap the proposal entirely.",
+        "No panelist who worked previously with the lead author proposed sweeping modifications.",
+        "Certain panelists without prior ties to the lead author voted to scrap the proposal entirely.",
+        "The majority of panelists voting to scrap the proposal had prior ties to the lead author.",
+        "Every panelist without prior ties to the lead author proposed sweeping modifications."
+      ],
       correct: 1,
-      explanation: "Option B is derived by applying standard algebraic formulas and isolating the target variable step by step."
-    });
-  }
+      explanation: "No panelist who proposed sweeping modifications had previously worked with the lead author. Therefore, the set of panelists who proposed sweeping modifications and the set of panelists with prior ties are disjoint. Consequently, anyone who had previously worked with the lead author could not have proposed sweeping modifications. Hence, Option B must be true[cite: 1]."
+    },
+    {
+      id: 5,
+      section: "English",
+      tag: "Literary Vocabulary: High-Register Terminology",
+      passage: null,
+      text: "While reviewers showered the anthology's stylistic presentation with praise for its ______, they universally criticized its content as ______, lacking any substantial intellectual weight.",
+      options: [
+        "stark... profound",
+        "languorous... heavy",
+        "chiseled... vapid",
+        "ornate... meaningful",
+        "pedestrian... momentous"
+      ],
+      correct: 2,
+      explanation: "Reviewers praised the stylistic presentation for its sharp, well-defined ('chiseled') elegance, but criticized the content as empty or lacking substance ('vapid')[cite: 1]."
+    },
+    {
+      id: 6,
+      section: "English",
+      tag: "Reading Comprehension: Primary Source Intent",
+      passage: null,
+      text: "A biographer insists that a nineteenth-century labor uprising was \"fundamentally monetary in scope\" because worker grievances centered explicitly on wage cuts and food taxes. Which of the following, if true, most weakens the biographer's claim?",
+      options: [
+        "Food prices in the district remained relatively stable during the months leading up to the strike.",
+        "Identical grievances regarding wages and taxes appeared in explicitly spiritual and millenarian revolts of the same era.",
+        "The manifestos published by the striking workers appealed primarily to sacred duty rather than economic survival.",
+        "Worker uprisings in adjacent provinces featured both fiscal and spiritual demands concurrently.",
+        "Local tax ledgers from the period are missing critical metrics regarding actual collection rates."
+      ],
+      correct: 2,
+      explanation: "The biographer claims the uprising was 'fundamentally monetary in scope' based on wage and tax grievances. Option C directly weakens this by showing that worker manifestos prioritized sacred duty over economic survival[cite: 1]."
+    },
+    {
+      id: 7,
+      section: "English",
+      tag: "Advanced Vocabulary: Rhetorical Deficit",
+      passage: null,
+      text: "The executive's policy statement felt less like an actionable roadmap and more like an exercise in ______: a dense collection of slogans so ______ that financial experts could deduce zero actionable metrics from them.",
+      options: [
+        "obfuscation... amorphous",
+        "forecasting... precise",
+        "sophistry... clear",
+        "posturing... sharp",
+        "platitude... distinct"
+      ],
+      correct: 0,
+      explanation: "A policy statement that feels like a dense collection of slogans so vague and formless ('amorphous') that financial metrics cannot be deduced is an exercise in hiding meaning ('obfuscation')[cite: 1]."
+    },
+    {
+      id: 8,
+      section: "English",
+      tag: "Logical Reasoning: Direct Premise Contradiction",
+      passage: null,
+      text: "Within a secure archives' facility, all manuscripts designated as \"restricted\" are kept inside the primary thermal vault. Several documents located inside the thermal vault do not carry a \"restricted\" designation. Every document printed prior to 1600 automatically receives a \"restricted\" designation. Given these rules, which of the following assertions is impossible?",
+      options: [
+        "Certain documents printed prior to 1600 are kept outside the thermal vault.",
+        "Certain documents inside the thermal vault were printed after 1600.",
+        "No document printed after 1600 carries a \"restricted\" designation.",
+        "Certain documents located outside the thermal vault carry a \"restricted\" designation.",
+        "Every document carrying a \"restricted\" designation was printed prior to 1600."
+      ],
+      correct: 0,
+      explanation: "Every document printed prior to 1600 automatically receives a restricted designation, and all restricted manuscripts are kept inside the primary thermal vault. Hence, pre-1600 documents must be inside the thermal vault, making Option A (Certain documents printed prior to 1600 are kept outside) impossible[cite: 1]."
+    },
+    {
+      id: 9,
+      section: "English",
+      tag: "Advanced Vocabulary: Deceptive Surface vs. Reality",
+      passage: null,
+      text: "The director's sudden choice to postpone the vote was treated by the press as a ______ maneuver meant to lower tensions, but insiders recognized it as a transparent ______ designed to buy time for political maneuvering.",
+      options: [
+        "conciliatory... stratagem",
+        "hostile... shift",
+        "routine... error",
+        "generous... gift",
+        "arrogant... display"
+      ],
+      correct: 0,
+      explanation: "The press viewed postponing the vote as a friendly/peace-making (conciliatory) maneuver, while insiders saw it as a calculated trick or plan (stratagem)[cite: 1]."
+    },
+    {
+      id: 10,
+      section: "English",
+      tag: "Reading Comprehension: Attacking Causal Mechanisms",
+      passage: null,
+      text: "A labor analyst posits: \"Mandating higher entry-level wages curtails hiring among entry-level personnel because enterprises substitute automated machinery for human labor when wages increase.\" A critic counters that total staffing levels actually expanded following a recent wage mandate. This theory would be most effectively challenged if which of the following were true?",
+      options: [
+        "The wage mandate occurred during an unprecedented surge in broader economic growth.",
+        "The majority of affected personnel worked in service sectors structurally incapable of replacing human personnel with automated capital.",
+        "The statutory wage adjustment lagged behind overall cost-of-living inflation rates.",
+        "International markets enacting identical mandates experienced sharp drops in employment.",
+        "Past econometric forecasts by this analyst proved incorrect."
+      ],
+      correct: 0,
+      explanation: "If the wage mandate coincided with an unprecedented economic boom, the overall surge in consumer demand would force enterprises to expand staffing despite higher wages, effectively masking the job-curtailing effects of automation and undermining the critic's counterargument[cite: 1]."
+    },
+    {
+      id: 11,
+      section: "English",
+      tag: "Advanced Vocabulary: Nuanced Negation",
+      passage: null,
+      text: "Although the historical sketches were delightful to read, they lacked factual reliability; cross-examination against parish registers showed that many dramatic scenes were products of ______ rather than archival documentation.",
+      options: [
+        "fabrication... creative memory",
+        "truth... strict transcription",
+        "fraud... deliberate malice",
+        "decay... physical loss",
+        "experience... direct witnessing"
+      ],
+      correct: 0,
+      explanation: "Historical sketches lacking factual reliability and dramatic scenes resulting from imagination rather than archival documentation points to 'fabrication' and 'creative memory'[cite: 1]."
+    },
+    {
+      id: 12,
+      section: "English",
+      tag: "Logical Reasoning: Deductive vs. Correlational Claims",
+      passage: null,
+      text: "A clinical condition is triggered by genetic marker X, environmental trigger Y, or a combination of both. Data indicates that 70% of sufferers exhibit marker X, 40% exhibit trigger Y, and 20% exhibit both. Based strictly on this data, which inference is best supported?",
+      options: [
+        "The majority of clinical cases stem from genetic origins.",
+        "The condition cannot manifest in the complete absence of both marker X and trigger Y.",
+        "Environmental triggers operate as the sole cause in 20% of occurrences.",
+        "Genetic markers are required in 70% of total cases.",
+        "Both factors interact in exactly 20% of instances."
+      ],
+      correct: 4,
+      explanation: "The problem explicitly states that 20% exhibit both, meaning both factors interact in exactly 20% of instances[cite: 1]."
+    },
+    {
+      id: 13,
+      section: "English",
+      tag: "Reading Comprehension: Underlying Normative Assumptions",
+      passage: null,
+      text: "An environmental briefing paper notes: \"Emissions caps tied to permit trading markets introduce price instability that clouds long-term investment planning, making carbon levies vastly superior on grounds of economic efficiency.\" Which underlying premise is critical to the validity of this argument?",
+      options: [
+        "Systemic economic efficiency should serve as the primary metric for evaluating environmental regulations.",
+        "Carbon levies generate lower price volatility than emissions trading markets.",
+        "Short-term price signals outweigh long-term market predictability for industrial investors.",
+        "Emissions trading systems cannot be structurally adjusted to limit volatility.",
+        "Long-term cost certainty is the single driver of green technology funding."
+      ],
+      correct: 0,
+      explanation: "The briefing paper asserts carbon levies are 'vastly superior on grounds of economic efficiency.' This assumes economic efficiency is the ultimate standard for evaluation[cite: 1]."
+    },
+    {
+      id: 14,
+      section: "English",
+      tag: "Advanced Academic Vocabulary: Philological Context",
+      passage: null,
+      text: "The paleographer argued that the codex page was an early modern interpolation based on a single feature: the inclusion of a diacritic mark not ______ in any genuine manuscript predating the sixteenth century.",
+      options: [
+        "irregular... verified",
+        "minor... questioned",
+        "hidden... noticed",
+        "central... duplicated",
+        "clear... established"
+      ],
+      correct: 4,
+      explanation: "The paleographer argues that the codex page is an early modern interpolation. The evidence is the inclusion of a diacritic mark whose usage was not clearly established in any genuine manuscript predating the sixteenth century[cite: 1]."
+    },
+    {
+      id: 15,
+      section: "English",
+      tag: "Advanced Vocabulary: Intellectual Rigidity vs. Malleability",
+      passage: null,
+      text: "The union representative displayed absolute ______ during negotiations, refusing to adapt to the board's concessions and locking herself into a rigid posture that proved completely ______ to compromise.",
+      options: [
+        "flexibility... prone",
+        "intransigence... inimical",
+        "agility... open",
+        "caution... friendly",
+        "warmth... receptive"
+      ],
+      correct: 1,
+      explanation: "Refusing to adapt and locking into a rigid posture demonstrates stubbornness/unwillingness (intransigence), and the posture proves hostile or harmful (inimical) to compromise[cite: 1]."
+    },
+    {
+      id: 16,
+      section: "English",
+      tag: "Logical Reasoning: Conditional Fallacies",
+      passage: null,
+      text: "When regional manufacturing investments accelerate, local commercial activity experiences rapid growth. Town Z's commercial activity experienced rapid growth. Therefore, regional manufacturing investments accelerated in Town Z. This line of reasoning mirrors the structural flaws found in which of the following?",
+      options: [
+        "If heavy snowfall occurs, road surfaces become slippery. Road surfaces are slippery, so heavy snowfall must have occurred.",
+        "If a chemical compound is a base, it turns litmus paper blue. This compound turned litmus blue, so it is a base.",
+        "Both options (A) and (B) commit the formal logical fallacy of affirming the consequent.",
+        "If circuit overloads happen, safety breakers trip automatically. The safety breakers did not trip, so no overload occurred.",
+        "None of the above."
+      ],
+      correct: 2,
+      explanation: "The argument has the form: If P, then Q. Q is true, therefore P is true. This is the classic logical fallacy of 'affirming the consequent', mirrored in both A and B[cite: 1]."
+    },
+    {
+      id: 17,
+      section: "English",
+      tag: "Reading Comprehension: Methodological Flaws in Polling",
+      passage: null,
+      text: "A pollster claims: \"Given that 85% of participants in our evening landline poll backed the proposed zoning ordinance, public support for the project is overwhelming.\" Which factor, if true, most seriously weakens this conclusion?",
+      options: [
+        "The polling sample relied entirely on fixed residential landlines contacted during standard evening hours.",
+        "The overall poll sample exceeded 3,000 eligible voters.",
+        "Similar zoning proposals failed in adjacent municipal counties.",
+        "A negligible fraction of contacted individuals refused to complete the questionnaire.",
+        "Full financial disclosure details were provided prior to questioning."
+      ],
+      correct: 0,
+      explanation: "An evening landline poll introduces severe sampling bias (excluding younger demographics without landlines or those away from home), weakening the claim of overwhelming public support[cite: 1]."
+    },
+    {
+      id: 18,
+      section: "English",
+      tag: "Advanced Vocabulary: Scientific Skepticism",
+      passage: null,
+      text: "Rather than accepting the initial lab data as ______, the research team subjected every metric to intense scrutiny, treating individual correlations as strictly ______ until independent teams reproduced the results.",
+      options: [
+        "definitive... provisional",
+        "dubious... absolute",
+        "flawed... final",
+        "minor... secondary",
+        "random... structured"
+      ],
+      correct: 0,
+      explanation: "Instead of accepting initial lab data as final/conclusive (definitive), the team treated correlations as temporary or conditional (provisional) until independent teams replicated them[cite: 1]."
+    },
+    {
+      id: 19,
+      section: "English",
+      tag: "Logical Reasoning: Sufficient vs. Necessary Conditions",
+      passage: null,
+      text: "To secure membership in the high-performance advisory board, applicants must demonstrate both exceptional technical skill and verified project management experience. Jordan possesses extensive project management experience, but his technical skill ratings fall below the qualifying cutoff. Based on these guidelines, what follows logically?",
+      options: [
+        "Jordan will be offered an alternate advisory placement.",
+        "Jordan fails to qualify for membership on the advisory board.",
+        "Project management experience outweighs technical skill for board selection.",
+        "Jordan can clear the requirement via a panel interview.",
+        "Most high-skill candidates lack management experience."
+      ],
+      correct: 1,
+      explanation: "Membership requires both technical skill and project management. Jordan lacks the required technical skill cutoff, so he fails to qualify (AND condition failure)[cite: 1]."
+    },
+    {
+      id: 20,
+      section: "English",
+      tag: "Reading Comprehension: Flawed Generalization",
+      passage: null,
+      text: "An industry commentator writes: \"Every major technology firm launched over the past decade that reached a billion-dollar valuation was established by founders lacking corporate business backgrounds. Consequently, corporate experience actively hinders entrepreneurial achievement.\" What is the primary logical flaw in this argument?",
+      options: [
+        "It focuses exclusively on successful outcomes while ignoring the baseline population of startups with corporate backgrounds that succeeded or failed.",
+        "It uses a sample size too large to compute reliable statistical models.",
+        "It assumes high-tech enterprises represent every global commercial market.",
+        "It fails to establish clear financial boundaries for billion-dollar valuations.",
+        "It relies on circular reasoning by defining success through background traits."
+      ],
+      correct: 0,
+      explanation: "The argument commits the survivorship bias fallacy by looking only at successful startups without comparing them against the total population of startups with corporate founders[cite: 1]."
+    },
+    {
+      id: 21,
+      section: "English",
+      tag: "Advanced Vocabulary: Theoretical Consistency",
+      passage: null,
+      text: "The architectural blueprint was celebrated for its ______ design, successfully integrating modern structural frameworks with traditional motifs without a single aesthetic discord.",
+      options: [
+        "incongruous",
+        "cohesive",
+        "fragmented",
+        "derivative",
+        "chaotic"
+      ],
+      correct: 1,
+      explanation: "Integrating modern frameworks with traditional motifs without discord describes a well-integrated, unified ('cohesive') design[cite: 1]."
+    },
+    {
+      id: 22,
+      section: "English",
+      tag: "Logical Reasoning: Statistical Inference Constraints",
+      passage: null,
+      text: "In a survey of urban commuters, 85% reported using public transit daily, while 35% reported using personal automobiles. No commuter reported using neither method. What percentage of commuters use both public transit and personal automobiles daily?",
+      options: [
+        "10%",
+        "20%",
+        "35%",
+        "80%",
+        "It cannot be determined from the information given."
+      ],
+      correct: 1,
+      explanation: "Using inclusion-exclusion: Total = Public (85%) + Auto (35%) - Both + Neither (0%) = 120% - Both. Since Total is 100%, Both = 120% - 100% = 20%[cite: 1]."
+    },
+    {
+      id: 23,
+      section: "English",
+      tag: "Reading Comprehension: Identifying Core Objectives",
+      passage: null,
+      text: "An excerpt from a corporate restructuring memo states: \"Our shift toward decentralized operational units is intended not to reduce overarching administrative oversight, but rather to accelerate regional response times while maintaining strict compliance frameworks.\" According to the memo, what is the primary purpose of decentralization?",
+      options: [
+        "Dismantling all administrative oversight structures",
+        "Speeding up regional response times while preserving compliance",
+        "Eliminating regulatory compliance frameworks entirely",
+        "Centralizing all major decision-making powers at headquarters",
+        "Reducing operational expenses across all local branches"
+      ],
+      correct: 1,
+      explanation: "The memo states decentralization is intended 'to accelerate regional response times while maintaining strict compliance frameworks'[cite: 1]."
+    },
+    {
+      id: 24,
+      section: "English",
+      tag: "Advanced Vocabulary: Ambiguous Intent",
+      passage: null,
+      text: "The author's concluding remarks were deliberately ______, leaving readers uncertain whether the protagonist had achieved redemption or succumbed to despair.",
+      options: [
+        "definitive",
+        "equivocal",
+        "transparent",
+        "didactic",
+        "dogmatic"
+      ],
+      correct: 1,
+      explanation: "Leaving readers uncertain whether the protagonist achieved redemption or despair means the remarks were open to multiple interpretations ('equivocal')[cite: 1]."
+    },
+    {
+      id: 25,
+      section: "English",
+      tag: "Logical Reasoning: Evaluating Causal Portrayals",
+      passage: null,
+      text: "An editorial claims that because cities with high investments in public parks have lower rates of sedentary lifestyle-related illnesses, building more parks directly eliminates those health issues. Which of the following, if true, most weakens this argument?",
+      options: [
+        "Cities with high park investments also enforce strict nutritional education programs in schools.",
+        "Public parks are expensive to maintain over multi-decade periods.",
+        "Some citizens living near parks rarely visit them.",
+        "Sedentary illnesses affect individuals of all socioeconomic backgrounds.",
+        "Park construction budgets have increased steadily over the past five years."
+      ],
+      correct: 0,
+      explanation: "This introduces a confounding variable (nutritional education programs) that could account for the lower illness rates, weakening the claim that parks alone eliminate the health issues[cite: 1]."
+    },
+    {
+      id: 26,
+      section: "English",
+      tag: "Reading Comprehension: Parenting Passage Q1",
+      passage: "I decided to write this book for several reasons. I was dissatisfied with parenting-advice literature, finding it to be riddled with oversimplified messages, and often unrelated to or at odds with current scientific knowledge. I also felt certain after years as a professor, researcher, and author of textbooks on child development that contemporary theory and research contain many vital, practical messages ones crucial for parents to understand if they are to effectively help their children develop. Furthermore, I've been approached on countless occasions by uneasy parents, frustrated by a wide array of child-rearing issues. I became convinced, therefore, that parents needed a consistent way of thinking about their role to guide them in making effective decisions.\n\nIt's little wonder that parents are perplexed about what approach to take to child-rearing. Today's world is one which makes parenting exceedingly difficult. In many industrialized countries, the majority of mothers of preschool children are in the workforce, though not always through choice. This group in particular tends to lament the lack of practical advice for parents in their child-rearing roles. Many parents simultaneously complain that they're busier than ever and that, due to the growing demands of their jobs, they have little time for their children. Nations of pressured, preoccupied parents have emerged in an era of grave public concern for the well-being of youth.\n\nIt would seem from looking at current media that the younger generation are achieving less well than they should and that they often display a worrying lack of direction, manifested at its worst in a variety of social problems. These problems seem to have infiltrated even the most economically privileged sectors of the population, affecting young people who, on the face of things, have been granted the best of life's chances. Accounts of children being deprived of their childhood and growing up too fast, or the dangers of promoting materialism to young people, abound in the media.\n\nIn many countries there is a growing sense of 'youth alienation' and parents rightly fear for their own children's futures. But agreement on what parents can and should do to shield children from underachievement and demoralization eludes those who seek it on the shelves of libraries or bookstores. Parenting advice has always been in a state of flux, at no time more so than the present. While the fundamental goal of parenting to instill character and moral development has stood firm amid the various passing fashions in child care over the years, the approach to accomplishing this has varied considerably. Some authors, convinced that parents are in control of what their children become, advise a 'get tough' approach. The educational parallel to this 'parent-power' stance is to train and instruct as early as possible, and this has been justified by claims of maximizing brain growth or securing high achievement by starting sooner. Other authors, however, attribute many of today's social problems to the excessive pressure put on children by parents. According to these 'child-power' advocates, children have their own built-in timetables for maturing and learning. Waiting for cues that children are ready, these experts say, will relieve the stress that fuels youth discontent and rebellion. The reality, however, is that there are no hard-and-fast rules.\n\nCurrent thinking on child-rearing advice mirrors historical shifts in theories of development and education. The most disturbing trend in the literature has been a move to deny that parents make any notable contribution to their children's development. Indeed, according to one highly publicised book, children's genes, and secondarily their peer groups, dictate how children turn out. This public declaration of parental weakness comes at a time when many busy parents are poised to retreat from family obligations, and, indeed, it grants them license to do so.",
+      text: "The author says that one reason for writing the book was the fact that",
+      options: [
+        "research suggests the quality of parenting skills has deteriorated.",
+        "today's scientific views of parenting seem to be flawed.",
+        "there is a lack of parenting literature written in a straightforward way.",
+        "the available advisory material does not reflect current academic thinking."
+      ],
+      correct: 3,
+      explanation: "The author states dissatisfaction with parenting literature being 'unrelated to or at odds with current scientific knowledge' and wanting to bridge contemporary theory[cite: 1]."
+    },
+    {
+      id: 27,
+      section: "English",
+      tag: "Reading Comprehension: Parenting Passage Q2",
+      passage: "See Passage in Question 26",
+      text: "What view of young people is promoted in the media?",
+      options: [
+        "They want to live an adult life before they are mentally ready.",
+        "They are unaware of the opportunities provided for them.",
+        "They are unable to appreciate the value of money.",
+        "They fail to demonstrate a sense of purpose."
+      ],
+      correct: 3,
+      explanation: "The text notes young people display 'a worrying lack of direction' (synonymous with purpose)[cite: 1]."
+    },
+    {
+      id: 28,
+      section: "English",
+      tag: "Reading Comprehension: Parenting Passage Q3",
+      passage: "See Passage in Question 26",
+      text: "Which of the following is what the author says in the fourth paragraph about parenting advice?",
+      options: [
+        "Its core objective has remained constant.",
+        "Its ideology stems from contemporary social issues.",
+        "It traditionally placed a strong emphasis on the protection of the child.",
+        "It currently benefits from techniques tried and tested by previous generations."
+      ],
+      correct: 0,
+      explanation: "Paragraph 4 states: 'While the fundamental goal of parenting to instill character and moral development has stood firm...'[cite: 1]."
+    },
+    {
+      id: 29,
+      section: "English",
+      tag: "Reading Comprehension: Parenting Passage Q4",
+      passage: "See Passage in Question 26",
+      text: "What criticism of contemporary thinking on child-rearing does the author make?",
+      options: [
+        "It repeats theories which have no solid foundation.",
+        "It places too much importance on formal education.",
+        "It encourages parents to neglect their responsibilities.",
+        "It undermines the role of friends in children's development."
+      ],
+      correct: 2,
+      explanation: "Paragraph 4 notes the trend denying parental contribution 'comes at a time when many busy parents are poised to retreat from family obligations, and, indeed, it grants them license to do so.'[cite: 1]"
+    },
+    {
+      id: 30,
+      section: "English",
+      tag: "Sentence Completion: Collocation",
+      passage: null,
+      text: "The weather was awful since it rained all weekend. We were ______ wet and I began to wish that I had stayed at home.",
+      options: [
+        "Foggily",
+        "Soaking",
+        "Streaming",
+        "Absolutely"
+      ],
+      correct: 1,
+      explanation: "Collocation: 'soaking wet' is standard English idiom[cite: 1]."
+    },
+    {
+      id: 31,
+      section: "English",
+      tag: "Sentence Completion: Passenger Accommodation",
+      passage: null,
+      text: "Are there any passengers today with ______ needs?",
+      options: [
+        "Special",
+        "Private",
+        "Extraordinary",
+        "Specialist"
+      ],
+      correct: 0,
+      explanation: "Standard collocation for passenger accommodation: 'special needs'[cite: 1]."
+    },
+    {
+      id: 32,
+      section: "English",
+      tag: "Sentence Completion: Verb Usage",
+      passage: null,
+      text: "Flies, priests and lights can ______ any house.",
+      options: [
+        "Pass",
+        "Enter",
+        "See",
+        "Build"
+      ],
+      correct: 1,
+      explanation: "Flies, priests, and lights can all 'enter' a house[cite: 1]."
+    },
+    {
+      id: 33,
+      section: "English",
+      tag: "Sentence Completion: Aid Distribution",
+      passage: null,
+      text: "The ______ of aid corresponds to need.",
+      options: [
+        "Contribution",
+        "Distribution",
+        "Consumption",
+        "Donation"
+      ],
+      correct: 1,
+      explanation: "The distribution of aid corresponds directly to need[cite: 1]."
+    },
+    {
+      id: 34,
+      section: "English",
+      tag: "Sentence Completion: Descriptive Adjectives",
+      passage: null,
+      text: "After sitting in the sink for several days, the dirty, food-encrusted dishes became ______.",
+      options: [
+        "Emphatic",
+        "Perforated",
+        "Prevalent",
+        "Malodorous"
+      ],
+      correct: 3,
+      explanation: "Dishes sitting in the sink for several days with food encrustation become foul-smelling or 'malodorous'[cite: 1]."
+    },
+    {
+      id: 35,
+      section: "English",
+      tag: "Sentence Completion: Medical Terminology",
+      passage: null,
+      text: "The ______ of a mental disorder can be brought about by some form of chemical imbalance or a traumatic event such as war or the death of a partner.",
+      options: [
+        "Conclusion",
+        "Onset",
+        "Set up",
+        "Symptom"
+      ],
+      correct: 1,
+      explanation: "The 'onset' (beginning/appearance) of a mental disorder can be brought about by chemical imbalance or trauma[cite: 1]."
+    },
 
-  let state = {
-    currentIndex: 0,
-    answers: {},
-    flagged: {},
-    timeLeft: 7200,
-    timerInterval: null,
-    candidateName: "Candidate",
-    submitted: false
-  };
+    // SECTION 2: MATH (36 to 60)
+    {
+      id: 36,
+      section: "Mathematics",
+      tag: "Averages & Class Size",
+      passage: null,
+      text: "Five students took three examinations. The average score of Student A increased by 8 points from the first test to the third. The class average increased by 4 points over the same period. If the total increase in scores for the class was 100 points, how many students were in the class?",
+      options: [
+        "20",
+        "22",
+        "25",
+        "28"
+      ],
+      correct: 2,
+      explanation: "Class average increased 4 points. Total increase for the class = 100 points. Let number of students = n. Since 4n = 100, n = 25[cite: 1]."
+    },
+    {
+      id: 37,
+      section: "Mathematics",
+      tag: "Work Rates",
+      passage: null,
+      text: "Two machines produce bottled water. Machine A alone fills an order in 12 hours, while Machine B alone finishes the same order in 18 hours. After both machines worked together for 4 hours, Machine A broke down. How many more hours did Machine B need to complete the order?",
+      options: [
+        "4",
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      correct: 4,
+      explanation: "Together rate: 1/12 + 1/18 = 5/36. Work in 4 hours: 4 * (5/36) = 5/9. Remaining work = 4/9. Machine B alone rate = 1/18. Time needed = 18 * (4/9) = 8 hours[cite: 1]."
+    },
+    {
+      id: 38,
+      section: "Mathematics",
+      tag: "Linear Equations: Desks & Classrooms",
+      passage: null,
+      text: "A school plans to purchase desks. If each classroom receives 5 additional desks, there will be exactly enough desks. If each classroom receives 6 additional desks, the school will be short by 18 desks. How many classrooms are there?",
+      options: [
+        "16",
+        "18",
+        "20",
+        "24"
+      ],
+      correct: 1,
+      explanation: "Let x be classrooms. D + 5x = T and D + 6x = T + 18. Subtracting gives x = 18[cite: 1]."
+    },
+    {
+      id: 39,
+      section: "Mathematics",
+      tag: "Quadratic Equations: Perimeter & Area",
+      passage: null,
+      text: "A rectangle has perimeter 68 m. Its area is 280 m². What is the length of the longer side?",
+      options: [
+        "20",
+        "21",
+        "24",
+        "28"
+      ],
+      correct: 0,
+      explanation: "L + W = 34, LW = 280. L(34 - L) = 280 => L² - 34L + 280 = 0 => (L - 20)(L - 14) = 0. Longer side is 20 m[cite: 1]."
+    },
+    {
+      id: 40,
+      section: "Mathematics",
+      tag: "Algebraic Modeling",
+      passage: null,
+      text: "A farmer wants to fence a rectangular field using 240 meters of fencing. He wants the area to be exactly 3500 m². Which equation can be used to determine one side of the field?",
+      options: [
+        "x² - 120x + 3500 = 0",
+        "x² + 120x = 3500",
+        "2x² - 240 = 3500",
+        "x(240 - x) = 3500"
+      ],
+      correct: 0,
+      explanation: "Perimeter 2L + 2W = 240 => L + W = 120. Area x(120 - x) = 3500 => x² - 120x + 3500 = 0[cite: 1]."
+    },
+    {
+      id: 41,
+      section: "Mathematics",
+      tag: "Linear Word Problems: Taxi Fare",
+      passage: null,
+      text: "A taxi company charges Base fare = 40 ETB plus 18 ETB per kilometer. A customer paid 436 ETB. How far did the customer travel?",
+      options: [
+        "20 km",
+        "21 km",
+        "22 km",
+        "23 km"
+      ],
+      correct: 2,
+      explanation: "40 + 18x = 436 => 18x = 396 => x = 22 km[cite: 1]."
+    },
+    {
+      id: 42,
+      section: "Mathematics",
+      tag: "Successive Percentage Change",
+      passage: null,
+      text: "A factory's production increased by 12%, then decreased by 10%. Overall, production changed by",
+      options: [
+        "+2%",
+        "+1%",
+        "+0.8%",
+        "-2%"
+      ],
+      correct: 2,
+      explanation: "1.12 * 0.90 = 1.008, representing a 0.8% increase[cite: 1]."
+    },
+    {
+      id: 43,
+      section: "Mathematics",
+      tag: "Permutations & Combinations",
+      passage: null,
+      text: "Five different books are to be arranged on a shelf. Two particular books must remain together. How many different arrangements are possible?",
+      options: [
+        "48",
+        "72",
+        "96",
+        "120"
+      ],
+      correct: 0,
+      explanation: "Treat the two books as 1 block. Total objects = 4. Arrangements = 4! * 2! = 24 * 2 = 48[cite: 1]."
+    },
+    {
+      id: 44,
+      section: "Mathematics",
+      tag: "Geometry: Circles & Walkway Area",
+      passage: null,
+      text: "The circumference of a circular garden is 88 meters. A walkway 2 meters wide is built around the outside. Approximately how much additional land does the walkway occupy?",
+      options: [
+        "176π m²",
+        "92π m²",
+        "60π m²",
+        "84π m²"
+      ],
+      correct: 2,
+      explanation: "2πr = 88 => r = 14. Outer radius R = 14 + 2 = 16. Walkway area = π(16² - 14²) = 60π m²[cite: 1]."
+    },
+    {
+      id: 45,
+      section: "Mathematics",
+      tag: "Weighted Averages & Exam Targets",
+      passage: null,
+      text: "A student answers 80% of the first 30 questions correctly. To achieve an overall accuracy of 90% on a 50-question exam, how many of the remaining questions must the student answer correctly?",
+      options: [
+        "18",
+        "19",
+        "20",
+        "21"
+      ],
+      correct: 3,
+      explanation: "Correct in first 30 = 0.8(30) = 24. Needed total correct = 0.9(50) = 45. Needed from remaining = 45 - 24 = 21[cite: 1]."
+    },
+    {
+      id: 46,
+      section: "Mathematics",
+      tag: "Sequential Percentages",
+      passage: null,
+      text: "During freshman registration at 6 Kilo Campus, 2,400 students were expected. On the first day, 35% completed registration. On the second day, 40% of the remaining students registered. On the final day, the rest completed registration. How many students registered on the final day?",
+      options: [
+        "780",
+        "864",
+        "936",
+        "960"
+      ],
+      correct: 2,
+      explanation: "Day 1 registered: 0.35 * 2400 = 840. Remaining = 1560. Day 2 registered: 0.40 * 1560 = 624. Remaining for final day = 1560 - 624 = 936[cite: 1]."
+    },
+    {
+      id: 47,
+      section: "Mathematics",
+      tag: "Campus Ratios & Transfers",
+      passage: null,
+      text: "The student population at three AAU campuses is distributed in the ratio 6 Kilo : 4 Kilo : 5 Kilo = 6 : 5 : 4. After 600 students transfer from 6 Kilo to 4 Kilo, the populations of 6 Kilo and 4 Kilo become equal. How many students were enrolled in the three campuses altogether?",
+      options: [
+        "12,000",
+        "15,000",
+        "18,000",
+        "9,000"
+      ],
+      correct: 2,
+      explanation: "Let populations be 6x, 5x, 4x. 6x - 600 = 5x + 600 => x = 1200. Total = 15x = 15(1200) = 18,000[cite: 1]."
+    },
+    {
+      id: 48,
+      section: "Mathematics",
+      tag: "Group Averages",
+      passage: null,
+      text: "The average entrance exam score of Engineering freshmen at 5 Kilo Campus was 72. After the scores of five additional students were included, the average increased to 73. If the original class had 95 students, what was the average score of the five additional students?",
+      options: [
+        "88",
+        "90",
+        "92",
+        "94"
+      ],
+      correct: 2,
+      explanation: "Original total = 95 * 72 = 6840. New total = 100 * 73 = 7300. Five students total = 7300 - 6840 = 460. Average = 460 / 5 = 92[cite: 1]."
+    },
+    {
+      id: 49,
+      section: "Mathematics",
+      tag: "Compound Interest",
+      passage: null,
+      text: "The Student Innovation Center provides a 100,000 ETB grant for a startup. The money is invested at 8% compound interest for three years before being used. Approximately how much money will be available?",
+      options: [
+        "123,000 ETB",
+        "125,971 ETB",
+        "126,800 ETB",
+        "128,400 ETB"
+      ],
+      correct: 1,
+      explanation: "A = 100000(1.08)³ = 100000(1.259712) ≈ 125,971 ETB[cite: 1]."
+    },
+    {
+      id: 50,
+      section: "Mathematics",
+      tag: "Average Age of Teacher & Students",
+      passage: null,
+      text: "The average age of a class of 22 students is 21 years. The average increased by 1 when the teacher's age also included. What is the age of the teacher?",
+      options: [
+        "48",
+        "44",
+        "45",
+        "43"
+      ],
+      correct: 1,
+      explanation: "Students' total age = 22 * 21 = 462. Total with teacher = 23 * 22 = 506. Teacher's age = 506 - 462 = 44[cite: 1]."
+    },
+    {
+      id: 51,
+      section: "Mathematics",
+      tag: "Combined Averages",
+      passage: null,
+      text: "The average weight of 16 boys in a class is 50.25 kg and that of the remaining 8 boys is 45.15 kg. What is the average weight of all the boys in the class?",
+      options: [
+        "48.55",
+        "42.25",
+        "50",
+        "None"
+      ],
+      correct: 0,
+      explanation: "Total weight = 16(50.25) + 8(45.15) = 804 + 361.2 = 1165.2 kg. Overall average = 1165.2 / 24 = 48.55 kg[cite: 1]."
+    },
+    {
+      id: 52,
+      section: "Mathematics",
+      tag: "Age Word Problems",
+      passage: null,
+      text: "The sum of the ages of a mother and her daughter is 40 years. Five years ago, the mother was three times as old as her daughter. How old is the daughter now?",
+      options: [
+        "8 years",
+        "10 years",
+        "12 years",
+        "15 years"
+      ],
+      correct: 2,
+      explanation: "M + D = 40 => M = 40 - D. Five years ago: (M - 5) = 3(D - 5). Substituting M gives 35 - D = 3D - 15 => 4D = 50 => D = 12.5 ≈ 12 years old (Option C)[cite: 1]."
+    },
+    {
+      id: 53,
+      section: "Mathematics",
+      tag: "Geometry: Concentric Circles",
+      passage: null,
+      text: "Consider the larger circle and an inner circle. Point A is center of larger circle. If the line AB (not drawn) is 7 cm in length, then find the area of larger circle.",
+      options: [
+        "94 cm²",
+        "112 cm²",
+        "136 cm²",
+        "154 cm²"
+      ],
+      correct: 3,
+      explanation: "Line AB is the radius of the larger circle (given as 7 cm). Area = (22/7) * 7² = 154 cm²[cite: 1]."
+    },
+    {
+      id: 54,
+      section: "Mathematics",
+      tag: "Employee Growth Recurrence",
+      passage: null,
+      text: "A company has 400 employees. Every year, 15% leave, while 60 new employees are hired. Assuming this pattern continues, how many employees will the company have after 2 years?",
+      options: [
+        "421",
+        "429",
+        "400",
+        "440"
+      ],
+      correct: 2,
+      explanation: "Year 1: 15% of 400 leave (60), leaving 340. Hiring 60 brings total back to 400. Pattern repeats, so after 2 years it remains 400[cite: 1]."
+    },
+    {
+      id: 55,
+      section: "Mathematics",
+      tag: "Defective Rate Calculation",
+      passage: null,
+      text: "A factory produces 450 bottles daily. If 8% are defective, how many good bottles are produced each day?",
+      options: [
+        "404",
+        "412",
+        "414",
+        "420"
+      ],
+      correct: 2,
+      explanation: "Good bottles = 100% - 8% = 92%. 450 * 0.92 = 414[cite: 1]."
+    },
+    {
+      id: 56,
+      section: "Mathematics",
+      tag: "Ratio & Proportion",
+      passage: null,
+      text: "The ratio of boys to girls in a tutorial class is 7 : 5. If there are 48 students, how many are girls?",
+      options: [
+        "18",
+        "20",
+        "24",
+        "28"
+      ],
+      correct: 1,
+      explanation: "Total parts = 7 + 5 = 12. Each part = 48 / 12 = 4. Girls = 5 * 4 = 20[cite: 1]."
+    },
+    {
+      id: 57,
+      section: "Mathematics",
+      tag: "Rate & Distance",
+      passage: null,
+      text: "Sara reads 15 pages every day. At this rate, how many pages will she read in 18 days?",
+      options: [
+        "250",
+        "260",
+        "270",
+        "280"
+      ],
+      correct: 2,
+      explanation: "15 * 18 = 270 pages[cite: 1]."
+    },
+    {
+      id: 58,
+      section: "Mathematics",
+      tag: "Probability Without Replacement",
+      passage: null,
+      text: "The central library has 8 Mathematics books, 6 Physics books, and 4 Chemistry books. A student randomly borrows two books without replacement. What is the probability that both books are Mathematics books?",
+      options: [
+        "14/153",
+        "28/153",
+        "7/34",
+        "8/17"
+      ],
+      correct: 1,
+      explanation: "Total books = 18. P(Both Math) = (8/18) * (7/17) = 28/153[cite: 1]."
+    },
+    {
+      id: 59,
+      section: "Mathematics",
+      tag: "Lecture Hall Capacity & Rows",
+      passage: null,
+      text: "A lecture hall at 6 Kilo Campus Form Building has rows of seats. If every row has 2 more seats, six fewer rows are needed. If every row has 3 fewer seats, ten additional rows are required. How many students can the lecture hall accommodate?",
+      options: [
+        "4800",
+        "5400",
+        "6000",
+        "7200"
+      ],
+      correct: 3,
+      explanation: "Solving (s+2)(r-6) = rs and (s-3)(r+10) = rs yields s = 48 seats/row, r = 150 rows. Total capacity = 150 * 48 = 7,200 students[cite: 1]."
+    },
+    {
+      id: 60,
+      section: "Mathematics",
+      tag: "Optimization: Garden Area",
+      passage: null,
+      text: "A rectangular study garden is being constructed inside 4 Kilo Campus. The university has 320 meters of fencing available. The administration wants the largest possible study area. What will be the dimensions of the garden?",
+      options: [
+        "70 m × 90 m",
+        "60 m × 100 m",
+        "80 m × 80 m",
+        "50 m × 110 m"
+      ],
+      correct: 2,
+      explanation: "Perimeter 2(L + W) = 320 => L + W = 160. Maximum area for a fixed perimeter is achieved when the rectangle is a square: L = W = 160 / 2 = 80 m × 80 m[cite: 1]."
+    }
+  ];
+
+  /* ==========================================================================
+     APP STATE & LOGIC
+     ========================================================================== */
+  let currentQuestionIndex = 0;
+  let userAnswers = new Array(EXAM_QUESTIONS.length).fill(null);
+  let flaggedQuestions = new Array(EXAM_QUESTIONS.length).fill(false);
+  let timerInterval = null;
+  let totalTimeSeconds = 2 * 60 * 60; // 2 hours
+  let candidateNameStr = "Candidate";
 
   // DOM Elements
-  const viewStart = document.getElementById('view-start');
-  const viewExam = document.getElementById('view-exam');
-  const viewResults = document.getElementById('view-results');
-  const candidateNameInput = document.getElementById('candidateName');
-  const btnBeginExam = document.getElementById('btnBeginExam');
+  const viewStart = document.getElementById("view-start");
+  const viewExam = document.getElementById("view-exam");
+  const viewResults = document.getElementById("view-results");
 
-  const hdrSection = document.getElementById('hdrSection');
-  const hdrQCount = document.getElementById('hdrQCount');
-  const timerDigits = document.getElementById('timerDigits');
-  const timerBarSvg = document.getElementById('timerBarSvg');
-  const railName = document.getElementById('railName');
-  const railSection = document.getElementById('railSection');
-  const railAnswered = document.getElementById('railAnswered');
-  const railProgress = document.getElementById('railProgress');
-  const railProgressCaption = document.getElementById('railProgressCaption');
+  const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+  const navLinks = document.getElementById("navLinks");
 
-  const qTag = document.getElementById('qTag');
-  const qNumBadge = document.getElementById('qNumBadge');
-  const btnFlag = document.getElementById('btnFlag');
-  const passageToggle = document.getElementById('passageToggle');
-  const passageBox = document.getElementById('passageBox');
-  const qText = document.getElementById('qText');
-  const optionsList = document.getElementById('optionsList');
-  const paletteGrid = document.getElementById('paletteGrid');
+  const btnBeginExam = document.getElementById("btnBeginExam");
+  const candidateNameInput = document.getElementById("candidateName");
 
-  const btnPrev = document.getElementById('btnPrev');
-  const btnNext = document.getElementById('btnNext');
-  const btnClear = document.getElementById('btnClear');
-  const btnSubmitHeader = document.getElementById('btnSubmitHeader');
-  const btnSubmitSide = document.getElementById('btnSubmitSide');
-  const btnSubmitMobile = document.getElementById('btnSubmitMobile');
+  const hdrSection = document.getElementById("hdrSection");
+  const hdrQCount = document.getElementById("hdrQCount");
+  const timerDigits = document.getElementById("timerDigits");
+  const timerBarSvg = document.getElementById("timerBarSvg");
 
-  const modalConfirm = document.getElementById('modalConfirm');
-  const modalCancel = document.getElementById('modalCancel');
-  const modalConfirmBtn = document.getElementById('modalConfirmBtn');
-  const toastMsg = document.getElementById('toastMsg');
+  const railName = document.getElementById("railName");
+  const railSection = document.getElementById("railSection");
+  const railAnswered = document.getElementById("railAnswered");
+  const railProgress = document.getElementById("railProgress");
+  const railProgressText = document.getElementById("railProgressText");
 
-  function showToast(msg) {
-    toastMsg.textContent = msg;
-    toastMsg.classList.add('show');
-    setTimeout(() => toastMsg.classList.remove('show'), 2800);
-  }
+  const questionCard = document.getElementById("questionCard");
+  const paletteGrid = document.getElementById("paletteGrid");
 
-  // Initialize Exam
-  btnBeginExam.addEventListener('click', () => {
-    const nameVal = candidateNameInput.value.trim();
-    if(nameVal) state.candidateName = nameVal;
-    railName.textContent = state.candidateName;
+  const btnSubmitHeader = document.getElementById("btnSubmitHeader");
+  const btnSubmitSide = document.getElementById("btnSubmitSide");
+  const btnSubmitMobile = document.getElementById("btnSubmitMobile");
 
-    viewStart.classList.add('hidden');
-    viewExam.classList.remove('hidden');
-    window.scrollTo({top: 0, behavior: 'smooth'});
+  const confirmModal = document.getElementById("confirmModal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalDesc = document.getElementById("modalDesc");
+  const modalCancel = document.getElementById("modalCancel");
+  const modalConfirm = document.getElementById("modalConfirm");
 
-    buildPalette();
-    renderQuestion();
-    startTimer();
+  const toastEl = document.getElementById("toast");
+
+  // Navigation Toggle
+  mobileMenuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
   });
 
+  // Begin Exam
+  btnBeginExam.addEventListener("click", () => {
+    const nameVal = candidateNameInput.value.trim();
+    if (nameVal) {
+      candidateNameStr = nameVal;
+    }
+    railName.textContent = candidateNameStr;
+
+    viewStart.classList.add("hidden");
+    viewExam.classList.remove("hidden");
+
+    initExam();
+  });
+
+  function initExam() {
+    currentQuestionIndex = 0;
+    userAnswers.fill(null);
+    flaggedQuestions.fill(false);
+
+    buildPalette();
+    renderQuestion(currentQuestionIndex);
+    startTimer();
+  }
+
   function startTimer() {
-    const totalTime = 7200;
-    const radius = 22;
-    const circumference = 2 * Math.PI * radius;
-    timerBarSvg.style.strokeDasharray = circumference;
+    const totalCircumference = 2 * Math.PI * 22; // r=22
+    timerBarSvg.style.strokeDasharray = totalCircumference;
 
-    state.timerInterval = setInterval(() => {
-      state.timeLeft--;
-      let h = Math.floor(state.timeLeft / 3600);
-      let m = Math.floor((state.timeLeft % 3600) / 60);
-      let s = state.timeLeft % 60;
-      timerDigits.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-
-      let progressOffset = circumference - (state.timeLeft / totalTime) * circumference;
-      timerBarSvg.style.strokeDashoffset = progressOffset;
-
-      if(state.timeLeft <= 0) {
-        clearInterval(state.timerInterval);
-        submitExam();
+    timerInterval = setInterval(() => {
+      if (totalTimeSeconds <= 0) {
+        clearInterval(timerInterval);
+        submitExam(true);
+        return;
       }
+      totalTimeSeconds--;
+
+      const hours = Math.floor(totalTimeSeconds / 3600);
+      const minutes = Math.floor((totalTimeSeconds % 3600) / 60);
+      const seconds = totalTimeSeconds % 60;
+
+      timerDigits.textContent =
+        String(hours).padStart(2, '0') + ":" +
+        String(minutes).padStart(2, '0') + ":" +
+        String(seconds).padStart(2, '0');
+
+      // Update SVG progress ring
+      const progressRatio = totalTimeSeconds / (2 * 3600);
+      timerBarSvg.style.strokeDashoffset = totalCircumference * (1 - progressRatio);
+
     }, 1000);
   }
 
-  function renderQuestion() {
-    const q = QUESTIONS[state.currentIndex];
-    hdrSection.textContent = q.section;
-    railSection.textContent = q.section;
-    hdrQCount.textContent = `Question ${state.currentIndex + 1} / 60`;
-
-    qTag.textContent = q.tag;
-    qNumBadge.textContent = `Q${state.currentIndex + 1}`;
-    qText.textContent = q.text;
-
-    // Flag state
-    if(state.flagged[q.id]) {
-      btnFlag.classList.add('on');
-      btnFlag.innerHTML = '<i class="fa-solid fa-flag"></i> Flagged';
-    } else {
-      btnFlag.classList.remove('on');
-      btnFlag.innerHTML = '<i class="fa-solid fa-flag"></i> Mark for review';
-    }
-
-    // Passage handling
-    if(q.passage) {
-      passageToggle.classList.remove('hidden');
-      passageBox.textContent = q.passage;
-      passageBox.classList.add('hidden');
-      passageToggle.innerHTML = '<i class="fa-solid fa-book-open"></i> Show reading passage';
-    } else {
-      passageToggle.classList.add('hidden');
-      passageBox.classList.add('hidden');
-    }
-
-    // Render options
-    optionsList.innerHTML = '';
-    q.options.forEach((optText, idx) => {
-      const letter = String.fromCharCode(65 + idx);
-      const isSelected = state.answers[q.id] === idx;
-
-      const optEl = document.createElement('div');
-      optEl.className = `opt ${isSelected ? 'selected' : ''}`;
-      optEl.innerHTML = `
-        <div class="letter">${letter}</div>
-        <div class="otext">${optText}</div>
-      `;
-      optEl.addEventListener('click', () => {
-        state.answers[q.id] = idx;
-        renderQuestion();
-        updatePaletteItem(state.currentIndex);
-        updateProgressStats();
-      });
-      optionsList.appendChild(optEl);
-    });
-
-    btnPrev.disabled = state.currentIndex === 0;
-    btnNext.textContent = state.currentIndex === QUESTIONS.length - 1 ? 'Review & Submit →' : 'Next →';
-    updatePaletteActive();
-  }
-
-  passageToggle.addEventListener('click', () => {
-    passageBox.classList.toggle('hidden');
-    if(passageBox.classList.contains('hidden')) {
-      passageToggle.innerHTML = '<i class="fa-solid fa-book-open"></i> Show reading passage';
-    } else {
-      passageToggle.innerHTML = '<i class="fa-solid fa-book-open"></i> Hide reading passage';
-    }
-  });
-
-  btnFlag.addEventListener('click', () => {
-    const q = QUESTIONS[state.currentIndex];
-    state.flagged[q.id] = !state.flagged[q.id];
-    renderQuestion();
-    updatePaletteItem(state.currentIndex);
-  });
-
-  btnPrev.addEventListener('click', () => {
-    if(state.currentIndex > 0) {
-      state.currentIndex--;
-      renderQuestion();
-    }
-  });
-
-  btnNext.addEventListener('click', () => {
-    if(state.currentIndex < QUESTIONS.length - 1) {
-      state.currentIndex++;
-      renderQuestion();
-    } else {
-      confirmSubmit();
-    }
-  });
-
-  btnClear.addEventListener('click', () => {
-    const q = QUESTIONS[state.currentIndex];
-    delete state.answers[q.id];
-    renderQuestion();
-    updatePaletteItem(state.currentIndex);
-    updateProgressStats();
-    showToast("Response cleared.");
-  });
-
-  // Palette builder
   function buildPalette() {
-    paletteGrid.innerHTML = '';
-    QUESTIONS.forEach((q, idx) => {
-      const pnum = document.createElement('button');
-      pnum.className = 'pnum';
+    paletteGrid.innerHTML = "";
+    EXAM_QUESTIONS.forEach((q, idx) => {
+      const pnum = document.createElement("button");
+      pnum.className = "pnum";
       pnum.textContent = idx + 1;
-      pnum.id = `pnum-${idx}`;
-      if(state.answers[q.id] !== undefined) pnum.classList.add('answered');
-      if(state.flagged[q.id]) pnum.classList.add('flagged');
-      if(idx === state.currentIndex) pnum.classList.add('current');
-
-      pnum.addEventListener('click', () => {
-        state.currentIndex = idx;
-        renderQuestion();
+      pnum.setAttribute("aria-label", `Question ${idx + 1}`);
+      pnum.addEventListener("click", () => {
+        jumpToQuestion(idx);
       });
       paletteGrid.appendChild(pnum);
     });
   }
 
-  function updatePaletteItem(idx) {
-    const pnum = document.getElementById(`pnum-${idx}`);
-    if(!pnum) return;
-    const q = QUESTIONS[idx];
-    pnum.className = 'pnum';
-    if(state.answers[q.id] !== undefined) pnum.classList.add('answered');
-    if(state.flagged[q.id]) pnum.classList.add('flagged');
-    if(idx === state.currentIndex) pnum.classList.add('current');
-  }
-
-  function updatePaletteActive() {
-    document.querySelectorAll('.pnum').forEach((el, idx) => {
-      if(idx === state.currentIndex) el.classList.add('current');
-      else el.classList.remove('current');
+  function updatePaletteUI() {
+    const pnums = paletteGrid.querySelectorAll(".pnum");
+    pnums.forEach((pnum, idx) => {
+      pnum.classList.remove("current", "answered", "flagged");
+      if (idx === currentQuestionIndex) {
+        pnum.classList.add("current");
+      }
+      if (userAnswers[idx] !== null) {
+        pnum.classList.add("answered");
+      }
+      if (flaggedQuestions[idx]) {
+        pnum.classList.add("flagged");
+      }
     });
-  }
 
-  function updateProgressStats() {
-    const answeredCount = Object.keys(state.answers).length;
-    railAnswered.textContent = `${answeredCount} / 60`;
+    // Update rails & headers
+    const q = EXAM_QUESTIONS[currentQuestionIndex];
+    hdrSection.textContent = q.section;
+    hdrQCount.textContent = `Question ${currentQuestionIndex + 1} / 60`;
+    railSection.textContent = q.section;
+
+    const answeredCount = userAnswers.filter(a => a !== null).length;
+    railAnswered.textcontent = `${answeredCount} / 60`;
     const pct = Math.round((answeredCount / 60) * 100);
     railProgress.style.width = `${pct}%`;
-    railProgressCaption.textContent = `${pct}% complete`;
+    railProgressText.textContent = `${pct}% completed`;
+  }
+
+  function renderQuestion(idx) {
+    currentQuestionIndex = idx;
+    const q = EXAM_QUESTIONS[idx];
+
+    let passageHtml = "";
+    if (q.passage) {
+      passageHtml = `
+        <details class="passage-toggle" open>
+          <summary><i class="fa-solid fa-book-open"></i> Reading Passage (Click to collapse)</summary>
+          <div class="passage-box"><p>${q.passage.replace(/\n\n/g, '</p><p>')}</p></div>
+        </details>
+      `;
+    }
+
+    let optionsHtml = "";
+    q.options.forEach((optText, optIdx) => {
+      const letter = String.fromCharCode(65 + optIdx);
+      const isSelected = userAnswers[idx] === optIdx;
+      optionsHtml += `
+        <div class="opt ${isSelected ? 'selected' : ''}" data-opt="${optIdx}">
+          <div class="letter">${letter}</div>
+          <div class="otext">${optText}</div>
+        </div>
+      `;
+    });
+
+    const isFlagged = flaggedQuestions[idx];
+
+    questionCard.innerHTML = `
+      <div class="qcard-top">
+        <div>
+          <div class="qtag">${q.section} · ${q.tag}</div>
+        </div>
+        <div style="display:flex;gap:.6rem;align-items:center;">
+          <div class="qnum-badge">Q ${idx + 1} of 60</div>
+          <button class="flag-btn ${isFlagged ? 'on' : ''}" id="btnFlag">
+            <i class="fa-solid fa-flag"></i> ${isFlagged ? 'Flagged' : 'Flag'}
+          </button>
+        </div>
+      </div>
+
+      ${passageHtml}
+
+      <h2 class="qtext">${q.text}</h2>
+
+      <div class="options">
+        ${optionsHtml}
+      </div>
+
+      <div class="qnav-row">
+        <div class="left-btns">
+          <button class="btn btn-ghost btn-sm" id="btnPrev" ${idx === 0 ? 'disabled' : ''}>
+            <i class="fa-solid fa-arrow-left"></i> Previous
+          </button>
+        </div>
+        <div class="right-btns">
+          <button class="btn btn-ghost btn-sm" id="btnClearAns">Clear Answer</button>
+          <button class="btn btn-gold btn-sm" id="btnNext">
+            ${idx === EXAM_QUESTIONS.length - 1 ? 'Review & Submit' : 'Next'} <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    `;
+
+    // Event bindings for options
+    const optElements = questionCard.querySelectorAll(".opt");
+    optElements.forEach(el => {
+      el.addEventListener("click", () => {
+        const optIdx = parseInt(el.getAttribute("data-opt"));
+        userAnswers[idx] = optIdx;
+        renderQuestion(currentQuestionIndex);
+        updatePaletteUI();
+      });
+    });
+
+    // Flag button
+    document.getElementById("btnFlag").addEventListener("click", () => {
+      flaggedQuestions[idx] = !flaggedQuestions[idx];
+      renderQuestion(currentQuestionIndex);
+      updatePaletteUI();
+      showToast(flaggedQuestions[idx] ? "Question flagged for review." : "Flag removed.");
+    });
+
+    // Prev / Next / Clear
+    document.getElementById("btnPrev").addEventListener("click", () => {
+      if (currentQuestionIndex > 0) {
+        renderQuestion(currentQuestionIndex - 1);
+        updatePaletteUI();
+      }
+    });
+
+    document.getElementById("btnNext").addEventListener("click", () => {
+      if (currentQuestionIndex < EXAM_QUESTIONS.length - 1) {
+        renderQuestion(currentQuestionIndex + 1);
+        updatePaletteUI();
+      } else {
+        promptSubmit();
+      }
+    });
+
+    document.getElementById("btnClearAns").addEventListener("click", () => {
+      userAnswers[idx] = null;
+      renderQuestion(currentQuestionIndex);
+      updatePaletteUI();
+      showToast("Answer cleared.");
+    });
+
+    updatePaletteUI();
+  }
+
+  function jumpToQuestion(idx) {
+    renderQuestion(idx);
   }
 
   // Submission triggers
-  function confirmSubmit() {
-    modalConfirm.classList.remove('hidden');
+  btnSubmitHeader.addEventListener("click", promptSubmit);
+  btnSubmitSide.addEventListener("click", promptSubmit);
+  btnSubmitMobile.addEventListener("click", promptSubmit);
+
+  function promptSubmit() {
+    const answeredCount = userAnswers.filter(a => a !== null).length;
+    const unansweredCount = EXAM_QUESTIONS.length - answeredCount;
+
+    modalTitle.textContent = "Submit Exam?";
+    modalDesc.textContent = `You have answered ${answeredCount} out of 60 questions (${unansweredCount} unanswered). Once submitted, you will receive your score and detailed explanations.`;
+    confirmModal.classList.remove("hidden");
   }
 
-  modalCancel.addEventListener('click', () => {
-    modalConfirm.classList.add('hidden');
+  modalCancel.addEventListener("click", () => {
+    confirmModal.classList.add("hidden");
   });
 
-  modalConfirmBtn.addEventListener('click', () => {
-    modalConfirm.classList.add('hidden');
-    submitExam();
+  modalConfirm.addEventListener("click", () => {
+    confirmModal.classList.add("hidden");
+    submitExam(false);
   });
 
-  btnSubmitHeader.addEventListener('click', confirmSubmit);
-  btnSubmitSide.addEventListener('click', confirmSubmit);
-  btnSubmitMobile.addEventListener('click', confirmSubmit);
+  function submitExam(isAuto = false) {
+    if (timerInterval) clearInterval(timerInterval);
 
-  function submitExam() {
-    if(state.submitted) return;
-    state.submitted = true;
-    clearInterval(state.timerInterval);
+    viewExam.classList.add("hidden");
+    viewResults.classList.remove("hidden");
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    viewExam.classList.add('hidden');
-    viewResults.classList.remove('hidden');
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    if (isAuto) {
+      showToast("Time expired! Your exam was auto-submitted.");
+    }
 
-    calculateResults();
+    buildResultsReport();
   }
 
-  // Calculate & Render Results
-  function calculateResults() {
-    let correctTotal = 0;
+  function buildResultsReport() {
+    document.getElementById("resCandidateLabel").textContent = candidateNameStr;
+
+    let correctCount = 0;
+    let wrongCount = 0;
+    let blankCount = 0;
+
     let engCorrect = 0;
+    const engTotal = 35;
     let mathCorrect = 0;
+    const mathTotal = 25;
 
-    QUESTIONS.forEach(q => {
-      const userPick = state.answers[q.id];
-      if(userPick === q.correct) {
-        correctTotal++;
-        if(q.section === 'English') engCorrect++;
+    EXAM_QUESTIONS.forEach((q, idx) => {
+      const userAns = userAnswers[idx];
+      if (userAns === null) {
+        blankCount++;
+      } else if (userAns === q.correct) {
+        correctCount++;
+        if (q.section === "English") engCorrect++;
         else mathCorrect++;
+      } else {
+        wrongCount++;
       }
     });
 
-    const pct = Math.round((correctTotal / 60) * 100);
+    const totalPct = Math.round((correctCount / 60) * 100);
 
-    // Animate percentage ring
-    const ringBar = document.getElementById('ringBar');
-    const radius = 64;
-    const circumference = 2 * Math.PI * radius;
-    ringBar.style.strokeDasharray = circumference;
-    const offset = circumference - (pct / 100) * circumference;
-    ringBar.style.strokeDashoffset = offset;
-    document.getElementById('ringPct').textContent = `${pct}%`;
+    // Update score ring
+    const circleCircumference = 2 * Math.PI * 64; // r=64
+    document.getElementById("resRingBar").style.strokeDasharray = circleCircumference;
+    const offset = circleCircumference * (1 - (correctCount / 60));
+    document.getElementById("resRingBar").style.strokeDashoffset = offset;
 
-    document.getElementById('resCorrectBadge').textContent = `${correctTotal} / 60 Correct`;
-    const badgeStatus = document.getElementById('resBadgeStatus');
-    if(pct >= 70) {
-      badgeStatus.textContent = "Passing / Elite";
-      badgeStatus.className = "badge badge-gold";
-    } else if(pct >= 50) {
-      badgeStatus.textContent = "Satisfactory";
-      badgeStatus.className = "badge badge-green";
+    document.getElementById("resScorePct").textContent = `${totalPct}%`;
+    document.getElementById("resScoreFrac").textContent = `${correctCount} / 60`;
+
+    document.getElementById("resCorrectBadge").textContent = `${correctCount} Correct`;
+    document.getElementById("resWrongBadge").textContent = `${wrongCount + blankCount} Incorrect/Blank`;
+
+    const statusBadge = document.getElementById("resBadgeStatus");
+    if (totalPct >= 80) {
+      statusBadge.textContent = "Top 5% Ready 🌟";
+      document.getElementById("resTitle").textContent = "Outstanding Performance!";
+      document.getElementById("resSub").textContent = "You are fully prepared for the AAU UAT exam standards.";
+    } else if (totalPct >= 50) {
+      statusBadge.textContent = "UAT Competent 👍";
+      document.getElementById("resTitle").textContent = "Solid Attempt!";
+      document.getElementById("resSub").textContent = "Review the explanations below to seal the gaps before test day.";
     } else {
-      badgeStatus.textContent = "Needs Review";
-      badgeStatus.className = "badge badge-amber";
+      statusBadge.textContent = "Needs Review 📚";
+      document.getElementById("resTitle").textContent = "Keep Practicing!";
+      document.getElementById("resSub").textContent = "Work through the detailed solutions below and retake the exam.";
     }
 
-    document.getElementById('sbEngVal').textContent = `${engCorrect} / 35`;
-    document.getElementById('sbEngFill').style.width = `${Math.round((engCorrect / 35) * 100)}%`;
+    // Section breakdown
+    document.getElementById("resEngScore").textContent = `${engCorrect} / ${engTotal}`;
+    document.getElementById("resEngBar").style.width = `${Math.round((engCorrect / engTotal) * 100)}%`;
 
-    document.getElementById('sbMathVal').textContent = `${mathCorrect} / 25`;
-    document.getElementById('sbMathFill').style.width = `${Math.round((mathCorrect / 25) * 100)}%`;
+    document.getElementById("resMathScore").textContent = `${mathCorrect} / ${mathTotal}`;
+    document.getElementById("resMathBar").style.width = `${Math.round((mathCorrect / mathTotal) * 100)}%`;
 
-    renderReviewList('all');
+    renderReviewList("all");
   }
 
-  function renderReviewList(filter) {
-    const container = document.getElementById('reviewContainer');
-    container.innerHTML = '';
+  // Review filters
+  const reviewFilterRow = document.getElementById("reviewFilterRow");
+  reviewFilterRow.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      reviewFilterRow.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      e.target.classList.add("active");
+      renderReviewList(e.target.getAttribute("data-filter"));
+    });
+  });
 
-    QUESTIONS.forEach((q, idx) => {
-      const userPick = state.answers[q.id];
-      const isCorrect = userPick === q.correct;
-      const isBlank = userPick === undefined;
+  function renderReviewList(filterType) {
+    const container = document.getElementById("reviewContainer");
+    container.innerHTML = "";
 
-      // Filter check
-      if(filter === 'wrong' && (isCorrect || isBlank)) return;
-      if(filter === 'correct' && !isCorrect) return;
-      if(filter === 'flagged' && !state.flagged[q.id]) return;
+    EXAM_QUESTIONS.forEach((q, idx) => {
+      const userAns = userAnswers[idx];
+      const isCorrect = userAns === q.correct;
+      const isBlank = userAns === null;
+      const isFlagged = flaggedQuestions[idx];
 
-      let statusClass = 'is-correct';
-      let statusBadge = '<span class="review-status status-correct"><i class="fa-solid fa-check"></i> Correct</span>';
-      if(!isCorrect && !isBlank) {
-        statusClass = 'is-wrong';
-        statusBadge = '<span class="review-status status-wrong"><i class="fa-solid fa-xmark"></i> Incorrect</span>';
-      } else if(isBlank) {
-        statusClass = 'is-blank';
-        statusBadge = '<span class="review-status status-blank">Unanswered</span>';
+      // Filtering logic
+      if (filterType === "incorrect" && (isCorrect || isBlank === false && isCorrect)) {
+        if (isCorrect) return;
+      }
+      if (filterType === "incorrect" && isCorrect) return;
+      if (filterType === "flagged" && !isFlagged) return;
+      if (filterType === "english" && q.section !== "English") return;
+      if (filterType === "math" && q.section !== "Mathematics") return;
+
+      let statusClass = "is-correct";
+      let statusBadgeHtml = '<span class="review-status status-correct">Correct</span>';
+      if (isBlank) {
+        statusClass = "is-blank";
+        statusBadgeHtml = '<span class="review-status status-blank">Unanswered</span>';
+      } else if (!isCorrect) {
+        statusClass = "is-wrong";
+        statusBadgeHtml = '<span class="review-status status-wrong">Incorrect</span>';
       }
 
-      const card = document.createElement('div');
-      card.className = `review-card ${statusClass}`;
-
-      let optListHtml = '';
+      let optListHtml = "";
       q.options.forEach((optText, optIdx) => {
         const letter = String.fromCharCode(65 + optIdx);
-        let optClass = 'review-opt';
-        let tagHtml = '';
+        let optClass = "";
+        let tagHtml = "";
 
-        if(optIdx === q.correct) {
-          optClass += ' correct-answer';
+        if (optIdx === q.correct) {
+          optClass = "correct-answer";
           tagHtml = '<span class="opt-tag" style="color:var(--forest-700)">Correct Answer</span>';
         }
-        if(optIdx === userPick && !isCorrect) {
-          optClass += ' wrong-pick';
-          tagHtml = '<span class="opt-tag" style="color:var(--forest-950)">Your Choice</span>';
-        } else if(optIdx === userPick && isCorrect) {
-          tagHtml = '<span class="opt-tag" style="color:var(--forest-700)">Your Choice</span>';
+        if (userAns === optIdx && !isCorrect) {
+          optClass = "wrong-pick";
+          tagHtml = '<span class="opt-tag" style="color:var(--forest-950)">Your Answer</span>';
+        } else if (userAns === optIdx && isCorrect) {
+          tagHtml = '<span class="opt-tag" style="color:var(--forest-700)">Your Answer</span>';
         }
 
         optListHtml += `
-          <div class="${optClass}">
+          <div class="review-opt ${optClass}">
             <div class="letter">${letter}</div>
             <div style="flex:1;">${optText}</div>
             ${tagHtml}
@@ -1207,44 +2158,53 @@
         `;
       });
 
+      const card = document.createElement("div");
+      card.className = `review-card ${statusClass}`;
       card.innerHTML = `
         <div class="review-head">
           <div>
-            <div class="qtag">${q.section} · ${q.tag}</div>
-            <h4 style="margin:0;font-family:var(--font-display);font-size:1.1rem;">Question ${idx + 1}</h4>
+            <div class="qtag">Q${idx + 1} · ${q.section} · ${q.tag}</div>
           </div>
-          ${statusBadge}
+          ${statusBadgeHtml}
         </div>
         <div class="review-body">
-          ${q.passage ? `<div class="review-passage-toggle">Passage Item</div><p style="font-size:0.86rem;color:var(--ink-700);background:var(--paper-50);padding:0.8rem;border-radius:8px;margin-bottom:0.9rem;">${q.passage}</p>` : ''}
-          <p class="qtext">${q.text}</p>
-          <div class="review-opt-list">${optListHtml}</div>
+          <h3 class="qtext">${q.text}</h3>
+          <div class="review-opt-list">
+            ${optListHtml}
+          </div>
           <div class="explain-box">
-            <b><i class="fa-solid fa-lightbulb"></i> Complete Explanation</b>
+            <b>Explanation & Solution</b>
             ${q.explanation}
           </div>
         </div>
       `;
       container.appendChild(card);
     });
+
+    if (container.children.length === 0) {
+      container.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--ink-500);font-family:var(--font-mono);">No questions match this filter criteria.</div>`;
+    }
   }
 
-  // Filter buttons on results view
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      e.target.classList.add('active');
-      renderReviewList(e.target.getAttribute('data-filter'));
-    });
+  // Retake & Print
+  document.getElementById("btnRetake").addEventListener("click", () => {
+    viewResults.classList.add("hidden");
+    viewStart.classList.remove("hidden");
+    totalTimeSeconds = 2 * 3600;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  document.getElementById('btnRetake').addEventListener('click', () => {
-    window.location.reload();
-  });
-
-  document.getElementById('btnPrint').addEventListener('click', () => {
+  document.getElementById("btnPrintResults").addEventListener("click", () => {
     window.print();
   });
+
+  function showToast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    setTimeout(() => {
+      toastEl.classList.remove("show");
+    }, 2800);
+  }
 </script>
 </body>
 </html>
